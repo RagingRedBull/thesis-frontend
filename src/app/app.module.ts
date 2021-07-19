@@ -8,11 +8,13 @@ import { HttpClientModule} from "@angular/common/http"
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { DetectorLogsComponent } from './detector-logs/detector-logs.component';
+import { MapComponent } from './map/map.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DetectorLogsComponent
+    DetectorLogsComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,

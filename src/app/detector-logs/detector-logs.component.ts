@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { interval } from 'rxjs';
 import { DetectorLogService } from '../detector-log.service';
 import { DetectorLog } from '../models/detector-log';
 import { Pagination } from '../models/pagination';
@@ -18,6 +19,10 @@ export class DetectorLogsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLogs(this.dataSize,this.page);
+    interval(5000).subscribe(() => {
+      this.getLogs(this.dataSize,this.page);
+    }
+    )
   }
 
   getLogs(dataSize: number, page: number): void {
