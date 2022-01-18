@@ -10,7 +10,7 @@ class DetectorLog extends React.Component {
             detectorLogs: [],
             sensorLogs: [],
             selectedDetectorUnitId: 0,
-            currentPage: 1,
+            currentPage: 0,
             totalPages: 0,
             pageSize: 10
         }
