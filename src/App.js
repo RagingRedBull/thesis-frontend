@@ -5,6 +5,7 @@ import {
   Link
 } from 'react-router-dom';
 import DetectorLog from './components/DetectorLog';
+import MapView from './components/MapView';
 import './App.css';
 
 function App() {
@@ -30,7 +31,7 @@ function App() {
           </div>
         </nav>
         <Routes>
-          <Route path="/" element={<Home />}/>
+          <Route path="/" element={<MapView />}/>
           <Route path="/logs" element={<DetectorLog />}/>
           <Route path="/detector" element={<Detector/>}/>
           <Route path="/floor" element={<Floors />}/>
