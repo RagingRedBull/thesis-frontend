@@ -4,37 +4,21 @@ import Header from '../Header'
 import { useEffect, useState } from 'react';
 
 const MapView = () => {
-    // const [floors, setFloors] = useState([])
+    const [floors, setFloors] = useState([])
     const [currentFloor, setCurrentFloor] = useState([])
 
-    //Temporary Floors
-    const floors = [
-        {
-            id: 0,
-            desc: "G",
-            image: "ae960107-025d-4fda-a899-a98ce8f7c15b_test-floor-plan.jpg"
-        },
-        {
-            id: 1,
-            desc: "M",
-            image: "ae960107-025d-4fda-a899-a98ce8f7c15b_test-floor-plan.jpg"
-        },
-        {
-            id: 2,
-            desc: "1",
-            image: "ae960107-025d-4fda-a899-a98ce8f7c15b_test-floor-plan.jpg"
+    // Get floors
+    useEffect(() => {
+        const getFloors = async () => {
+            const response = await fetch("http://192.168.67.128:8080/prmts/floors")
+            var data = await response.json()
+            data = data._embedded.floors
+            
+            setFloors(data)
         }
-    ]
 
-    // useEffect(() => {
-    //     const getFloors = async () => {
-    //         const res = await fetch("http://192.168.67.128:8080/prmts/floors")
-    //         const data = await res.json()
-    //         setFloors(data)
-    //     }
-
-    //     getFloors()
-    // }, [])
+        getFloors()
+    }, [])
 
     return (
         <div className='container' style={ mapViewStyle }>

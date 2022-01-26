@@ -5,10 +5,14 @@ const index = ({ floors, setCurrentFloor }) => {
         <div style={ sideNavStyle }>
             <p>This is the side Nav</p>
             { floors.map((floor) => (
-                <div key={ floor.id.toString() }>
+                // Should be a unique identifier
+                <div key={ floor.name }> 
                     <button 
                         onClick={ () => setCurrentFloor(floor) }
-                    > { floor.desc } </button>
+                        className='btn btn-secondary'
+                    > 
+                        { floor.name } 
+                    </button>
                 </div>
             ))}
         </div>
