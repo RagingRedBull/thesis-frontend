@@ -2,9 +2,7 @@ import React from 'react';
 
 const index = () => {
     return (
-        <div>
-            
-        </div>
+        <h3>This is the Map</h3>
     )
 };
 

@@ -45,9 +45,6 @@ function App() {
 function Detector() {
   return <h3>Detector</h3>
 }
-function Home() {
-  return <h3>Home</h3>
-}
 function Floors() {
   return <h3>Floors</h3>
 }
