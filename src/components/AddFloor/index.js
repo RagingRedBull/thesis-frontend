@@ -13,30 +13,24 @@ const AddFloor = () => {
 
         if (!name) {
             alert('Please enter the name of the Floor')
-            return
+            return null
         }
         if (!description) {
             alert('Please enter the description of the Floor')
-            return
+            return null
         }
         if (!imageFile) {
             alert('Please enter the image file of the Floor')
-            return
+            return null
         }
 
         const imageUrl = await saveImage()
         if (!imageUrl) {
             setMessage("Failed to save image.")
-            return
+            return null
         }
 
-        const response = await saveFloor(imageUrl)
-
-        if (response.status === 200) {
-            setMessage("Successfully added the floor!")
-        } else {
-            setMessage("Error! Unable to add floor.")
-        }
+        saveFloor(imageUrl)
     }
 
     const saveImage = async () => {
@@ -55,7 +49,7 @@ const AddFloor = () => {
             return data
             
         } catch (error) {
-            return
+            return null
         }
     }
 
@@ -66,15 +60,15 @@ const AddFloor = () => {
             "imageUrl": imageUrl
         }
 
-        const response = await fetch("http://192.168.67.128:8080/prmts/floor/new", {
-            method: 'POST',
-            headers: {
-                "Content-type": "application/json"
-            },
-            body: JSON.stringify(floor)
-        })
-
-        return response
+        axios.post("http://192.168.67.128:8080/prmts/floor/new", floor)
+            .then(response => { 
+                if (response.status === 200) {
+                    setMessage("Successfully added the floor!")
+                } else {
+                    setMessage("Error! Unable to add floor.")
+                }
+            })
+            .catch(error => { setMessage("Error! Unable to add floor.") })
     }
 
     return (
