@@ -1,7 +1,7 @@
 import React from 'react';
 
 const index = ({ image }) => {
-    const imageUrl = "http://192.168.67.128:8080/prmts/images/" + image
+    const imageUrl = global.config.server.url + "/images/" + image
     return (
         <>
             { image ? 
