@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { ListGroup, ListGroupItem, Pagination, Table } from "react-bootstrap";
-import '../css/DetectorLog.css'
+import '../../css/DetectorLog.css'
 class DetectorLog extends React.Component {
     constructor(props) {
         super(props);

@@ -5,6 +5,8 @@ import {
   Link
 } from 'react-router-dom';
 import DetectorLog from './components/DetectorLog';
+import MapView from './components/MapView';
+import AddFloor from './components/AddFloor';
 import './App.css';
 
 function App() {
@@ -26,14 +28,18 @@ function App() {
               <li className="nav-item">
                 <Link to="/floor" className="nav-link">Floors</Link>
               </li>
+              <li className="nav-item">
+                <Link to="/add-floor" className="nav-link">Add Floor</Link>
+              </li>
             </ul>
           </div>
         </nav>
         <Routes>
-          <Route path="/" element={<Home />}/>
+          <Route path="/" element={<MapView />}/>
           <Route path="/logs" element={<DetectorLog />}/>
           <Route path="/detector" element={<Detector/>}/>
           <Route path="/floor" element={<Floors />}/>
+          <Route path="/add-floor" element={<AddFloor />}/>
         </Routes>
       </div>
     </Router>
@@ -43,9 +49,6 @@ function App() {
 
 function Detector() {
   return <h3>Detector</h3>
-}
-function Home() {
-  return <h3>Home</h3>
 }
 function Floors() {
   return <h3>Floors</h3>
