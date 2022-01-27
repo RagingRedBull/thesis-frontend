@@ -26,7 +26,7 @@ const AddFloor = () => {
 
         const imageUrl = await saveImage()
         if (!imageUrl) {
-            alert('Failed to save image')
+            setMessage("Failed to save image.")
             return
         }
 
@@ -55,7 +55,6 @@ const AddFloor = () => {
             return data
             
         } catch (error) {
-            setMessage("An error has occured when saving the image")
             return
         }
     }
