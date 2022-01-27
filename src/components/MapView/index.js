@@ -31,7 +31,7 @@ const MapView = () => {
                 </div>
                 <div className='col-10'>
                     <Header />
-                    <Map image={ currentFloor.image } />
+                    <Map image={ currentFloor.imageName } />
                 </div>
             </div>
         </div>
