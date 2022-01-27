@@ -3,6 +3,7 @@ import Map from "../Map";
 import Header from "../Header";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import  '../../constants/constants.js'
 
 const MapView = () => {
   const [floors, setFloors] = useState([]);
@@ -12,7 +13,7 @@ const MapView = () => {
   useEffect(() => {
     const getFloors = async () => {
       axios
-        .get("http://192.168.89.128:8080/prmts/floors")
+        .get(global.config.server.url + "/floors")
         .then((response) => {
           setFloors(response.data._embedded.floors);
         })
