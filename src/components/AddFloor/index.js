@@ -72,51 +72,56 @@ const AddFloor = () => {
     }
 
     return (
-        <form className="container" onSubmit={onSubmit}>
-            <div className='form-control'>
-                <div>
-                    { message ? <MessageBox message={ message } /> : null }
+        <div className="card w-25">
+            <form onSubmit={onSubmit}>
+                <div className="card-header">
+                    <h5>Add Floor</h5>
                 </div>
-                <div>
-                    <label>Name:</label>
-                    <input
-                        type='text'
-                        style={inputStyle}
-                        onChange={(e) => setName(e.target.value)}
-                    />
+                <div className="card-body">
+                    <div className="form-group m-1">
+                        { message ? <MessageBox message={ message } /> : null }
+                    </div>
+                    <div className="form-group m-1">
+                        <label>Name:</label>
+                        <input
+                            type='text'
+                            className="form-control"
+                            onChange={(e) => setName(e.target.value)}
+                        />
+                    </div>
+                    <div className="form-group m-1">
+                        <label>Description:</label>
+                        <input
+                            type='text'
+                            className="form-control"
+                            onChange={(e) => setDescription(e.target.value)}
+                        />
+                    </div>
+                    <div className="form-group m-1">
+                        <label>Image:</label>
+                        <input
+                            id='upload'
+                            type='file'
+                            className="form-control"
+                            onChange={(e) => setImageFile(e.target.files[0])}
+                        />
+                    </div>
                 </div>
-                <div>
-                    <label>Description:</label>
-                    <input
-                        type='text'
-                        style={inputStyle}
-                        onChange={(e) => setDescription(e.target.value)}
-                    />
+                <div className="card-footer">
+                    <div className="text-center">
+                        <button
+                            type="submit"
+                            className="btn btn-secondary btn-block form-control"
+                        >
+                            Submit
+                        </button>
+                    </div>
+                    
                 </div>
-                <div>
-                    <label>Image:</label>
-                    <input
-                        id='upload'
-                        type='file'
-                        style={inputStyle}
-                        onChange={(e) => setImageFile(e.target.files[0])}
-                    />
-                </div>
-                <input
-                    type="submit"
-                    className="btn btn-secondary btn-block"
-                />
-            </div>
-        </form>
+            </form>
+        </div>
+        
     )
 };
-
-const inputStyle = {
-    width: '100%',
-    height: '40px',
-    margin: '5px',
-    padding: '3px 7px',
-    fontSize: '17px'
-}
 
 export default AddFloor;

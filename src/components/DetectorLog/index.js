@@ -40,8 +40,8 @@ class DetectorLog extends React.Component {
             });
     }
     render() {
-        return <div className='container-fluid'>
-            <div className='row'>
+        return <div className='card'>
+            <div className='row m-5'>
                 <div className='col-6'>
                     <h1>Detector Logs</h1>
                     <Table striped bordered hover>
@@ -66,7 +66,7 @@ class DetectorLog extends React.Component {
                     </ListGroup>
                 </div>
             </div>
-            <div className='container'>
+            <div className='footer mx-auto'>
                 <Pagination className='mx-auto'>
                     <Pagination.First/>
                     <Pagination.Prev/>

@@ -1,24 +1,17 @@
-import React from 'react';
-
 const index = ({ image }) => {
     const imageUrl = global.config.server.url + "/images/" + image
     return (
-        <>
+        <div className='m-5 d-flex justify-content-center'>
             { image ? 
                 <img 
                     src={ imageUrl }
-                    style={ mapStyle } 
                     alt='Map of the current floor'
+                    className='img-map'
                 /> :
-                <p>No Image</p>
+                <p className='p-2'>No Image</p>
             }
-        </>
+        </div>
     )
 };
-
-const mapStyle = {
-    height: '720px',
-    width: '100%'
-}
 
 export default index;

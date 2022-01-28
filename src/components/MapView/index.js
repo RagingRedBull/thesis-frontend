@@ -4,6 +4,7 @@ import Header from "../Header";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import  '../../constants/constants.js'
+import '../../css/MapView.css'
 
 const MapView = () => {
   const [floors, setFloors] = useState([]);
@@ -22,18 +23,17 @@ const MapView = () => {
         });
     };
     getFloors();
-  });
+    console.log(currentFloor)
+  }, []);
 
   return (
-    <div className="container" style={mapViewStyle}>
-      <div className="row">
-        <div className="col">
-          <SideNav floors={floors} setCurrentFloor={setCurrentFloor} />
-        </div>
-        <div className="col-10">
-          <Header />
-          <Map image={currentFloor.imageName} />
-        </div>
+    <div className="container-fluid row p-0 m-0" style={mapViewStyle}>
+      <div className="col-1 p-0 text-center"  style={ sideNavStyle }>
+        <SideNav floors={ floors } setCurrentFloor={ setCurrentFloor } selFloorName={ currentFloor.name } />
+      </div>
+      <div className="col-11 p-0">
+        <Header />
+        <Map image={ currentFloor.imageName } />
       </div>
     </div>
   );
@@ -41,9 +41,12 @@ const MapView = () => {
 
 // To be replaced with Tailwind
 const mapViewStyle = {
-  height: "720px",
   backgroundColor: "grey",
-  position: "relative",
+  height: "100vh"
 };
+
+const sideNavStyle = {
+  backgroundColor: '#FB3640',
+}
 
 export default MapView;
