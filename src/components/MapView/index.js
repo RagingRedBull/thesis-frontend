@@ -17,6 +17,7 @@ const MapView = () => {
         .get(global.config.server.url + "/floors")
         .then((response) => {
           setFloors(response.data._embedded.floors);
+          setCurrentFloor(response.data._embedded.floors[0])
         })
         .catch((err) => {
           console.log(err);
@@ -32,7 +33,7 @@ const MapView = () => {
       </div>
       <div className="col-11 p-0">
         <Header />
-        <Map image={ currentFloor.imageName } />
+        <Map image={ currentFloor.imageName } hasFloors={ floors.length > 0 } />
       </div>
     </div>
   );

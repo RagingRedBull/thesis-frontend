@@ -1,14 +1,14 @@
-const index = ({ image }) => {
+const index = ({ image, hasFloors }) => {
     const imageUrl = global.config.server.url + "/images/" + image
     return (
         <div className='m-5 d-flex justify-content-center'>
-            { image ? 
+            { hasFloors ? 
                 <img 
                     src={ imageUrl }
                     alt='Map of the current floor'
                     className='img-map'
                 /> :
-                <p className='p-2'>Please select a floor.</p>
+                <p className='p-2'>Please select add a floor.</p>
             }
         </div>
     )
