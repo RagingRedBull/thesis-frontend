@@ -23,7 +23,6 @@ const MapView = () => {
         });
     };
     getFloors();
-    console.log(currentFloor)
   }, []);
 
   return (
