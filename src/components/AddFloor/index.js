@@ -7,20 +7,21 @@ const AddFloor = () => {
     const [description, setDescription] = useState('')
     const [imageFile, setImageFile] = useState()
     const [message, setMessage] = useState()
+    const [isSuccess, setIsSuccess] = useState(false)
 
     const onSubmit = async (e) => {
         e.preventDefault()
 
         if (!name) {
-            alert('Please enter the name of the Floor')
+            setMessage('Please enter the name of the Floor')
             return null
         }
         if (!description) {
-            alert('Please enter the description of the Floor')
+            setMessage('Please enter the description of the Floor')
             return null
         }
         if (!imageFile) {
-            alert('Please enter the image file of the Floor')
+            setMessage('Please enter the image file of the Floor')
             return null
         }
 
@@ -64,6 +65,7 @@ const AddFloor = () => {
             .then(response => { 
                 if (response.status === 200) {
                     setMessage("Successfully added the floor!")
+                    setIsSuccess(true)
                 } else {
                     setMessage("Error! Unable to add floor.")
                 }
@@ -72,53 +74,54 @@ const AddFloor = () => {
     }
 
     return (
-        <div className="card w-25">
-            <form onSubmit={onSubmit}>
-                <div className="card-header">
-                    <h5>Add Floor</h5>
-                </div>
-                <div className="card-body">
-                    <div className="form-group m-1">
-                        { message ? <MessageBox message={ message } /> : null }
+        <div className="container">
+            <div className="card w-25">
+                <form onSubmit={onSubmit}>
+                    <div className="card-header">
+                        <h5>Add Floor</h5>
                     </div>
-                    <div className="form-group m-1">
-                        <label>Name:</label>
-                        <input
-                            type='text'
-                            className="form-control"
-                            onChange={(e) => setName(e.target.value)}
-                        />
+                    <div className="card-body">
+                        <div className="form-group m-1">
+                            { message ? <MessageBox message={ message } isSuccess={ isSuccess } /> : null }
+                        </div>
+                        <div className="form-group m-1">
+                            <label>Name:</label>
+                            <input
+                                type='text'
+                                className="form-control"
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                        </div>
+                        <div className="form-group m-1">
+                            <label>Description:</label>
+                            <input
+                                type='text'
+                                className="form-control"
+                                onChange={(e) => setDescription(e.target.value)}
+                            />
+                        </div>
+                        <div className="form-group m-1">
+                            <label>Image:</label>
+                            <input
+                                id='upload'
+                                type='file'
+                                className="form-control"
+                                onChange={(e) => setImageFile(e.target.files[0])}
+                            />
+                        </div>
                     </div>
-                    <div className="form-group m-1">
-                        <label>Description:</label>
-                        <input
-                            type='text'
-                            className="form-control"
-                            onChange={(e) => setDescription(e.target.value)}
-                        />
+                    <div className="card-footer">
+                        <div className="text-center">
+                            <button
+                                type="submit"
+                                className="btn btn-secondary btn-block form-control"
+                            >
+                                Submit
+                            </button>
+                        </div>
                     </div>
-                    <div className="form-group m-1">
-                        <label>Image:</label>
-                        <input
-                            id='upload'
-                            type='file'
-                            className="form-control"
-                            onChange={(e) => setImageFile(e.target.files[0])}
-                        />
-                    </div>
-                </div>
-                <div className="card-footer">
-                    <div className="text-center">
-                        <button
-                            type="submit"
-                            className="btn btn-secondary btn-block form-control"
-                        >
-                            Submit
-                        </button>
-                    </div>
-                    
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
         
     )

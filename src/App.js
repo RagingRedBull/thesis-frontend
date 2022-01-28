@@ -9,6 +9,7 @@ import MapView from './components/MapView';
 import AddFloor from './components/AddFloor';
 import Login from './components/Login';
 import './App.css';
+import 'bootstrap/dist/js/bootstrap';
 
 function App() {
   return (

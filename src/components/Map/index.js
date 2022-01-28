@@ -8,7 +8,9 @@ const index = ({ image }) => {
                     alt='Map of the current floor'
                     className='img-map'
                 /> :
-                <p className='p-2'>No Image</p>
+                <div className="card">
+                    <p className='p-2'>Please select a floor.</p>
+                </div>
             }
         </div>
     )
