@@ -1,9 +1,21 @@
 import React from "react";
+import { useState } from "react";
 
 const Login = () => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
-    const onSubmit = async =>{
-        return 0;
+    const onSubmit = async (e) =>{
+        e.preventDefault();
+
+        if(!username){
+            alert('Please enter username');
+            return null;
+        }
+        if(!password){
+            alert('Please enter password');
+            return null;
+        }
     }
 
     return(
@@ -13,7 +25,7 @@ const Login = () => {
                     <input
                         type='text'
                         style={inputStyle}
-                        //onChange={(e) => setUsername(e.target.value)}
+                        onChange={(e) => setUsername(e.target.value)}
                         //required
                         placeholder="Username"/>
                 </div>
@@ -21,7 +33,7 @@ const Login = () => {
                     <input
                         type='password'
                         style={inputStyle}
-                        //onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) => setPassword(e.target.value)}
                         //required
                         placeholder="Password"/>
                 </div>
