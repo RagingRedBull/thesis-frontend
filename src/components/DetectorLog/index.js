@@ -17,7 +17,7 @@ class DetectorLog extends React.Component {
     }
 
     componentDidMount() {
-        axios.get("http://localhost:8080/prmts/log/all", {
+        axios.get(global.config.server.url + "/log/all", {
             params: {
                 pageNumber: this.state.currentPage,
                 pageSize: this.state.pageSize
@@ -40,8 +40,8 @@ class DetectorLog extends React.Component {
             });
     }
     render() {
-        return <div className='container-fluid'>
-            <div className='row'>
+        return <div className='card'>
+            <div className='row m-5'>
                 <div className='col-6'>
                     <h1>Detector Logs</h1>
                     <Table striped bordered hover>
@@ -66,7 +66,7 @@ class DetectorLog extends React.Component {
                     </ListGroup>
                 </div>
             </div>
-            <div className='container'>
+            <div className='footer mx-auto'>
                 <Pagination className='mx-auto'>
                     <Pagination.First/>
                     <Pagination.Prev/>
@@ -96,7 +96,7 @@ class DetectorLog extends React.Component {
 
     handleOnClickDetectorLog(id) {
         console.log("Fetching data of " + id);
-        axios.get("http://localhost:8080/prmts/log/sensor", {
+        axios.get(global.config.server.url + "/log/sensor", {
             params: {
                 detectorUnitLogId: id
             }

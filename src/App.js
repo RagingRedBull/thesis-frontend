@@ -7,7 +7,9 @@ import {
 import DetectorLog from './components/DetectorLog';
 import MapView from './components/MapView';
 import AddFloor from './components/AddFloor';
+import Login from './components/Login';
 import './App.css';
+import 'bootstrap/dist/js/bootstrap';
 
 function App() {
   return (
@@ -40,6 +42,7 @@ function App() {
           <Route path="/detector" element={<Detector/>}/>
           <Route path="/floor" element={<Floors />}/>
           <Route path="/add-floor" element={<AddFloor />}/>
+          <Route path="/login" element={<Login />}/>
         </Routes>
       </div>
     </Router>
