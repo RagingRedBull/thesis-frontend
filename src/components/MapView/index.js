@@ -1,14 +1,14 @@
-import SideNav from "../SideNav";
-import Map from "../Map";
-import Header from "../Header";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import SideNav from "../SideNav"
+import Map from "../Map"
+import Header from "../Header"
+import { useEffect, useState } from "react"
+import axios from "axios"
 import  '../../constants/constants.js'
 import '../../css/MapView.css'
 
 const MapView = () => {
-  const [floors, setFloors] = useState([]);
-  const [currentFloor, setCurrentFloor] = useState([]);
+  const [floors, setFloors] = useState([])
+  const [currentFloor, setCurrentFloor] = useState([])
 
   // Get floors
   useEffect(() => {
@@ -20,11 +20,11 @@ const MapView = () => {
           setCurrentFloor(response.data._embedded.floors[0])
         })
         .catch((err) => {
-          console.log(err);
-        });
-    };
-    getFloors();
-  }, []);
+          console.log(err)
+        })
+    }
+    getFloors()
+  }, [])
 
   return (
     <div className="container-fluid row p-0 m-0" style={mapViewStyle}>
@@ -36,14 +36,14 @@ const MapView = () => {
         <Map image={ currentFloor.imageName } hasFloors={ floors.length > 0 } />
       </div>
     </div>
-  );
-};
+  )
+}
 
 // To be replaced with Tailwind
 const mapViewStyle = {
   backgroundColor: "grey",
   height: "100vh"
-};
+}
 
 const sideNavStyle = {
   backgroundColor: '#FB3640',
