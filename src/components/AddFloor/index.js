@@ -41,7 +41,7 @@ const AddFloor = () => {
         try {
             const response = await axios({
                 method: "post",
-                url: "http://192.168.67.128:8080/prmts/images/new",
+                url:  global.config.server.url + "/images/new",
                 data: formData,
                 headers: { "Content-Type": "multipart/form-data" }
             })
@@ -61,7 +61,7 @@ const AddFloor = () => {
             "imageUrl": imageUrl
         }
 
-        axios.post("http://192.168.67.128:8080/prmts/floor/new", floor)
+        axios.post( global.config.server.url + "/floor/new", floor)
             .then(response => { 
                 if (response.status === 200) {
                     setMessage("Successfully added the floor!")
