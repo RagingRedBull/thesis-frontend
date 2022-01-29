@@ -8,7 +8,7 @@ const index = ({ image, hasFloors }) => {
                     alt='Map of the current floor'
                     className='img-map'
                 /> :
-                <p className='p-2'>Please select add a floor.</p>
+                <p className='p-2'>Please add a floor.</p>
             }
         </div>
     )

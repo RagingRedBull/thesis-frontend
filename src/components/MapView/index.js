@@ -16,8 +16,11 @@ const MapView = () => {
       axios
         .get(global.config.server.url + "/floors")
         .then((response) => {
-          setFloors(response.data._embedded.floors);
-          setCurrentFloor(response.data._embedded.floors[0])
+          setFloors(response.data._embedded.floors)
+
+          if (response.data._embedded.floors.length > 0) {
+            setCurrentFloor(response.data._embedded.floors[0])
+          }
         })
         .catch((err) => {
           console.log(err)
