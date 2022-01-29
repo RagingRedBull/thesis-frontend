@@ -17,7 +17,7 @@ class DetectorLog extends React.Component {
     }
 
     componentDidMount() {
-        axios.get("http://localhost:8080/prmts/log/all", {
+        axios.get(global.config.server.url + "/log/all", {
             params: {
                 pageNumber: this.state.currentPage,
                 pageSize: this.state.pageSize
@@ -96,7 +96,7 @@ class DetectorLog extends React.Component {
 
     handleOnClickDetectorLog(id) {
         console.log("Fetching data of " + id);
-        axios.get("http://localhost:8080/prmts/log/sensor", {
+        axios.get(global.config.server.url + "/log/sensor", {
             params: {
                 detectorUnitLogId: id
             }
