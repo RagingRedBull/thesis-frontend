@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Button, Form } from "react-bootstrap";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -21,43 +22,44 @@ const Login = () => {
 
   return (
     <div className="container">
-      <form onSubmit={onSubmit}>
-        <div className="card-header">
-          <h5>Login</h5>
-        </div>
-        <div className="card-body">
-          <div className="input-container">
-            <input
+      <Form className="mb-4">
+        <Form.Group className="mb-3" controlId="formHeader">
+          <div className="card-header">
+            <h3>Login</h3>
+          </div>
+        </Form.Group>
+
+        <Form.Group controlId="formBody">
+          <Form.Group className="mb-3" controlId="formUsername">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
               type="text"
               style={inputStyle}
               onChange={(e) => setUsername(e.target.value)}
-              //required
-              placeholder="Username"
+              placeholder="Enter Username"
             />
-          </div>
-          <div className="input-container">
-            <input
-              type="password"
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="text"
               style={inputStyle}
               onChange={(e) => setPassword(e.target.value)}
-              //required
-              placeholder="Password"
+              placeholder="Enter Password"
             />
-          </div>
-        </div>
-        <div className="card-footer">
-          <div className="text-center">
-            <button
-              type="submit"
-              className="btn btn-secondary btn-block form-control"
-            >
-              Login
-            </button>
-          </div>
-        </div>
-      </form>
-      <Link to = '/change-password'>
-          <button className="btn-primary">Reset Password</button>
+          </Form.Group>
+        </Form.Group>
+        <Button
+          className="btn btn-primary btn-block form-control"
+          type="submit"
+          onClick={onSubmit}
+        >
+          Login
+        </Button>
+      </Form>
+      <Link to="/change-password">
+        <button className="btn btn-secondary">Reset Password</button>
       </Link>
     </div>
   );

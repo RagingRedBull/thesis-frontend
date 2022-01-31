@@ -42,7 +42,7 @@ const ChangePassword = () => {
 
   return (
     <div className="container">
-      <Form>
+      <Form className="mb-4">
         <Form.Group className="mb-3" controlId="formHeader">
           <div className="card-header">
             <h3>Change Password</h3>
