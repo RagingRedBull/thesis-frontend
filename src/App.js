@@ -8,6 +8,7 @@ import DetectorLog from './components/DetectorLog';
 import MapView from './components/MapView';
 import AddFloor from './components/AddFloor';
 import Login from './components/Login';
+import ChangePassword from './components/ChangePassword';
 import './App.css';
 import 'bootstrap/dist/js/bootstrap';
 
@@ -43,6 +44,7 @@ function App() {
           <Route path="/floor" element={<Floors />}/>
           <Route path="/add-floor" element={<AddFloor />}/>
           <Route path="/login" element={<Login />}/>
+          <Route path="/change-password" element={<ChangePassword />}/>
         </Routes>
       </div>
     </Router>
