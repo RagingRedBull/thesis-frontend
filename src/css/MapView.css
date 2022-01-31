@@ -9,9 +9,15 @@
     font-weight: bold;
 }
 
-.img-map {
+.map {
+    min-height: 720px;
+    min-width: 1280px;
+}
+
+.map-wrapper {
     height: 720px;
-    width: auto;
+    width: 1280px;
+    overflow: auto;
 }
 
 .btn_floor {
