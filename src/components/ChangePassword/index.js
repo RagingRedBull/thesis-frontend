@@ -1,10 +1,13 @@
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Button, Form } from "react-bootstrap";
 
 const ChangePassword = () => {
   const [username, setUsername] = useState("");
-  const [oldPassword, setOldPassword] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [confirmPassowrd, setConfirmPassword] = useState("");
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -14,12 +17,16 @@ const ChangePassword = () => {
       alert("Please enter username");
       return null;
     }
-    if (!oldPassword) {
+    if (!currentPassword) {
       alert("Please enter the old password");
       return null;
     }
     if (!newPassword) {
       alert("Please enter the new password");
+      return null;
+    }
+    if (!confirmPassowrd) {
+      alert("Please confirm your password");
       return null;
     }
 
@@ -28,57 +35,69 @@ const ChangePassword = () => {
      * TODO: Check if username and oldpassword exists as an account
      * Check if newpassword is equal to oldpassword
      * Check if newpassword already exists
+     * Check if confirmpassowrd matches with new password
+     * Change instances of Change Password to Reset Password
      */
   };
 
   return (
     <div className="container">
-      <div className="card-w-25">
-        <form onSubmit={onSubmit}>
+      <Form>
+        <Form.Group className="mb-3" controlId="formHeader">
           <div className="card-header">
-            <h5>Change Password</h5>
+            <h3>Change Password</h3>
           </div>
-          <div className="card-body">
-            <div className="input-container">
-              <input
-                type="text"
-                style={inputStyle}
-                onChange={(e) => setUsername(e.target.value)}
-                //required
-                placeholder="Username"
-              />
-            </div>
-            <div className="input-container">
-              <input
-                type="password"
-                style={inputStyle}
-                onChange={(e) => setOldPassword(e.target.value)}
-                //required
-                placeholder="Old Password"
-              />
-            </div>
-            <div className="input-container">
-              <input
-                type="password"
-                style={inputStyle}
-                onChange={(e) => setNewPassword(e.target.value)}
-                //required
-                placeholder="New Password"
-              />
-            </div>
-          </div>
-          <div className="card-footer">
-            <div className="text-center">
-              <button
-                type="submit"
-                className="btn btn-secondary btn-block form-control"
-              >
-                Change Password
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
+        </Form.Group>
+
+        <Form.Group controlId="formBody">
+          <Form.Group className="mb-3" controlId="formUsername">
+            <Form.Label>Account Username</Form.Label>
+            <Form.Control
+              type="text"
+              style={inputStyle}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Enter Username"
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formCurrentPassword">
+            <Form.Label>Current Password</Form.Label>
+            <Form.Control
+              type="password"
+              style={inputStyle}
+              onChange={(e) => setCurrentPassword(e.target.value)}
+              placeholder="Enter Current Password"
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formNewPassword">
+            <Form.Label>New Password Credentials</Form.Label>
+            <Form.Control
+              type="password"
+              style={inputStyle}
+              onChange={(e) => setNewPassword(e.target.value)}
+              placeholder="Enter New Password"
+            />
+
+            <Form.Control
+              type="password"
+              style={inputStyle}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Confirm New Password"
+            />
+          </Form.Group>
+        </Form.Group>
+        <Button
+          className="btn btn-primary btn-block form-control"
+          type="submit"
+          onClick={onSubmit}
+        >
+          Reset Password
+        </Button>
+      </Form>
+      <Link to="/login">
+        <button className="btn btn-secondary">Back to Login</button>
+      </Link>
     </div>
   );
 };
