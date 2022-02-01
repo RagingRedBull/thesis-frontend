@@ -16,13 +16,17 @@ const index = ({ floors, setCurrentFloor, selFloorName }) => {
             <div>
                 { floors.map((floor) => (
                     // Should be a unique identifier
-                    <div key={ floor.name } className='mt-2'> 
+                    <div key={ floor.name } className='mt-2' style={selFloorName === floor.name ? {backgroundColor: '#FFB140'} : null}> 
                         <button 
                             onClick={ () => setCurrentFloor(floor) }
-                            className='btn btn-lg btn_floor w-100 h-5 rounded-0'
-                            style={selFloorName === floor.name ? {backgroundColor: '#FFB140'} : null}
+                            className='btn btn-lg btn_floor w-100 h-5 rounded-0 m-0 row d-flex'
                         > 
-                            { floor.name } 
+                            <div className='col p-0 ps-5 m-0'>
+                                <p className='m-0'>{ floor.name }</p>
+                            </div>
+                            <div className='col p-0 ps-4 m-0'>
+                                <p className='m-0' hidden={selFloorName !== floor.name}>&#62;</p>
+                            </div>
                         </button>
                     </div>
                 ))}

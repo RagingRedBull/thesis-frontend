@@ -20,7 +20,6 @@ const index = ({ image, hasFloors }) => {
             yCoord: 0,
             width: 10,
             depth: 10,
-            // Compartment Statuses:
         },
         {
             // Insert foreign key for floors
@@ -45,15 +44,16 @@ const index = ({ image, hasFloors }) => {
                 <Stage width={ 1280 } height={ 720 }>
                     <Layer>
                         <Image image={ map } width={ 1280 } height={ 720 } />
-                        { compartments.map((compartment) => (
+                        { compartments.map((compartment, index) => (
                             <Rect 
+                                key={ index }
                                 x={ compartment.konvaXCoord }
                                 y={ compartment.konvaYcoord }
                                 width={ compartment.konvaWidth }
                                 height={ compartment.konvaHeight }
                                 fill={ compartment.color }
                                 stroke={ compartment.borderColor }
-                                opacity={ "0.5" }
+                                opacity={ 0.5 }
                             />
                         ))}
                     </Layer>
