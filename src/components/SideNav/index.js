@@ -1,6 +1,6 @@
 import logo from '../../images/PRMTS-logo.png'
 
-const index = ({ floors, setCurrentFloor, selFloorName }) => {
+const index = ({ floors, setCurrentFloor, selFloorId }) => {
     return (
         <>
             <div className='logo m-1'>
@@ -16,7 +16,7 @@ const index = ({ floors, setCurrentFloor, selFloorName }) => {
             <div>
                 { floors.map((floor) => (
                     // Should be a unique identifier
-                    <div key={ floor.name } className='mt-2' style={selFloorName === floor.name ? {backgroundColor: '#FFB140'} : null}> 
+                    <div key={ floor.id } className='mt-2' style={selFloorId === floor.id ? {backgroundColor: '#FFB140'} : null}> 
                         <button 
                             onClick={ () => setCurrentFloor(floor) }
                             className='btn btn-lg btn_floor w-100 h-5 rounded-0 m-0 row d-flex'
@@ -25,7 +25,7 @@ const index = ({ floors, setCurrentFloor, selFloorName }) => {
                                 <p className='m-0'>{ floor.name }</p>
                             </div>
                             <div className='col p-0 ps-4 m-0'>
-                                <p className='m-0' hidden={selFloorName !== floor.name}>&#62;</p>
+                                <p className='m-0' hidden={selFloorId !== floor.id}>&#62;</p>
                             </div>
                         </button>
                     </div>

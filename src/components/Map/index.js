@@ -11,19 +11,19 @@ const Map = ({ image, hasFloors, floorId }) => {
     const [scale, setScale] = useState(1)
 
     useEffect(() => {
-        getCompartments()
-    }, [])
+        const getCompartments = async () => {
+            axios  
+                .get(global.config.server.url + "/floor/" + floorId + "/compartment")
+                .then((response) => {
+                    setCompartments(response.data)
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }
 
-    const getCompartments = async () => {
-        axios  
-            .get(global.config.server.url + "/floor/2/compartment") // id is currently hardcoded until it is returned.
-            .then((response) => {
-                setCompartments(response.data)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    }
+        getCompartments()
+    }, [floorId])
     
     const zoom = (e) => {
         e.evt.preventDefault()
@@ -39,32 +39,40 @@ const Map = ({ image, hasFloors, floorId }) => {
     
     return (
         <div className='m-5 d-flex justify-content-center'>
-            {hasFloors ? 
-                <div className='map-wrapper'>
-                    {/* need to get the width and height of the current div */}
-                    <Stage 
-                        width={ 1280 } 
-                        height={ 720 } 
-                        scaleX={ scale } 
-                        scaleY={ scale }
-                        onWheel={ zoom }
-                    >
-                        <Layer>
-                            <Image image={ map } />
-                            { compartments.map((compartment, index) => (
-                                <Rect 
-                                    key={ index }
-                                    x={ compartment.xKonva }
-                                    y={ compartment.yKonva }
-                                    width={ compartment.widthKonva }
-                                    height={ compartment.heightKonva }
-                                    fill={ "white" }
-                                    stroke={ "black" }
-                                    opacity={ 0.5 }
-                                />
-                            ))}
-                        </Layer>
-                    </Stage>
+            { hasFloors ? 
+                <div>
+                    { compartments.length < 1 & hasFloors ?
+                        <div style={{ width: '1280px'}}>
+                            <MessageBox message="Please add a compartment." />
+                        </div>
+                        :
+                        null 
+                    }
+                    <div className='map-wrapper'>
+                        <Stage 
+                            width={ 1280 } 
+                            height={ 720 } 
+                            scaleX={ scale } 
+                            scaleY={ scale }
+                            onWheel={ zoom }
+                        >
+                            <Layer>
+                                <Image image={ map } />
+                                { compartments.map((compartment) => (
+                                    <Rect 
+                                        key={ compartment.id }
+                                        x={ compartment.xKonva }
+                                        y={ compartment.yKonva }
+                                        width={ compartment.widthKonva }
+                                        height={ compartment.heightKonva }
+                                        fill={ "white" }
+                                        stroke={ "black" }
+                                        opacity={ 0.5 }
+                                    />
+                                ))}
+                            </Layer>
+                        </Stage>
+                    </div>
                 </div>
                 :
                 <MessageBox message="Please add a floor." />
