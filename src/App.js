@@ -11,6 +11,7 @@ import Login from './components/Login';
 import ChangePassword from './components/ChangePassword';
 import './App.css';
 import 'bootstrap/dist/js/bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
