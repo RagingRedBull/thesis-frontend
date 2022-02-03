@@ -8,11 +8,13 @@ const Map = ({ image, hasFloors, floorId }) => {
     const imageUrl = global.config.server.url + "/images/" + image
     const [map] = useImage(imageUrl)
     const [compartments, setCompartments] = useState([])
+    const [selectedComp, setSelectedComp] = useState([])
     const [scale, setScale] = useState(1)
 
     useEffect(() => {
         const getCompartments = async () => {
-            axios  
+            if (floorId) {
+                axios  
                 .get(global.config.server.url + "/floor/" + floorId + "/compartment")
                 .then((response) => {
                     setCompartments(response.data)
@@ -20,11 +22,12 @@ const Map = ({ image, hasFloors, floorId }) => {
                 .catch((err) => {
                     console.log(err)
                 })
+            }
         }
 
         getCompartments()
     }, [floorId])
-    
+
     const zoom = (e) => {
         e.evt.preventDefault()
 
@@ -33,8 +36,24 @@ const Map = ({ image, hasFloors, floorId }) => {
         const oldScale = stage.scaleX()
 
         const newScale = e.evt.deltaY > 0 ? oldScale * scaleBy : oldScale / scaleBy
+        
+        if (newScale < 0.1) {
+            setScale(oldScale)
+        } else {
+            setScale(newScale)
+        }
 
-        setScale(newScale)
+    }
+
+    const checkDeselect = (e) => {
+        const clickedStage = e.target === e.target.getStage()
+        const clickedImage = e.target.hasName("map")
+        
+        if (clickedStage) {
+            setSelectedComp(null)
+        } else if (clickedImage) {
+            setSelectedComp(null)
+        }
     }
     
     return (
@@ -49,29 +68,40 @@ const Map = ({ image, hasFloors, floorId }) => {
                         null 
                     }
                     <div className='map-wrapper'>
-                        <Stage 
-                            width={ 1280 } 
-                            height={ 720 } 
-                            scaleX={ scale } 
-                            scaleY={ scale }
-                            onWheel={ zoom }
-                        >
-                            <Layer>
-                                <Image image={ map } />
-                                { compartments.map((compartment) => (
-                                    <Rect 
-                                        key={ compartment.id }
-                                        x={ compartment.xKonva }
-                                        y={ compartment.yKonva }
-                                        width={ compartment.widthKonva }
-                                        height={ compartment.heightKonva }
-                                        fill={ "white" }
-                                        stroke={ "black" }
-                                        opacity={ 0.5 }
+                            <Stage 
+                                width={ 1280 } 
+                                height={ 720 } 
+                                scaleX={ scale } 
+                                scaleY={ scale }
+                                onWheel={ zoom }
+                                onMouseDown={ checkDeselect }
+                                onTouchStart={ checkDeselect }
+                            >
+                                <Layer>
+                                    <Image 
+                                        image={ map }
+                                        name='map'
+                                        onMouseDown={ checkDeselect }
+                                        onTouchStart={ checkDeselect }
                                     />
-                                ))}
-                            </Layer>
-                        </Stage>
+                                    { compartments.map((compartment) => (
+                                        <Rect 
+                                            key={ compartment.id }
+                                            x={ compartment.xKonva }
+                                            y={ compartment.yKonva }
+                                            width={ compartment.widthKonva }
+                                            height={ compartment.heightKonva }
+                                            fill={ "white" }
+                                            stroke={ compartment.id === selectedComp ? 'green' : 'black' }
+                                            strokeWidth={ compartment.id === selectedComp ? 5 : 5 }
+                                            opacity={ 0.5 }
+                                            onClick={ (e) => {
+                                                setSelectedComp(compartment.id)
+                                            }}
+                                        />
+                                    ))}
+                                </Layer>
+                            </Stage>
                     </div>
                 </div>
                 :
