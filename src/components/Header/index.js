@@ -14,7 +14,6 @@ const index = () => {
 
 const headerStyle = {
     backgroundColor: '#FFB140',
-    height: '100px'
 }
 
 export default index;
