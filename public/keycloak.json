@@ -1,0 +1,8 @@
+{
+    "realm": "prmts",
+    "auth-server-url": "http://192.168.0.143:8083/auth/",
+    "ssl-required": "external",
+    "resource": "prmts-react",
+    "public-client": true,
+    "confidential-port": 0
+  }
