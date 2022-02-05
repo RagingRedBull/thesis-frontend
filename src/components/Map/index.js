@@ -61,9 +61,9 @@ const Map = ({ image, hasFloors, floorId }) => {
 
     const isSelected = () => {
         if (selectedComp !== null) {
-            return false
-        } else {
             return true
+        } else {
+            return false
         }
     }
 

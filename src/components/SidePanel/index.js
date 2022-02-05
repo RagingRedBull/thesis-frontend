@@ -1,34 +1,37 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import React from 'react'
+import { Collapse } from 'react-bootstrap'
 
 const index = ({ hidden, setSelectedComp, detectors }) => {
 
     return (
-        <div className='side_panel col-2 p-0 m-0' hidden={ hidden }>
-            <div className='side_pan_head row'>
-                <div className='col-10'>
-                    <h5>Compartment Name</h5>
-                </div>
-                <div className='col-2'>
-                    <FontAwesomeIcon icon={ faTimes } onClick={ () => { setSelectedComp(null) } } style={{cursor: "pointer"}} />
-                </div>
-            </div>
-            { detectors.map((detector) => (
-                <div key={ detector.id }>
-                    <div className='side_pan_sub_head'>
-                        <h5>{ detector.macAddress }</h5>
+        <Collapse in={ hidden } dimension="width">
+            <div className='side_panel col-2 p-0 m-0'>
+                <div className='side_pan_head row m-1'>
+                    <div className='col-10'>
+                        <h5>Compartment Name</h5>
                     </div>
-                    
-                    { detector.sensorLogSet.map((sensor) => (
-                        <div key={ sensor.id } className='side_pan_content row'>
-                            <div className='col'>{ sensor.name }</div>
-                            <div className='col'>{ sensor.temperature }</div>
-                        </div>
-                    ))}
+                    <div className='col-2'>
+                        <FontAwesomeIcon icon={ faTimes } onClick={ () => { setSelectedComp(null) } } style={{cursor: "pointer"}} />
+                    </div>
                 </div>
-            )) }
-        </div>
+                { detectors.map((detector) => (
+                    <div key={ detector.id }>
+                        <div className='side_pan_sub_head' style={{backgroundColor: "#000000"}}>
+                            <h5 className='m-0 ms-3' style={{color: "white"}}>{ detector.macAddress }</h5>
+                        </div>
+                        
+                        { detector.sensorLogSet.map((sensor) => (
+                            <div key={ sensor.id } className='side_pan_content row ms-3'>
+                                <div className='col-7'>{ sensor.name }:</div>
+                                <div className='col-5'>{ sensor.temperature }</div>
+                            </div>
+                        ))}
+                    </div>
+                )) }
+            </div>
+        </Collapse>
     )
 }
 
