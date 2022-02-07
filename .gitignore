@@ -23,3 +23,4 @@ yarn-debug.log*
 yarn-error.log*
 /src/constants/constants.js
 /src/constants/constants.js
+/public/keycloak.json
