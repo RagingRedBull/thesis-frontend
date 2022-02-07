@@ -11,6 +11,7 @@ const Map = ({ image, hasFloors, floorId }) => {
     const [compartments, setCompartments] = useState([])
     const [detectors, setDetectors] = useState([])
     const [selectedComp, setSelectedComp] = useState(null)
+    const [compName, setCompName] = useState(null)
     const [scale, setScale] = useState(1)
 
     useEffect(() => {
@@ -80,7 +81,7 @@ const Map = ({ image, hasFloors, floorId }) => {
     
     return (
         <div className='row m-0 p-0'>
-            <SidePanel hidden={ isSelected() } setSelectedComp={ setSelectedComp } detectors={ detectors } />
+            <SidePanel hidden={ isSelected() } setSelectedComp={ setSelectedComp } detectors={ detectors } compName={ compName } />
             <div className='col-10 m-0 p-0 d-flex justify-content-center'>
                 { hasFloors ? 
                     <div className='m-5'>
@@ -121,6 +122,7 @@ const Map = ({ image, hasFloors, floorId }) => {
                                             opacity={ 0.5 }
                                             onClick={ (e) => {
                                                 setSelectedComp(compartment.id)
+                                                setCompName(compartment.name)
                                                 getDetectors(compartment.id)
                                             }}
                                         />
