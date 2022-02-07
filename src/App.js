@@ -1,4 +1,4 @@
-import "./App.cs";
+import "./App.css";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import UserService from "./services/UserService";
