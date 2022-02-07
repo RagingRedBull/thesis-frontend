@@ -1,12 +1,14 @@
-import "./App.css";
-import "bootstrap/dist/js/bootstrap";
+import "./App.cs";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
-import MapView from "./components/MapView";
-import DetectorLog from "./components/DetectorLog";
-import AddFloor from "./components/AddFloor";
-import ChangePassword from "./components/ChangePassword";
 import UserService from "./services/UserService";
+import DetectorLog from './components/DetectorLog';
+import MapView from './components/MapView';
+import AddFloor from './components/AddFloor';
+import Login from './components/Login';
+import ChangePassword from './components/ChangePassword';
+import 'bootstrap/dist/js/bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (

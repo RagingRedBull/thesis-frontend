@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useState } from "react"
-import MessageBox from "./MessageBox";
+import MessageBox from "../MessageBox";
 
 const AddFloor = () => {
     const [name, setName] = useState('')
