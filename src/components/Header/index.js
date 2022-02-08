@@ -9,46 +9,46 @@ const index = () => {
     const buildName = "Test Building"
 
     const cogPopover = (
-        <Popover className='' style={{ width: "170px"}}>
-            <Popover.Body className='p-0'>
+        <Popover className='w-100' style={{ width: "170px"}}>
+            <Popover.Body className='p-0 w-100'>
                 { UserService.isLoggedIn() ?
                     <>
-                        <div className='card rounded-0' style={{cursor: "pointer"}}>
+                        <div className='card rounded-0 w-100' style={{cursor: "pointer"}}>
                             <div className='card-body row p-0 m-0'> 
-                                <div className='col-2 p-0 ps-1 m-0'>
-                                    <FontAwesomeIcon icon={ faWrench } />
+                                <div className='col-2 p-0 ps-1 m-0 mt-1'>
+                                    <FontAwesomeIcon icon={ faWrench } style={ settingsIconStyle } />
                                 </div>
-                                <div className='col-10 p-0 m-0'>
+                                <div className='col-10 p-0 m-0 fs-5'>
                                     Maintenance Mode
                                 </div>
                             </div>
                         </div>
                         <div className='card rounded-0' style={{cursor: "pointer"}}>
                             <div className='card-body row p-0 m-0'> 
-                                <div className='col-2 p-0 ps-1 m-0'>
-                                    <FontAwesomeIcon icon={ faBell } />
+                                <div className='col-2 p-0 ps-1 m-0 mt-1'>
+                                    <FontAwesomeIcon icon={ faBell } style={ settingsIconStyle } />
                                 </div>
-                                <div className='col-10 p-0 m-0'>
+                                <div className='col-10 p-0 m-0 fs-5'>
                                     Fire Drill mode
                                 </div>
                             </div>
                         </div>
                         <div className='card rounded-0' style={{cursor: "pointer"}}>
                             <div className='card-body row p-0 m-0'> 
-                                <div className='col-2 p-0 ps-1 m-0'>
-                                    <FontAwesomeIcon icon={ faFileAltReg } />
+                                <div className='col-2 p-0 ps-1 m-0 mt-1'>
+                                    <FontAwesomeIcon icon={ faFileAltReg } style={ settingsIconStyle } />
                                 </div>
-                                <div className='col-10 p-0 m-0'>
+                                <div className='col-10 p-0 m-0 fs-5'>
                                     Status reports
                                 </div>
                             </div>
                         </div>
                         <div className='card rounded-0' style={{cursor: "pointer"}}>
                             <div className='card-body row p-0 m-0'> 
-                                <div className='col-2 p-0 ps-1 m-0'>
-                                    <FontAwesomeIcon icon={ faFileAltSol } />
+                                <div className='col-2 p-0 ps-1 m-0 mt-1'>
+                                    <FontAwesomeIcon icon={ faFileAltSol } style={ settingsIconStyle } />
                                 </div>
-                                <div className='col-10 p-0 m-0'>
+                                <div className='col-10 p-0 m-0 fs-5'>
                                     Post-fire reports
                                 </div>
                             </div>
@@ -56,10 +56,10 @@ const index = () => {
                         <Link to="/change-password" style={ linkStyle }>
                             <div className='card rounded-0' style={{cursor: "pointer"}}>
                                 <div className='card-body row p-0 m-0'> 
-                                    <div className='col-2 p-0 ps-1 m-0'>
-                                        <FontAwesomeIcon icon={ faAsterisk } />
+                                    <div className='col-2 p-0 ps-1 m-0 mt-1'>
+                                        <FontAwesomeIcon icon={ faAsterisk } style={ settingsIconStyle } />
                                     </div>
-                                    <div className='col-10 p-0 m-0'>
+                                    <div className='col-10 p-0 m-0 fs-5'>
                                         Reset Password
                                     </div>
                                 </div>
@@ -69,15 +69,39 @@ const index = () => {
                     :
                     <div className='card rounded-0' style={{cursor: "pointer"}} onClick={() => UserService.doLogin()}>
                         <div className='card-body row p-0 m-0'> 
-                            <div className='col-2 p-0 ps-1 m-0'>
-                                <FontAwesomeIcon icon={ faSignInAlt } />
+                            <div className='col-2 p-0 ps-1 m-0 mt-1'>
+                                <FontAwesomeIcon icon={ faSignInAlt } style={ settingsIconStyle } />
                             </div>
-                            <div className='col-10 p-0 m-0'>
+                            <div className='col-10 p-0 m-0 fs-5'>
                                 Login
                             </div>
                         </div>
                     </div>
                 }
+            </Popover.Body>
+        </Popover>
+    )
+
+    const infoPopover = (
+        <Popover className='w-100'>
+            <Popover.Header>Legend</Popover.Header>
+            <Popover.Body className='p-2'>
+                <div id='red' className='m-0 p-0'>
+                    <h6 className='m-0' style={{color:'red'}}><i>RED</i></h6>
+                    <p>Fire in the area is considered <u>dangerous</u></p>
+                </div>
+                <div id='orange' className='m-0 p-0'>
+                    <h6 className='m-0' style={{color:'orange'}}><i>ORANGE</i></h6>
+                    <p>Smoke and very high temperature is present</p>
+                </div>
+                <div id='yellow' className='m-0 p-0'>
+                    <h6 className='m-0' style={{color:'yellow'}}><i>YELLLOW</i></h6>
+                    <p>High temperature</p>
+                </div>
+                <div id='white' className='m-0 p-0'>
+                    <h6 className='m-0'><i>WHITE / no color</i></h6>
+                    <p>Normal condition</p>
+                </div>
             </Popover.Body>
         </Popover>
     )
@@ -92,9 +116,12 @@ const index = () => {
             </div>
             <div className='col-1 mt-3'>
                 <div className='row h-100'>
-                    <div className='col p-0' style={ iconContainerStyle }>
-                        <FontAwesomeIcon className="" icon={ faInfoCircle } style={ iconStyle } />
-                    </div>
+                    <OverlayTrigger trigger='click' placement='bottom' overlay={ infoPopover }>
+                        <div className='col p-0' style={ iconContainerStyle }>
+                            <FontAwesomeIcon className="" icon={ faInfoCircle } style={ iconStyle } />
+                        </div>
+                    </OverlayTrigger>
+
                     <OverlayTrigger trigger='click' placement='bottom' overlay={ cogPopover }>
                         <div className='col p-0' style={ iconContainerStyle }>
                             <FontAwesomeIcon className="" icon={ faCog } style={ iconStyle } />
@@ -130,6 +157,11 @@ const iconStyle = {
 const linkStyle = {
     textDecoration: "none",
     color: "black"
+}
+
+const settingsIconStyle = {
+    height: "20px",
+    width: "20px"
 }
 
 export default index;
