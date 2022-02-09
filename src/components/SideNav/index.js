@@ -1,4 +1,6 @@
 import logo from '../../images/PRMTS-logo.png'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
 
 const index = ({ floors, setCurrentFloor, selFloorId }) => {
     return (
@@ -25,7 +27,7 @@ const index = ({ floors, setCurrentFloor, selFloorId }) => {
                                 <p className='m-0'>{ floor.name }</p>
                             </div>
                             <div className='col p-0 ps-4 m-0'>
-                                <p className='m-0' hidden={selFloorId !== floor.id}>&#62;</p>
+                                <FontAwesomeIcon icon={ faAngleRight } hidden={selFloorId !== floor.id} />
                             </div>
                         </button>
                     </div>
