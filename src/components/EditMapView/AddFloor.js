@@ -66,8 +66,6 @@ const AddFloor = ({show, setShow, floors, setFloors}) => {
         axios.post( global.config.server.url + "/floor/new", floor)
             .then(response => { 
                 if (response.status === 200) {
-                    setMessage("Successfully added the floor!")
-                    setIsSuccess(true)
                     setFloors([...floors, response.data])
                 } else {
                     setMessage("Error! Unable to add floor.")

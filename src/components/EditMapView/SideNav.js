@@ -8,7 +8,7 @@ import AddFloor from './AddFloor'
 import DeleteFloor from './DeleteFloor'
 import EditFloor from './EditFloor'
 
-const SideNav = ({ floors, setCurrentFloor, currentFloor, setFloors }) => {
+const SideNav = ({ floors, setCurrentFloor, currentFloor, setFloors, handleDelete }) => {
     const [showAddFloor, setShowAddFloor] = useState(false)
     const [showDeleteFloor, setShowDeleteFloor] = useState(false)
     const [showEditFloor, setShowEditFloor] = useState(false)
@@ -59,7 +59,7 @@ const SideNav = ({ floors, setCurrentFloor, currentFloor, setFloors }) => {
                             </div>
                         </div>
                     ))}
-                    <DeleteFloor show={ showDeleteFloor } setShow={ setShowDeleteFloor } floors={ floors } setFloors={ setFloors } floorId={ floorId } />
+                    <DeleteFloor show={ showDeleteFloor } setShow={ setShowDeleteFloor } floors={ floors } setFloors={ setFloors } floorId={ floorId } handleDelete={ handleDelete } />
                     <EditFloor show={ showEditFloor } setShow={ setShowEditFloor } />
                 </div>
             </div>

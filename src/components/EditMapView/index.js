@@ -34,10 +34,20 @@ const EditMapView = () => {
         getFloors()
     }, [])
 
+    const handleDelete = async (id) => {
+        const response = await axios.delete(global.config.server.url + "/floor/" + id + "/delete")
+
+        if (response.status === 200) {
+            setFloors(floors.filter((floor) => floor.id !== id))
+        } else {
+            alert("Error failed to delete floor")
+        }
+    }
+
     return (
         <div className="container-fluid edit-map-containter row m-0 p-0">
             <div className="side-navigation col-1 p-0 text-center">
-                <SideNav floors={ floors } setCurrentFloor={ setCurrentFloor } currentFloor={ currentFloor } setFloors={ setFloors } />
+                <SideNav floors={ floors } setCurrentFloor={ setCurrentFloor } currentFloor={ currentFloor } setFloors={ setFloors } handleDelete={ handleDelete } />
             </div>
             <div className="col-11 p-0 m-0 row g-0">
                 <Header />

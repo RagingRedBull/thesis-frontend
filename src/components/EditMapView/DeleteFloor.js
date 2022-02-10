@@ -1,9 +1,12 @@
-import { Modal, ModalTitle } from "react-bootstrap";
+import { Modal, ModalTitle } from "react-bootstrap"
 
-const DeleteFloor = ({show, setShow, floors, setFloors, floorId}) => {
+const DeleteFloor = ({show, setShow, floorId, handleDelete}) => {
+
     const handleClose = () => {
         setShow(false)
     }
+
+    
 
     return (
         <Modal show={ show } onHide={ handleClose }>
@@ -16,6 +19,10 @@ const DeleteFloor = ({show, setShow, floors, setFloors, floorId}) => {
             <Modal.Footer>
                 <button
                     className="btn btn-success btn-block"
+                    onClick={ () => {
+                        handleDelete(floorId)
+                        handleClose()
+                    }}
                 >
                 Yes
                 </button>
