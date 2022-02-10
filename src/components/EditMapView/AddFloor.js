@@ -1,15 +1,16 @@
 import axios from "axios"
 import { useState } from "react"
+import { Modal, ModalTitle } from "react-bootstrap";
 import MessageBox from "../MessageBox";
 
-const AddFloor = () => {
+const AddFloor = ({show, setShow, floors, setFloors}) => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [imageFile, setImageFile] = useState()
     const [message, setMessage] = useState()
     const [isSuccess, setIsSuccess] = useState(false)
 
-    const onSubmit = async (e) => {
+    const submit = async (e) => {
         e.preventDefault()
 
         if (!name) {
@@ -32,6 +33,7 @@ const AddFloor = () => {
         }
 
         saveFloor(imageUrl)
+        setShow(false)
     }
 
     const saveImage = async () => {
@@ -66,6 +68,7 @@ const AddFloor = () => {
                 if (response.status === 200) {
                     setMessage("Successfully added the floor!")
                     setIsSuccess(true)
+                    setFloors([...floors, response.data])
                 } else {
                     setMessage("Error! Unable to add floor.")
                 }
@@ -73,16 +76,21 @@ const AddFloor = () => {
             .catch(error => { setMessage("Error! Unable to add floor.") })
     }
 
+    const handleClose = () => {
+        setShow(false)
+        setMessage(null)
+    }
+
     return (
-        <div className="container">
-            <div className="card w-25">
-                <form onSubmit={onSubmit}>
-                    <div className="card-header">
-                        <h5>Add Floor</h5>
-                    </div>
-                    <div className="card-body">
+        <Modal show={ show } onHide={ handleClose }>
+            <form onSubmit={submit}>
+                <Modal.Header closeButton>
+                    <ModalTitle>Floor</ModalTitle>
+                </Modal.Header>
+                <Modal.Body>
+                    
                         <div className="form-group m-1">
-                            { message ? <MessageBox message={ message } isSuccess={ isSuccess } /> : null }
+                        { message ? <MessageBox message={ message } isSuccess={ isSuccess } /> : null }
                         </div>
                         <div className="form-group m-1">
                             <label>Name:</label>
@@ -109,21 +117,18 @@ const AddFloor = () => {
                                 onChange={(e) => setImageFile(e.target.files[0])}
                             />
                         </div>
-                    </div>
-                    <div className="card-footer">
-                        <div className="text-center">
-                            <button
-                                type="submit"
-                                className="btn btn-secondary btn-block form-control"
-                            >
-                                Submit
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-        
+                    
+                </Modal.Body>
+                <Modal.Footer>
+                    <button
+                        type="submit"
+                        className="btn btn-secondary btn-block form-control"
+                    >
+                        Submit
+                    </button>
+                </Modal.Footer>
+            </form>
+        </Modal>
     )
 };
 
