@@ -85,44 +85,49 @@ const AddFloor = ({show, setShow, floors, setFloors}) => {
         <Modal show={ show } onHide={ handleClose }>
             <form onSubmit={submit}>
                 <Modal.Header closeButton>
-                    <ModalTitle>Floor</ModalTitle>
+                    <ModalTitle>Add Floor</ModalTitle>
                 </Modal.Header>
                 <Modal.Body>
-                    
-                        <div className="form-group m-1">
-                        { message ? <MessageBox message={ message } isSuccess={ isSuccess } /> : null }
-                        </div>
-                        <div className="form-group m-1">
-                            <label>Name:</label>
-                            <input
-                                type='text'
-                                className="form-control"
-                                onChange={(e) => setName(e.target.value)}
-                            />
-                        </div>
-                        <div className="form-group m-1">
-                            <label>Description:</label>
-                            <input
-                                type='text'
-                                className="form-control"
-                                onChange={(e) => setDescription(e.target.value)}
-                            />
-                        </div>
-                        <div className="form-group m-1">
-                            <label>Image:</label>
-                            <input
-                                id='upload'
-                                type='file'
-                                className="form-control"
-                                onChange={(e) => setImageFile(e.target.files[0])}
-                            />
-                        </div>
-                    
+                    <div className="form-group m-1">
+                    { message ? <MessageBox message={ message } isSuccess={ isSuccess } /> : null }
+                    </div>
+                    <div className="form-group m-1">
+                        <label>Name:</label>
+                        <input
+                            type='text'
+                            className="form-control"
+                            onChange={(e) => setName(e.target.value)}
+                        />
+                    </div>
+                    <div className="form-group m-1">
+                        <label>Description:</label>
+                        <input
+                            type='text'
+                            className="form-control"
+                            onChange={(e) => setDescription(e.target.value)}
+                        />
+                    </div>
+                    <div className="form-group m-1">
+                        <label>Image:</label>
+                        <input
+                            id='upload'
+                            type='file'
+                            className="form-control"
+                            onChange={(e) => setImageFile(e.target.files[0])}
+                        />
+                    </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <button
+                        type="button"
+                        className="btn btn-secondary btn-block"
+                        onClick={handleClose}
+                    >
+                        Close
+                    </button>
+                    <button
                         type="submit"
-                        className="btn btn-secondary btn-block form-control"
+                        className="btn btn-success btn-block"
                     >
                         Submit
                     </button>

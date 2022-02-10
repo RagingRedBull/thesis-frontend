@@ -37,7 +37,7 @@ const EditMapView = () => {
     return (
         <div className="container-fluid edit-map-containter row m-0 p-0">
             <div className="side-navigation col-1 p-0 text-center">
-                <SideNav floors={ floors } setCurrentFloor={ setCurrentFloor } selFloorId={ currentFloor.id } setFloors={ setFloors } />
+                <SideNav floors={ floors } setCurrentFloor={ setCurrentFloor } currentFloor={ currentFloor } setFloors={ setFloors } />
             </div>
             <div className="col-11 p-0 m-0 row g-0">
                 <Header />
