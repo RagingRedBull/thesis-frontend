@@ -2,7 +2,7 @@ import "../../css/EditMapView.css"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import SideNav from "./SideNav"
-import Map from "../Map"
+import Map from "./Map"
 import Header from "../Header"
 
 
@@ -51,7 +51,7 @@ const EditMapView = () => {
             </div>
             <div className="col-11 p-0 m-0 row g-0">
                 <Header />
-                <Map image={ currentFloor.imageUrl } hasFloors={ floors.length > 0 } floorId={ currentFloor.id } />
+                <Map image={ currentFloor.imageUrl } hasFloors={ floors.length > 0 } floorId={ currentFloor.id } currentFloor={ currentFloor } />
             </div>
         </div>
     )

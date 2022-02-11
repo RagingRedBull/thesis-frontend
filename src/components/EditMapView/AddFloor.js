@@ -80,6 +80,9 @@ const AddFloor = ({show, setShow, floors, setFloors}) => {
         setShow(false)
         setMessage(null)
         setIsSuccess(false)
+        setName(null)
+        setDescription(null)
+        setImageFile(null)
     }
 
     return (
