@@ -69,6 +69,12 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
         }
     }
 
+    const handleSelectComp = (compartment) => {
+        setSelectedComp(compartment.id)
+        setCompName(compartment.name)
+        getDetectors(compartment.id)
+    }
+
     const getDetectors = (compId) => {
         axios
             .get(global.config.server.url + "/log/compartment/" + compId + "/")
@@ -121,10 +127,8 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
                                             stroke={ compartment.id === selectedComp ? "blue" : "black" }
                                             strokeWidth={ compartment.id === selectedComp ? 5 : 5 }
                                             opacity={ 0.5 }
-                                            onClick={ (e) => {
-                                                setSelectedComp(compartment.id)
-                                                setCompName(compartment.name)
-                                                getDetectors(compartment.id)
+                                            onClick={ () => {
+                                                handleSelectComp(compartment)
                                             }}
                                         />
                                     ))}
@@ -136,7 +140,7 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
                     <MessageBox message="Please add a floor." />
                 }
             </div>
-            <InfoPanel currentFloor={ currentFloor } compartments={ compartments } selectedComp={ selectedComp } />
+            <InfoPanel currentFloor={ currentFloor } compartments={ compartments } selectedComp={ selectedComp } setSelectedComp={ setSelectedComp } handleSelectComp={ handleSelectComp } />
         </div>
     )
 };
