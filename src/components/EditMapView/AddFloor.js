@@ -32,8 +32,8 @@ const AddFloor = ({show, setShow, floors, setFloors}) => {
             return null
         }
 
-        saveFloor(imageUrl)
-        setShow(false)
+        saveFloor(imageUrl)        
+        handleClose()
     }
 
     const saveImage = async () => {
@@ -66,6 +66,8 @@ const AddFloor = ({show, setShow, floors, setFloors}) => {
         axios.post( global.config.server.url + "/floor/new", floor)
             .then(response => { 
                 if (response.status === 200) {
+                    setMessage("Successfully Added Floor!")
+                    setIsSuccess(true)
                     setFloors([...floors, response.data])
                 } else {
                     setMessage("Error! Unable to add floor.")
@@ -77,6 +79,7 @@ const AddFloor = ({show, setShow, floors, setFloors}) => {
     const handleClose = () => {
         setShow(false)
         setMessage(null)
+        setIsSuccess(false)
     }
 
     return (

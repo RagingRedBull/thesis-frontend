@@ -60,7 +60,7 @@ const SideNav = ({ floors, setCurrentFloor, currentFloor, setFloors, handleDelet
                         </div>
                     ))}
                     <DeleteFloor show={ showDeleteFloor } setShow={ setShowDeleteFloor } floors={ floors } setFloors={ setFloors } floorId={ floorId } handleDelete={ handleDelete } />
-                    <EditFloor show={ showEditFloor } setShow={ setShowEditFloor } />
+                    <EditFloor show={ showEditFloor } setShow={ setShowEditFloor } currentFloor={ currentFloor } />
                 </div>
             </div>
         </>

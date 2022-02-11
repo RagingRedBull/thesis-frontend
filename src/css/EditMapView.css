@@ -33,3 +33,15 @@
 .floors-header {
     margin-left: 0.1px;
 }
+
+.img-url-label {
+    display: inline-block;
+}
+
+.floor-img-url {
+    display: inline-block;
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

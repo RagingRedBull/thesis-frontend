@@ -17,6 +17,7 @@ const EditFloor = ({show, setShow, currentFloor}) => {
                         <input
                             type='text'
                             className="form-control"
+                            value={ currentFloor.name }
                             onChange={(e) => console.log(e.target.value)}
                         />
                     </div>
@@ -25,11 +26,12 @@ const EditFloor = ({show, setShow, currentFloor}) => {
                         <input
                             type='text'
                             className="form-control"
+                            value={ currentFloor.description }
                             onChange={(e) => console.log(e.target.value)}
                         />
                     </div>
                     <div className="form-group m-1">
-                        <label>Image:</label>
+                        <label className='img-url-label'><span className='floor-img-url'>Image: { currentFloor.imageUrl }</span></label>
                         <input
                             id='upload'
                             type='file'
@@ -50,7 +52,7 @@ const EditFloor = ({show, setShow, currentFloor}) => {
                         type="submit"
                         className="btn btn-success btn-block"
                     >
-                        Submit
+                        Save
                     </button>
                 </Modal.Footer>
             </form>
