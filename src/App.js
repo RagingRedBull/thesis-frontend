@@ -30,9 +30,6 @@ function App() {
               <Link to="/floor" className="nav-link">
                 Floors
               </Link>
-              <Link to="/edit-map" className="nav-link">
-                Edit Map
-              </Link>
             </Nav>
             <Nav>
               <div className="container">
