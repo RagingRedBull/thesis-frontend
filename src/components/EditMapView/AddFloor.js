@@ -60,7 +60,8 @@ const AddFloor = ({show, setShow, floors, setFloors}) => {
         const floor = {
             "name": name,
             "description": description,
-            "imageUrl": imageUrl
+            "imageUrl": imageUrl,
+            "order": floors.length + 1 
         }
 
         axios.post( global.config.server.url + "/floor/new", floor)

@@ -1,13 +1,45 @@
+import { useEffect, useState } from 'react'
 import { Modal, ModalTitle } from 'react-bootstrap'
 
-const EditFloor = ({show, setShow, currentFloor}) => {
+const EditFloor = ({show, setShow, currentFloor, handleUpdate}) => {
+    const [name, setName] = useState('')
+    const [description, setDescription] = useState('')
+    const [imageUrl, setImageUrl] = useState('')
+
+    useEffect(() => {
+        if (currentFloor) {
+            setName(currentFloor.name)
+            setDescription(currentFloor.description)
+            setImageUrl(currentFloor.imageUrl)
+        }
+    }, [currentFloor])
+
     const handleClose = () => {
         setShow(false)
+        setName('')
+        setDescription('')
+        setImageUrl('')
+    }
+
+    const updateFloor = (e) => {
+        e.preventDefault()
+
+        const floor = {
+            id: currentFloor.id,
+            name: name,
+            description: description,
+            imageUrl: imageUrl,
+            order: currentFloor.order
+        }
+
+        console.log(floor)
+        handleUpdate(floor)
+        handleClose()
     }
 
     return (
         <Modal show={ show } onHide={ handleClose }>
-            <form>
+            <form onSubmit={ updateFloor }>
                 <Modal.Header closeButton>
                     <ModalTitle>Edit Floor</ModalTitle>
                 </Modal.Header>
@@ -17,8 +49,8 @@ const EditFloor = ({show, setShow, currentFloor}) => {
                         <input
                             type='text'
                             className="form-control"
-                            value={ currentFloor.name }
-                            onChange={(e) => console.log(e.target.value)}
+                            value={ name }
+                            onChange={(e) => setName(e.target.value)}
                         />
                     </div>
                     <div className="form-group m-1">
@@ -26,12 +58,12 @@ const EditFloor = ({show, setShow, currentFloor}) => {
                         <input
                             type='text'
                             className="form-control"
-                            value={ currentFloor.description }
-                            onChange={(e) => console.log(e.target.value)}
+                            value={ description }
+                            onChange={(e) => {setDescription(e.target.value)}}
                         />
                     </div>
                     <div className="form-group m-1">
-                        <label className='img-url-label'><span className='floor-img-url'>Image: { currentFloor.imageUrl }</span></label>
+                        <label className='img-url-label'><span className='floor-img-url'>Image: { imageUrl }</span></label>
                         <input
                             id='upload'
                             type='file'
@@ -44,7 +76,7 @@ const EditFloor = ({show, setShow, currentFloor}) => {
                     <button
                         type="button"
                         className="btn btn-secondary btn-block"
-                        onClick={handleClose}
+                        onClick={ handleClose }
                     >
                         Close
                     </button>

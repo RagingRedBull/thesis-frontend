@@ -112,8 +112,8 @@ const Map = ({ image, hasFloors, floorId }) => {
                                     { compartments.map((compartment) => (
                                         <Rect 
                                             key={ compartment.id }
-                                            x={ compartment.xKonva }
-                                            y={ compartment.yKonva }
+                                            x={ compartment.xkonva }
+                                            y={ compartment.ykonva }
                                             width={ compartment.widthKonva }
                                             height={ compartment.heightKonva }
                                             fill={ compartment.id === selectedComp ? "blue" : "white" }
