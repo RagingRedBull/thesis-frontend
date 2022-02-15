@@ -5,6 +5,7 @@ import useImage from 'use-image'
 import MessageBox from '../MessageBox'
 import SidePanel from '../SidePanel'
 import PropertiesPanel from './PropertiesPanel'
+import Rectangle from './Rectangle'
 
 const Map = ({ image, hasFloors, floorId, currentFloor }) => {
     const imageUrl = global.config.server.url + "/images/" + image
@@ -171,24 +172,32 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
                                         onTouchStart={ checkDeselect }
                                     />
                                     { compartments.map((compartment) => (
-                                        <Rect 
+                                        <Rectangle
                                             key={ compartment.id }
-                                            x={ compartment.xkonva }
-                                            y={ compartment.ykonva }
-                                            width={ compartment.widthKonva }
-                                            height={ compartment.heightKonva }
-                                            fill={ compartment.id === selectedComp ? "blue" : "white" }
-                                            stroke={ compartment.id === selectedComp ? "blue" : "black" }
-                                            strokeWidth={ compartment.id === selectedComp ? 5 : 5 }
-                                            opacity={ 0.5 }
-                                            draggable={ compartment.id === selectedComp ? true : false }
-                                            onClick={ () => {
-                                                handleSelectComp(compartment)
-                                            }}
-                                            onDragEnd={ (e) => {
-                                                updateCompartmentPos(e, compartment.id)
-                                            }}
+                                            compartment={ compartment }
+                                            isSelected={ compartment.id === selectedComp }
+                                            handleSelectComp={ handleSelectComp }
+                                            updateCompartmentPos={ updateCompartmentPos }
+                                            updateCompartmentSize={ updateCompartmentSize }
                                         />
+                                        // <Rect 
+                                        //     key={ compartment.id }
+                                        //     x={ compartment.xkonva }
+                                        //     y={ compartment.ykonva }
+                                        //     width={ compartment.widthKonva }
+                                        //     height={ compartment.heightKonva }
+                                        //     fill={ compartment.id === selectedComp ? "blue" : "white" }
+                                        //     stroke={ compartment.id === selectedComp ? "blue" : "black" }
+                                        //     strokeWidth={ compartment.id === selectedComp ? 5 : 5 }
+                                        //     opacity={ 0.5 }
+                                        //     draggable={ compartment.id === selectedComp ? true : false }
+                                        //     onClick={ () => {
+                                        //         handleSelectComp(compartment)
+                                        //     }}
+                                        //     onDragEnd={ (e) => {
+                                        //         updateCompartmentPos(e, compartment.id)
+                                        //     }}
+                                        // />
                                     ))}
                                 </Layer>
                             </Stage>

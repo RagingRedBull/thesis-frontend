@@ -1,9 +1,9 @@
 import { Fragment, useRef, useEffect } from "react"
 import { Rect, Transformer } from "react-konva"
 
-const Rectangle = ({ compartment, isSelected, onSelect, updateCompartmentPos, updateCompartmentSize }) => {
-    shapeRef = useRef()
-    trRef = useRef()
+const Rectangle = ({ compartment, isSelected, handleSelectComp, updateCompartmentPos, updateCompartmentSize }) => {
+    const shapeRef = useRef()
+    const trRef = useRef()
 
     useEffect(() => {
         if (isSelected) {
@@ -15,8 +15,8 @@ const Rectangle = ({ compartment, isSelected, onSelect, updateCompartmentPos, up
     return (
         <Fragment>
             <Rect 
-                onClick={ onSelect }
-                onTap={ onSelect }
+                onClick={ () => handleSelectComp(compartment) }
+                onTap={ () => handleSelectComp(compartment) }
                 ref= { shapeRef }
                 x={ compartment.xkonva }
                 y={ compartment.ykonva }
@@ -31,7 +31,7 @@ const Rectangle = ({ compartment, isSelected, onSelect, updateCompartmentPos, up
                     updateCompartmentPos(e, compartment.id)
                 }}
                 onTransformEnd={ (e) => {
-                    const node = shapreRef.current
+                    const node = shapeRef.current
                     const scaleX = node.scaleX()
                     const scaleY = node.scaleY()
 
@@ -42,9 +42,10 @@ const Rectangle = ({ compartment, isSelected, onSelect, updateCompartmentPos, up
                         xkonva: node.x(),
                         ykonva: node.y(),
                         widthKonva: Math.max(5, node.width() * scaleX),
-                        heightKonva: Math.max(node.height * scaleY)
+                        heightKonva: Math.max(node.height() * scaleY)
                     }
 
+                    console.log(newSize)
                     updateCompartmentSize(compartment.id, newSize)
                 }}
             />
