@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { Stage, Layer, Image, Rect } from 'react-konva'
+import { Stage, Layer, Image } from 'react-konva'
 import useImage from 'use-image'
 import MessageBox from '../MessageBox'
 import SidePanel from '../SidePanel'
@@ -20,7 +20,7 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
         const getCompartments = async () => {
             if (floorId) {
                 axios  
-                    .get(global.config.server.url + "/floor/" + floorId + "/compartment")
+                    .get(global.config.server.url + "/compartment", { params: { floorId: floorId } })
                     .then((response) => {
                         setCompartments(response.data)
                     })
@@ -87,58 +87,74 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
             })
     }
 
-    const addNewCompartment = () => {
+    const addNewCompartment = (compDetails) => {
         const newCompartment = {
-            id: (compartments[compartments.length - 1].id + 1),
-            depth: 0,
+            depth: compDetails.depth,
             heightKonva: 50,
-            width: 0,
+            width: compDetails.width,
             widthKonva: 50,
             xkonva: 0,
             ykonva: 0,
             floorId: floorId,
-            name: "New compartment"
+            name: compDetails.name,
+            xdimension: compDetails.xdimension,
+            ydimension: compDetails.ydimension
         }
-        // newCompartment.id will not be saved. It is just a temporary id until the compartments are saved.
 
-        console.log(compartments.length - 1)
-        console.log(compartments[compartments.length - 1].id)
-        console.log(newCompartment.id)
-
-        setCompartments([...compartments, newCompartment])
-        setSelectedComp(newCompartment.id)
+        axios
+            .post(global.config.server.url + "/compartment/new", newCompartment)
+            .then(response => {
+                if (response.status === 200) {
+                    setCompartments([...compartments, response.data])
+                    setSelectedComp(response.data.id)
+                }
+            })
+            .catch(error => {
+                alert("An error has occurred. Unable to add new compartment.")
+            })
     }
 
     // Updates position of compartment in the map
-    const updateCompartmentPos = (e, id) => {
-        console.log(e.target.x())
-        console.log(e.target.y())
-        console.log(id)
+    const updateCompartmentPos = (e, compartment) => {
+        const updComp = {
+            ...compartment,
+            xkonva: e.target.x(),
+            ykonva: e.target.y()
+        }
 
-        setCompartments(compartments.map((compartment) => compartment.id === id
-            ?
-                {...compartment, xkonva: e.target.x(), ykonva:  e.target.y()}
-            :
-                compartment
-        ))
+        axios
+            .put(global.config.server.url + "/compartment/update", updComp, { params: { floorId: floorId } })
+            .then(response => {
+                if (response.status === 200) {
+                    setCompartments(compartments.map((compartment) => compartment.id === response.data.id
+                        ?
+                            {...response.data}
+                        :
+                            compartment
+                    ))
+                }
+            })
+            .catch(error => {
+                alert("Unable to save new compartment position.")
+            })
     }
 
-    const updateCompartmentSize = (id, newSize) => {
-        console.log(newSize)
-        console.log(id)
-
-        setCompartments(compartments.map((compartment) => compartment.id === id
-            ?
-                {
-                    ...compartment,
-                    xkonva: newSize.xkonva,
-                    ykonva: newSize.ykonva,
-                    widthKonva: newSize.widthKonva,
-                    heightKonva: newSize.heightKonva
+    const updateCompartmentSize = (updComp) => {
+        axios
+            .put(global.config.server.url + "/compartment/update", updComp, { params: { floorId: floorId } })
+            .then(response => {
+                if (response.status === 200) {
+                    setCompartments(compartments.map((compartment) => compartment.id === response.data.id
+                        ?
+                            {...response.data}
+                        :
+                            compartment
+                    ))
                 }
-            :
-                compartment
-        ))
+            })
+            .catch(error => {
+                alert("Unable to save new compartment position.")
+            })
     }
     
     return (

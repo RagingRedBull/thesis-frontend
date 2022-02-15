@@ -28,7 +28,7 @@ const Rectangle = ({ compartment, isSelected, handleSelectComp, updateCompartmen
                 opacity={ 0.5 }
                 draggable={ isSelected ? true : false }
                 onDragEnd={ (e) => {
-                    updateCompartmentPos(e, compartment.id)
+                    updateCompartmentPos(e, compartment)
                 }}
                 onTransformEnd={ (e) => {
                     const node = shapeRef.current
@@ -38,15 +38,15 @@ const Rectangle = ({ compartment, isSelected, handleSelectComp, updateCompartmen
                     node.scaleX(1)
                     node.scaleY(1)
                     
-                    const newSize = {
+                    const updComp = {
+                        ...compartment,
                         xkonva: node.x(),
                         ykonva: node.y(),
                         widthKonva: Math.max(5, node.width() * scaleX),
                         heightKonva: Math.max(node.height() * scaleY)
                     }
 
-                    console.log(newSize)
-                    updateCompartmentSize(compartment.id, newSize)
+                    updateCompartmentSize(updComp)
                 }}
             />
             { isSelected && (

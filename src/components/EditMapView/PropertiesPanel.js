@@ -1,8 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenSquare } from '@fortawesome/free-solid-svg-icons'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import AddCompartment from './AddCompartment'
+import { useState } from 'react'
 
 const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelectComp, addNewCompartment}) => {
+    const [showAddCompartment, setShowAddCompartment] = useState(false)
 
     return (
         <div className='side_panel col-2 p-0 m-0'>
@@ -40,10 +43,11 @@ const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelect
                             <h6>{ compartment.name }</h6>
                         </div>
                     ))}
-                    <div className='compartment-add-btn row text-secondary m-0' style={{ cursor: "pointer" }} onClick={ addNewCompartment } >
+                    <div className='compartment-add-btn row text-secondary m-0' style={{ cursor: "pointer" }} onClick={ () => setShowAddCompartment(true) } >
                         <FontAwesomeIcon className='col-5 m-0 p-0' icon={ faPlus } />
                         <h6 className='col-7 m-0 p-0 ps-1'>Add a compartment</h6>
                     </div>
+                    <AddCompartment show={ showAddCompartment } setShow={ setShowAddCompartment } addNewCompartment={ addNewCompartment } />
                 </div>
             </div>
         </div>
