@@ -48,7 +48,6 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
         } else {
             setScale(newScale)
         }
-
     }
 
     const checkDeselect = (e) => {
@@ -114,32 +113,7 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
             })
     }
 
-    // Updates position of compartment in the map
-    const updateCompartmentPos = (e, compartment) => {
-        const updComp = {
-            ...compartment,
-            xkonva: e.target.x(),
-            ykonva: e.target.y()
-        }
-
-        axios
-            .put(global.config.server.url + "/compartment/update", updComp, { params: { floorId: floorId } })
-            .then(response => {
-                if (response.status === 200) {
-                    setCompartments(compartments.map((compartment) => compartment.id === response.data.id
-                        ?
-                            {...response.data}
-                        :
-                            compartment
-                    ))
-                }
-            })
-            .catch(error => {
-                alert("Unable to save new compartment position.")
-            })
-    }
-
-    const updateCompartmentSize = (updComp) => {
+    const updateCompartment = (updComp) => {
         axios
             .put(global.config.server.url + "/compartment/update", updComp, { params: { floorId: floorId } })
             .then(response => {
@@ -193,8 +167,7 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
                                             compartment={ compartment }
                                             isSelected={ compartment.id === selectedComp }
                                             handleSelectComp={ handleSelectComp }
-                                            updateCompartmentPos={ updateCompartmentPos }
-                                            updateCompartmentSize={ updateCompartmentSize }
+                                            updateCompartment={ updateCompartment }
                                         />
                                     ))}
                                 </Layer>
@@ -205,9 +178,9 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
                     <MessageBox message="Please add a floor." />
                 }
             </div>
-            <PropertiesPanel currentFloor={ currentFloor } compartments={ compartments } selectedComp={ selectedComp } setSelectedComp={ setSelectedComp } handleSelectComp={ handleSelectComp } addNewCompartment={ addNewCompartment } />
+            <PropertiesPanel currentFloor={ currentFloor } compartments={ compartments } selectedComp={ selectedComp } setSelectedComp={ setSelectedComp } handleSelectComp={ handleSelectComp } addNewCompartment={ addNewCompartment } updateCompartment={ updateCompartment } />
         </div>
     )
 };
 
-export default Map;
+export default Map

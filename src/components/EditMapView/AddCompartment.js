@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Modal } from 'react-bootstrap'
-import MessageBox from "../MessageBox";
+import MessageBox from "../MessageBox"
 
 const AddCompartment = ({show, setShow, addNewCompartment}) => {
     const [compDetails, setCompDetails] = useState({

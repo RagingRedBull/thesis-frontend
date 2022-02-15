@@ -1,7 +1,7 @@
 import { Fragment, useRef, useEffect } from "react"
 import { Rect, Transformer } from "react-konva"
 
-const Rectangle = ({ compartment, isSelected, handleSelectComp, updateCompartmentPos, updateCompartmentSize }) => {
+const Rectangle = ({ compartment, isSelected, handleSelectComp, updateCompartment }) => {
     const shapeRef = useRef()
     const trRef = useRef()
 
@@ -28,7 +28,13 @@ const Rectangle = ({ compartment, isSelected, handleSelectComp, updateCompartmen
                 opacity={ 0.5 }
                 draggable={ isSelected ? true : false }
                 onDragEnd={ (e) => {
-                    updateCompartmentPos(e, compartment)
+                    const updComp = {
+                        ...compartment,
+                        xkonva: e.target.x(),
+                        ykonva: e.target.y()
+                    }
+
+                    updateCompartment(updComp)
                 }}
                 onTransformEnd={ (e) => {
                     const node = shapeRef.current
@@ -46,7 +52,7 @@ const Rectangle = ({ compartment, isSelected, handleSelectComp, updateCompartmen
                         heightKonva: Math.max(node.height() * scaleY)
                     }
 
-                    updateCompartmentSize(updComp)
+                    updateCompartment(updComp)
                 }}
             />
             { isSelected && (

@@ -1,11 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenSquare } from '@fortawesome/free-solid-svg-icons'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import AddCompartment from './AddCompartment'
 import { useState } from 'react'
+import AddCompartment from './AddCompartment'
+import EditCompartment from './EditCompartment'
 
-const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelectComp, addNewCompartment}) => {
+const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelectComp, addNewCompartment, updateCompartment}) => {
     const [showAddCompartment, setShowAddCompartment] = useState(false)
+    const [showEditCompartment, setShowEditCompartment] = useState(false)
+    const [currentCompartment, setCurrentCompartment] = useState(null)
 
     return (
         <div className='side_panel col-2 p-0 m-0'>
@@ -36,11 +39,25 @@ const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelect
                 <div className='compartments-body ms-2'>
                     {compartments.map((compartment) => (
                         <div 
-                            key={ compartment.id } 
+                            key={ compartment.id }
+                            className="row"
                             style={compartment.id === selectedComp ? {backgroundColor: '#FFB140', cursor: "pointer"} : {cursor: "pointer"}}
-                            onClick={() => handleSelectComp(compartment)}
+                            onClick={() => {
+                                handleSelectComp(compartment)
+                                setCurrentCompartment(compartment)
+                            }}
                         >
-                            <h6>{ compartment.name }</h6>
+                            <div className='col'>
+                                <h6>{ compartment.name }</h6>
+                            </div>
+                            {compartment.id === selectedComp 
+                                ?
+                                    <div className='col'>
+                                        <FontAwesomeIcon icon={ faPenSquare } onClick={ () => setShowEditCompartment(true) } />
+                                    </div>
+                                :
+                                    null
+                            }
                         </div>
                     ))}
                     <div className='compartment-add-btn row text-secondary m-0' style={{ cursor: "pointer" }} onClick={ () => setShowAddCompartment(true) } >
@@ -48,6 +65,7 @@ const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelect
                         <h6 className='col-7 m-0 p-0 ps-1'>Add a compartment</h6>
                     </div>
                     <AddCompartment show={ showAddCompartment } setShow={ setShowAddCompartment } addNewCompartment={ addNewCompartment } />
+                    <EditCompartment show={ showEditCompartment } setShow={ setShowEditCompartment } compartment={ currentCompartment } updateCompartment={ updateCompartment } />
                 </div>
             </div>
         </div>

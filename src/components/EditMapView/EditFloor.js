@@ -12,7 +12,7 @@ const EditFloor = ({show, setShow, currentFloor, handleUpdate}) => {
             setDescription(currentFloor.description)
             setImageUrl(currentFloor.imageUrl)
         }
-    }, [currentFloor])
+    }, [show, currentFloor])
 
     const handleClose = () => {
         setShow(false)
