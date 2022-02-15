@@ -1,7 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenSquare } from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
-const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelectComp}) => {
+const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelectComp, addNewCompartment}) => {
 
     return (
         <div className='side_panel col-2 p-0 m-0'>
@@ -27,18 +28,23 @@ const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelect
                     <h6 style={ imgUrlStyle }>{ currentFloor.imageUrl }</h6>
                 </div>
             </div>
-            <div className='compartments'>
-                <h5 className='m-1'>Compartments</h5>
-                {compartments.map((compartment) => (
-                    <div 
-                        key={ compartment.id } 
-                        className="text-center" 
-                        style={compartment.id === selectedComp ? {backgroundColor: '#FFB140', cursor: "pointer"} : {cursor: "pointer"}}
-                        onClick={() => handleSelectComp(compartment)}
-                    >
-                        <h6>{ compartment.name }</h6>
+            <div className='compartments ms-2'>
+                <h5 className='compartments-header'>Compartments</h5>
+                <div className='compartments-body ms-2'>
+                    {compartments.map((compartment) => (
+                        <div 
+                            key={ compartment.id } 
+                            style={compartment.id === selectedComp ? {backgroundColor: '#FFB140', cursor: "pointer"} : {cursor: "pointer"}}
+                            onClick={() => handleSelectComp(compartment)}
+                        >
+                            <h6>{ compartment.name }</h6>
+                        </div>
+                    ))}
+                    <div className='compartment-add-btn row text-secondary m-0' style={{ cursor: "pointer" }} onClick={ addNewCompartment } >
+                        <FontAwesomeIcon className='col-5 m-0 p-0' icon={ faPlus } />
+                        <h6 className='col-7 m-0 p-0 ps-1'>Add a compartment</h6>
                     </div>
-                ))}
+                </div>
             </div>
         </div>
     )
