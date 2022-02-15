@@ -180,24 +180,6 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
                                             updateCompartmentPos={ updateCompartmentPos }
                                             updateCompartmentSize={ updateCompartmentSize }
                                         />
-                                        // <Rect 
-                                        //     key={ compartment.id }
-                                        //     x={ compartment.xkonva }
-                                        //     y={ compartment.ykonva }
-                                        //     width={ compartment.widthKonva }
-                                        //     height={ compartment.heightKonva }
-                                        //     fill={ compartment.id === selectedComp ? "blue" : "white" }
-                                        //     stroke={ compartment.id === selectedComp ? "blue" : "black" }
-                                        //     strokeWidth={ compartment.id === selectedComp ? 5 : 5 }
-                                        //     opacity={ 0.5 }
-                                        //     draggable={ compartment.id === selectedComp ? true : false }
-                                        //     onClick={ () => {
-                                        //         handleSelectComp(compartment)
-                                        //     }}
-                                        //     onDragEnd={ (e) => {
-                                        //         updateCompartmentPos(e, compartment.id)
-                                        //     }}
-                                        // />
                                     ))}
                                 </Layer>
                             </Stage>
