@@ -1,7 +1,6 @@
 import logo from '../../images/PRMTS-logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenSquare } from '@fortawesome/free-solid-svg-icons'
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 import AddFloor from './AddFloor'
@@ -12,13 +11,6 @@ const SideNav = ({ floors, setCurrentFloor, currentFloor, setFloors, handleDelet
     const [showAddFloor, setShowAddFloor] = useState(false)
     const [showDeleteFloor, setShowDeleteFloor] = useState(false)
     const [showEditFloor, setShowEditFloor] = useState(false)
-    const [floorId, setFloorId] = useState(null)
-
-    const deleteFloor = (id) => {
-        console.log(id)
-        setShowDeleteFloor(true)
-        setFloorId(id)
-    }
 
     return (
         <>
@@ -48,9 +40,6 @@ const SideNav = ({ floors, setCurrentFloor, currentFloor, setFloors, handleDelet
                                 className='btn btn-lg btn-floor w-100 h-5 rounded-0 m-0 row d-flex'
                             > 
                                 <div className='col p-0 m-0'>
-                                    <FontAwesomeIcon className='trash-icon' icon={ faTrashAlt } onClick={ () => deleteFloor(floor.id) } />
-                                </div>
-                                <div className='col p-0 m-0'>
                                     <p className='m-0'>{ floor.name }</p>
                                 </div>
                                 <div className='col p-0 m-0'>
@@ -59,8 +48,7 @@ const SideNav = ({ floors, setCurrentFloor, currentFloor, setFloors, handleDelet
                             </div>
                         </div>
                     ))}
-                    <DeleteFloor show={ showDeleteFloor } setShow={ setShowDeleteFloor } floors={ floors } setFloors={ setFloors } floorId={ floorId } handleDelete={ handleDelete } />
-                    <EditFloor show={ showEditFloor } setShow={ setShowEditFloor } currentFloor={ currentFloor } handleUpdate={ handleUpdate } />
+                    <EditFloor show={ showEditFloor } setShow={ setShowEditFloor } currentFloor={ currentFloor } handleUpdate={ handleUpdate } deleteFloor={ handleDelete } />
                 </div>
             </div>
         </>

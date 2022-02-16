@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Modal, ModalTitle } from 'react-bootstrap'
 
-const EditFloor = ({show, setShow, currentFloor, handleUpdate}) => {
+const EditFloor = ({show, setShow, currentFloor, handleUpdate, deleteFloor}) => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [imageUrl, setImageUrl] = useState('')
@@ -79,6 +79,16 @@ const EditFloor = ({show, setShow, currentFloor, handleUpdate}) => {
                         onClick={ handleClose }
                     >
                         Close
+                    </button>
+                    <button
+                        type="button"
+                        className="btn btn-danger btn-block"
+                        onClick={ () => {
+                            deleteFloor(currentFloor.id)
+                            handleClose()
+                        }}
+                    >
+                        Delete
                     </button>
                     <button
                         type="submit"

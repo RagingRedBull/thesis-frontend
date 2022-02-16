@@ -34,7 +34,7 @@ const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelect
                     <h6 style={ imgUrlStyle }>{ currentFloor.imageUrl }</h6>
                 </div>
             </div>
-            <div className='compartments ms-2'>
+            <div className='compartments m-1 me-3'>
                 <h5 className='compartments-header'>Compartments</h5>
                 <div className='compartments-body ms-2'>
                     {compartments.map((compartment) => (
@@ -47,12 +47,12 @@ const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelect
                                 setCurrentCompartment(compartment)
                             }}
                         >
-                            <div className='col'>
+                            <div className='col-8'>
                                 <h6>{ compartment.name }</h6>
                             </div>
                             {compartment.id === selectedComp 
                                 ?
-                                    <div className='col'>
+                                    <div className='col-4'>
                                         <FontAwesomeIcon icon={ faPenSquare } onClick={ () => setShowEditCompartment(true) } />
                                     </div>
                                 :
@@ -61,8 +61,8 @@ const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelect
                         </div>
                     ))}
                     <div className='compartment-add-btn row text-secondary m-0' style={{ cursor: "pointer" }} onClick={ () => setShowAddCompartment(true) } >
-                        <FontAwesomeIcon className='col-5 m-0 p-0' icon={ faPlus } />
-                        <h6 className='col-7 m-0 p-0 ps-1'>Add a compartment</h6>
+                        <FontAwesomeIcon className='col-auto m-0 p-0' icon={ faPlus } />
+                        <h6 className='col-auto m-0 p-0 ps-1'>Add a compartment</h6>
                     </div>
                     <AddCompartment show={ showAddCompartment } setShow={ setShowAddCompartment } addNewCompartment={ addNewCompartment } />
                     <EditCompartment show={ showEditCompartment } setShow={ setShowEditCompartment } compartment={ currentCompartment } updateCompartment={ updateCompartment } />
