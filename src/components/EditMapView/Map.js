@@ -130,6 +130,16 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
                 alert("Unable to save new compartment position.")
             })
     }
+
+    const deleteCompartment = async (compId) => {
+        const response = await axios.delete(global.config.server.url + "/compartment/" + compId + "/delete")
+
+        if (response.status === 200) {
+            setCompartments(compartments.filter((compartment) => compartment.id !== compId))
+        } else {
+            alert("Error failed to delete compartment")
+        }
+    }
     
     return (
         <div className='row m-0 p-0'>
@@ -177,8 +187,8 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
                     :
                     <MessageBox message="Please add a floor." />
                 }
-            </div>
-            <PropertiesPanel currentFloor={ currentFloor } compartments={ compartments } selectedComp={ selectedComp } setSelectedComp={ setSelectedComp } handleSelectComp={ handleSelectComp } addNewCompartment={ addNewCompartment } updateCompartment={ updateCompartment } />
+            </div> 
+            <PropertiesPanel currentFloor={ currentFloor } compartments={ compartments } selectedComp={ selectedComp } setSelectedComp={ setSelectedComp } handleSelectComp={ handleSelectComp } addNewCompartment={ addNewCompartment } updateCompartment={ updateCompartment } deleteCompartment={ deleteCompartment } />
         </div>
     )
 };

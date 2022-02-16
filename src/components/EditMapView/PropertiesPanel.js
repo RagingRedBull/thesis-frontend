@@ -5,7 +5,7 @@ import { useState } from 'react'
 import AddCompartment from './AddCompartment'
 import EditCompartment from './EditCompartment'
 
-const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelectComp, addNewCompartment, updateCompartment}) => {
+const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelectComp, addNewCompartment, updateCompartment, deleteCompartment}) => {
     const [showAddCompartment, setShowAddCompartment] = useState(false)
     const [showEditCompartment, setShowEditCompartment] = useState(false)
     const [currentCompartment, setCurrentCompartment] = useState(null)
@@ -65,7 +65,7 @@ const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelect
                         <h6 className='col-auto m-0 p-0 ps-1'>Add a compartment</h6>
                     </div>
                     <AddCompartment show={ showAddCompartment } setShow={ setShowAddCompartment } addNewCompartment={ addNewCompartment } />
-                    <EditCompartment show={ showEditCompartment } setShow={ setShowEditCompartment } compartment={ currentCompartment } updateCompartment={ updateCompartment } />
+                    <EditCompartment show={ showEditCompartment } setShow={ setShowEditCompartment } compartment={ currentCompartment } updateCompartment={ updateCompartment } deleteCompartment={ deleteCompartment } />
                 </div>
             </div>
         </div>

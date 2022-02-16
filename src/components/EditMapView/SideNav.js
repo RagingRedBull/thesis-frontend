@@ -4,12 +4,10 @@ import { faPenSquare } from '@fortawesome/free-solid-svg-icons'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 import AddFloor from './AddFloor'
-import DeleteFloor from './DeleteFloor'
 import EditFloor from './EditFloor'
 
 const SideNav = ({ floors, setCurrentFloor, currentFloor, setFloors, handleDelete, handleUpdate}) => {
     const [showAddFloor, setShowAddFloor] = useState(false)
-    const [showDeleteFloor, setShowDeleteFloor] = useState(false)
     const [showEditFloor, setShowEditFloor] = useState(false)
 
     return (

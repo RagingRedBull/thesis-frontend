@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Modal } from 'react-bootstrap'
 import MessageBox from "../MessageBox"
 
-const EditCompartment = ({show, setShow, compartment, updateCompartment}) => {
+const EditCompartment = ({show, setShow, compartment, updateCompartment, deleteCompartment}) => {
     const [name, setName] = useState("")
     const [xdimension, setXdimension] = useState(0)
     const [ydimension, setYdimension] = useState(0)
@@ -165,6 +165,16 @@ const EditCompartment = ({show, setShow, compartment, updateCompartment}) => {
                         onClick={ handleClose }
                     >
                         Close
+                    </button>
+                    <button
+                        type="button"
+                        className="btn btn-danger btn-block"
+                        onClick={ () => {
+                            deleteCompartment(compartment.id)
+                            handleClose() 
+                        }}
+                    >
+                        Delete
                     </button>
                     <button
                         type="submit"
