@@ -3,7 +3,7 @@ import { useState } from "react"
 import { Modal, ModalTitle } from "react-bootstrap";
 import MessageBox from "../MessageBox";
 
-const AddFloor = ({show, setShow, floors, setFloors}) => {
+const AddFloor = ({show, setShow, floors, setFloors, setCurrentFloor}) => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [imageFile, setImageFile] = useState()
@@ -61,7 +61,7 @@ const AddFloor = ({show, setShow, floors, setFloors}) => {
             "name": name,
             "description": description,
             "imageUrl": imageUrl,
-            "order": floors[floors.length - 1].order + 1 
+            "order": floors.length > 0 ? floors[floors.length - 1].order + 1 : 0 
         }
 
         axios.post( global.config.server.url + "/floor/new", floor)
@@ -70,6 +70,7 @@ const AddFloor = ({show, setShow, floors, setFloors}) => {
                     setMessage("Successfully Added Floor!")
                     setIsSuccess(true)
                     setFloors([...floors, response.data])
+                    setCurrentFloor(response.data)
                 } else {
                     setMessage("Error! Unable to add floor.")
                 }

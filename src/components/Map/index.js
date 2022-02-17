@@ -13,6 +13,7 @@ const Map = ({ image, hasFloors, floorId }) => {
     const [selectedComp, setSelectedComp] = useState(null)
     const [compName, setCompName] = useState(null)
     const [scale, setScale] = useState(1)
+    const [message, setMessage] = useState(null)
 
     useEffect(() => {
         const getCompartments = async () => {
@@ -23,7 +24,7 @@ const Map = ({ image, hasFloors, floorId }) => {
                         setCompartments(response.data)
                     })
                     .catch((err) => {
-                        console.log(err)
+                        setMessage("Please add a compartment.")
                     })
             }
         }
@@ -85,7 +86,7 @@ const Map = ({ image, hasFloors, floorId }) => {
             <div className='col-10 m-0 p-0 d-flex justify-content-center'>
                 { hasFloors ? 
                     <div className='m-5'>
-                        { compartments.length < 1 & hasFloors ?
+                        { message ?
                             <div className='' style={{ width: '1280px', position: 'absolute', zIndex: 1}}>
                                 <MessageBox message="Please add a compartment." />
                             </div>

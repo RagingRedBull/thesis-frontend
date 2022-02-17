@@ -46,14 +46,14 @@ const EditMapView = () => {
     }
 
     const handleUpdateFloor = async (updFloor) => {
-        const response = await axios.put(global.config.server.url + "/floor/" + updFloor.id + "/update", {
+        const response = await axios.put(global.config.server.url + "/floor/update", {
+            id: updFloor.id,
             name: updFloor.name,
             description: updFloor.description,
             imageUrl: updFloor.imageUrl,
             order: updFloor.order
         })
 
-        console.log(response)
         if (response.status === 200) {
             getFloors()
         }

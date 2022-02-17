@@ -32,7 +32,6 @@ const EditFloor = ({show, setShow, currentFloor, handleUpdate, deleteFloor}) => 
             order: currentFloor.order
         }
 
-        console.log(floor)
         handleUpdate(floor)
         handleClose()
     }
