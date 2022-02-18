@@ -5,10 +5,12 @@ import { useState } from 'react'
 import AddCompartment from './AddCompartment'
 import EditCompartment from './EditCompartment'
 
-const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelectComp, addNewCompartment, updateCompartment, deleteCompartment}) => {
+const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelectComp, addNewCompartment, updateCompartment, deleteCompartment, detectors, connectDetectorCompartmentId, disconnectDetectorCompartmentId}) => {
     const [showAddCompartment, setShowAddCompartment] = useState(false)
     const [showEditCompartment, setShowEditCompartment] = useState(false)
     const [currentCompartment, setCurrentCompartment] = useState(null)
+    const [isCompsSelected, setIsCompSelected] = useState(true)
+    const [isDetectorsSelected, setIsDetectsSelected] = useState(false)
 
     return (
         <div className='side_panel col-2 p-0 m-0'>
@@ -34,39 +36,93 @@ const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelect
                     <h6 style={ imgUrlStyle }>{ currentFloor.imageUrl }</h6>
                 </div>
             </div>
-            <div className='compartments m-1 me-3'>
-                <h5 className='compartments-header'>Compartments</h5>
-                <div className='compartments-body ms-2'>
-                    {compartments.map((compartment) => (
-                        <div 
-                            key={ compartment.id }
-                            className="row"
-                            style={compartment.id === selectedComp ? {backgroundColor: '#FFB140', cursor: "pointer"} : {cursor: "pointer"}}
-                            onClick={() => {
-                                handleSelectComp(compartment)
-                                setCurrentCompartment(compartment)
-                            }}
-                        >
-                            <div className='col-8'>
-                                <h6>{ compartment.name }</h6>
-                            </div>
-                            {compartment.id === selectedComp 
-                                ?
-                                    <div className='col-4'>
-                                        <FontAwesomeIcon icon={ faPenSquare } onClick={ () => setShowEditCompartment(true) } />
-                                    </div>
-                                :
-                                    null
-                            }
-                        </div>
-                    ))}
-                    <div className='compartment-add-btn row text-secondary m-0' style={{ cursor: "pointer" }} onClick={ () => setShowAddCompartment(true) } >
-                        <FontAwesomeIcon className='col-auto m-0 p-0' icon={ faPlus } />
-                        <h6 className='col-auto m-0 p-0 ps-1'>Add a compartment</h6>
-                    </div>
-                    <AddCompartment show={ showAddCompartment } setShow={ setShowAddCompartment } addNewCompartment={ addNewCompartment } />
-                    <EditCompartment show={ showEditCompartment } setShow={ setShowEditCompartment } compartment={ currentCompartment } updateCompartment={ updateCompartment } deleteCompartment={ deleteCompartment } />
+            <div className='row m-0 w-100 border-bottom border-dark'>
+                <div 
+                    className='col p-0'
+                    style={ isCompsSelected ? {backgroundColor: '#FFB140', cursor: "default"} : {cursor: "pointer"}}
+                    onClick={ () => {
+                        setIsCompSelected(true)
+                        setIsDetectsSelected(false)
+                    }}
+                >
+                    <h5 className='content-title mt-2 ps-1'>Compartments</h5>
                 </div>
+                <div 
+                    className='col p-0'
+                    style={ isDetectorsSelected ? {backgroundColor: '#FFB140', cursor: "default"} : {cursor: "pointer"}}
+                    onClick={ () => {
+                        setIsCompSelected(false)
+                        setIsDetectsSelected(true)
+                    }}
+                >
+                    <h5 className='content-title mt-2 ps-1'>Detectors</h5>
+                </div>
+            </div>
+            <div className='content'>
+                { isCompsSelected &&
+                    <>
+                        {compartments.map((compartment) => (
+                            <div 
+                                key={ compartment.id }
+                                className="row m-0"
+                                style={compartment.id === selectedComp ? {backgroundColor: '#FFB140', cursor: "pointer"} : {cursor: "pointer"}}
+                                onClick={() => {
+                                    handleSelectComp(compartment)
+                                    setCurrentCompartment(compartment)
+                                }}
+                            >
+                                <div className='col-8 pt-1'>
+                                    <h6>{ compartment.name }</h6>
+                                </div>
+                                {compartment.id === selectedComp 
+                                    ?
+                                        <div className='col-4 pt-1'>
+                                            <FontAwesomeIcon icon={ faPenSquare } onClick={ () => setShowEditCompartment(true) } />
+                                        </div>
+                                    :
+                                        null
+                                }
+                            </div>
+                        ))}
+                        <div className='compartment-add-btn row text-secondary m-0 ps-1' style={{ cursor: "pointer" }} onClick={ () => setShowAddCompartment(true) } >
+                            <FontAwesomeIcon className='col-auto m-0 p-0' icon={ faPlus } />
+                            <h6 className='col-auto m-0 p-0 ps-1'>Add a compartment</h6>
+                        </div>
+                    </>
+                }
+                { isDetectorsSelected &&
+                    <>
+                        { detectors.map((detector) => detector.compartmentId && (
+                            <div key={ detector.macAddress } className="ps-3">
+                                <h6 style={{color: "green"}}>{ detector.name ? detector.name : detector.macAddress }</h6>
+                            </div>
+                        ))}
+                        <div className='ps-1' style={{backgroundColor: "grey"}}>
+                            <h5>Unassigned Detectors</h5>
+                        </div>
+                        { detectors.map((detector) => detector.compartmentId === null && (
+                            <div key={ detector.macAddress } className="ps-3">
+                                <h6>{ detector.name ? detector.name : detector.macAddress }</h6>
+                            </div>
+                        ))}
+                        <div className='detector-add-btn row text-secondary m-0 ps-1' style={{ cursor: "pointer" }} >
+                            <FontAwesomeIcon className='col-auto m-0 p-0' icon={ faPlus } />
+                            <h6 className='col-auto m-0 p-0 ps-1'>Add a detector</h6>
+                        </div>
+                    </>
+                }
+                
+                <AddCompartment show={ showAddCompartment } setShow={ setShowAddCompartment } addNewCompartment={ addNewCompartment } />
+                <EditCompartment 
+                    show={ showEditCompartment } 
+                    setShow={ setShowEditCompartment } 
+                    compartment={ currentCompartment } 
+                    updateCompartment={ updateCompartment } 
+                    deleteCompartment={ deleteCompartment } 
+                    detectors={ detectors } 
+                    connectDetectorCompartmentId={ connectDetectorCompartmentId }
+                    disconnectDetectorCompartmentId={ disconnectDetectorCompartmentId }
+                />
             </div>
         </div>
     )

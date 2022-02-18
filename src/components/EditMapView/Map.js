@@ -12,6 +12,7 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
     const [map] = useImage(imageUrl)
     const [compartments, setCompartments] = useState([])
     const [detectors, setDetectors] = useState([])
+    const [compDetectors, setCompDetectors] = useState([])
     const [selectedComp, setSelectedComp] = useState(null)
     const [compName, setCompName] = useState(null)
     const [scale, setScale] = useState(1)
@@ -30,7 +31,19 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
             }
         }
 
+        const getDetectors = async () => {
+            axios
+                .get(global.config.server.url + "/detector/all", { params: { pageNumber: 0, pageSize: 10}})
+                .then((response) => {
+                    setDetectors(response.data.content)
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }
+
         getCompartments()
+        getDetectors()
         setSelectedComp(null)
     }, [floorId])
 
@@ -72,14 +85,14 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
     const handleSelectComp = (compartment) => {
         setSelectedComp(compartment.id)
         setCompName(compartment.name)
-        getDetectors(compartment.id)
+        getCompDetectors(compartment.id)
     }
 
-    const getDetectors = (compId) => {
+    const getCompDetectors = (compId) => {
         axios
             .get(global.config.server.url + "/log/compartment/" + compId + "/")
             .then((response) => {
-                setDetectors(response.data)
+                setCompDetectors(response.data)
             })
             .catch((err) => {
                 console.log(err)
@@ -131,6 +144,47 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
             })
     }
 
+    const connectDetectorCompartmentId = (detectorId, compId) => {
+        axios
+            .put(global.config.server.url + "/detector/update/compartment", 
+                {
+                    detectorUnitId: detectorId,
+                    compartmentId: compId,
+                }
+            )
+            .then(response => {
+                if (response.status === 200) {
+                    setDetectors(detectors.map((detector) => detector.macAddress === detectorId
+                        ?
+                            {...response.data}
+                        :
+                            detector
+                ))
+                }
+            })
+        
+    }
+
+    const disconnectDetectorCompartmentId = (detectorId) => {
+        axios
+            .put(global.config.server.url + "/detector/update/compartment", 
+                {
+                    detectorUnitId: detectorId,
+                    compartmentId: null,
+                }
+            )
+            .then(response => {
+                if (response.status === 200) {
+                    setDetectors(detectors.map((detector) => detector.macAddress === detectorId
+                        ?
+                            {...response.data}
+                        :
+                            detector
+                ))
+                }
+            })
+    }
+
     const deleteCompartment = async (compId) => {
         const response = await axios.delete(global.config.server.url + "/compartment/" + compId + "/delete")
 
@@ -143,7 +197,7 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
     
     return (
         <div className='row m-0 p-0'>
-            <SidePanel hidden={ isSelected() } setSelectedComp={ setSelectedComp } detectors={ detectors } compName={ compName } />
+            <SidePanel hidden={ isSelected() } setSelectedComp={ setSelectedComp } detectors={ compDetectors } compName={ compName } />
             <div className={isSelected() ? 'col-8 m-0 p-0 d-flex justify-content-center' : 'col-10 m-0 p-0 d-flex justify-content-center'}>
                 { hasFloors ? 
                     <div className='m-5'>
@@ -188,7 +242,19 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
                     <MessageBox message="Please add a floor." />
                 }
             </div> 
-            <PropertiesPanel currentFloor={ currentFloor } compartments={ compartments } selectedComp={ selectedComp } setSelectedComp={ setSelectedComp } handleSelectComp={ handleSelectComp } addNewCompartment={ addNewCompartment } updateCompartment={ updateCompartment } deleteCompartment={ deleteCompartment } />
+            <PropertiesPanel 
+                currentFloor={ currentFloor } 
+                compartments={ compartments } 
+                selectedComp={ selectedComp } 
+                setSelectedComp={ setSelectedComp } 
+                handleSelectComp={ handleSelectComp } 
+                addNewCompartment={ addNewCompartment } 
+                updateCompartment={ updateCompartment } 
+                deleteCompartment={ deleteCompartment } 
+                detectors={ detectors } 
+                connectDetectorCompartmentId={ connectDetectorCompartmentId }
+                disconnectDetectorCompartmentId={ disconnectDetectorCompartmentId }
+            />
         </div>
     )
 };

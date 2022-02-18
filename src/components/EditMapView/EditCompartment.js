@@ -1,25 +1,45 @@
 import { useEffect, useState } from 'react'
-import { Modal } from 'react-bootstrap'
+import { Modal, OverlayTrigger, Popover } from 'react-bootstrap'
 import MessageBox from "../MessageBox"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
-const EditCompartment = ({show, setShow, compartment, updateCompartment, deleteCompartment}) => {
+const EditCompartment = ({show, setShow, compartment, updateCompartment, deleteCompartment, detectors, connectDetectorCompartmentId, disconnectDetectorCompartmentId}) => {
     const [name, setName] = useState("")
     const [xdimension, setXdimension] = useState(0)
     const [ydimension, setYdimension] = useState(0)
     const [width, setWidth] = useState(0)
     const [depth, setDepth] = useState(0)
     const [message, setMessage] = useState()
+    const [compDetectors, setCompDetectors] = useState([])
+    const [removedCompDetectors, setRemovedCompDetectors] = useState([])
+    const [unassignedDetectors, setUnassignedDetectors] = useState([])
 
     useEffect(() => {
+        setRemovedCompDetectors([])
+
         if (compartment) {
             setName(compartment.name)
             setXdimension(compartment.xdimension)
             setYdimension(compartment.ydimension)
             setWidth(compartment.width)
             setDepth(compartment.depth)
+
+            if (detectors) {
+                setCompDetectors(detectors.map(
+                    (detector) => detector.compartmentId === compartment.id &&
+                        {...detector}
+                ).filter((detector) => detector !== false))
+
+                setUnassignedDetectors(detectors.map(
+                    (detector) => detector.compartmentId === null &&
+                        {...detector}
+                ).filter((detector) => detector !== false))
+            }
         }
         
-    }, [show, compartment])
+    }, [show, compartment, detectors])
 
     const handleClose = () => {
         setName("")
@@ -29,6 +49,8 @@ const EditCompartment = ({show, setShow, compartment, updateCompartment, deleteC
         setDepth(0)
         setShow(false)
         setMessage(null)
+        setCompDetectors([])
+        setRemovedCompDetectors([])
     }
 
     const handleUpdate = () => {
@@ -40,8 +62,19 @@ const EditCompartment = ({show, setShow, compartment, updateCompartment, deleteC
             width: width,
             depth: depth,
         }
-
         updateCompartment(updComp)
+
+        if (compDetectors.length > 0) {
+            compDetectors.forEach((detector) => {
+                connectDetectorCompartmentId(detector.macAddress, compartment.id)
+            })
+        }
+
+        if (removedCompDetectors.length > 0) {
+            removedCompDetectors.forEach((detector) => {
+                disconnectDetectorCompartmentId(detector.macAddress)
+            })
+        }
     }
 
     const submit = (e) => {
@@ -69,6 +102,32 @@ const EditCompartment = ({show, setShow, compartment, updateCompartment, deleteC
 
         handleUpdate()
         handleClose()
+    }
+
+    const detectorsPopover = (
+        <Popover>
+            <Popover.Body className='p-0'>
+                { unassignedDetectors.map((detector) => detector.compartmentId === null && (
+                    <div 
+                        className='card rounded-0 p-1' 
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                            setCompDetectors([...compDetectors, {...detector, compartmentId: compartment.id}])
+                            setUnassignedDetectors(unassignedDetectors.filter((unassDetector) => unassDetector.macAddress !== detector.macAddress))
+                            document.body.click()
+                        }}
+                    >
+                        {detector.name ? detector.name : detector.macAddress}
+                    </div>
+                ))}
+            </Popover.Body>
+        </Popover>
+    )
+
+    const removeDetector = (detector) => {
+        setCompDetectors(compDetectors.filter((compDetector) => compDetector.macAddress !== detector.macAddress))
+        setUnassignedDetectors([...unassignedDetectors, {...detector, compartmentId: null}])
+        setRemovedCompDetectors([...removedCompDetectors, detector])
     }
 
     return (
@@ -156,6 +215,37 @@ const EditCompartment = ({show, setShow, compartment, updateCompartment, deleteC
                                 />
                             </div>
                         </div>
+                    </div>
+                    <div className='detectors'>
+                        <table className='table'>
+                            <thead>
+                                <tr>
+                                    <th scope='col'>#</th>
+                                    <th scope='col'>Detectors</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                { compartment && compDetectors.map((detector, index) => detector.compartmentId === compartment.id && (
+                                    <tr key={ index }>
+                                        <th scope='row'>{ index }</th>
+                                        <td>{ detector.name ? detector.name : detector.macAddress}</td>
+                                        <td>
+                                            <FontAwesomeIcon icon={ faTrash } onClick={() => removeDetector(detector)} style={{ cursor: "pointer", color: "red" }} />
+                                        </td>
+                                    </tr>
+                                ))}
+                                <tr>
+                                    <th scope='row' colSpan={3}>
+                                        <OverlayTrigger trigger='click' placement='bottom' overlay={ detectorsPopover } rootClose={ true }>
+                                            <div className='detector-add-btn row text-secondary m-0 ps-1' style={{ cursor: "pointer" }}>
+                                                <FontAwesomeIcon className='col-auto m-0 p-0' icon={ faPlus } />
+                                                <h6 className='col-auto m-0 p-0 ps-1'>Add a detector</h6>
+                                            </div>
+                                        </OverlayTrigger>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
