@@ -5,7 +5,7 @@ import UserService from "./services/UserService";
 import DetectorLog from './components/DetectorLog';
 import MapView from './components/MapView';
 import AddFloor from './components/AddFloor';
-import Login from './components/Login';
+//import Login from './components/Login';
 import ChangePassword from './components/ChangePassword';
 import 'bootstrap/dist/js/bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
