@@ -19,9 +19,19 @@ const Map = ({ image, hasFloors, floorId }) => {
         const getCompartments = async () => {
             if (floorId) {
                 axios  
-                    .get(global.config.server.url + "/floor/" + floorId + "/compartment")
+                    .get(global.config.server.url + "/compartment", {
+                        params: {
+                            floorId: floorId 
+                        }
+                    })
                     .then((response) => {
-                        setCompartments(response.data)
+                        if (response.data.length < 1) {
+                            setMessage("Please add a compartment.")
+                        } else {
+                            setMessage(null)
+                            setCompartments(response.data)
+                        }
+                        
                     })
                     .catch((err) => {
                         setMessage("Please add a compartment.")
@@ -71,7 +81,7 @@ const Map = ({ image, hasFloors, floorId }) => {
 
     const getDetectors = (compId) => {
         axios
-            .get(global.config.server.url + "/log/compartment/" + compId + "/")
+            .get(global.config.server.url + "/detector/all", { params: { pageNumber: 0, pageSize: 10}})
             .then((response) => {
                 setDetectors(response.data)
             })

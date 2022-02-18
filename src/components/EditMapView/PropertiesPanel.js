@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenSquare } from '@fortawesome/free-solid-svg-icons'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import AddCompartment from './AddCompartment'
 import EditCompartment from './EditCompartment'
 
@@ -11,6 +11,14 @@ const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelect
     const [currentCompartment, setCurrentCompartment] = useState(null)
     const [isCompsSelected, setIsCompSelected] = useState(true)
     const [isDetectorsSelected, setIsDetectsSelected] = useState(false)
+
+    useEffect(() => {
+        if (selectedComp) {
+            setIsCompSelected(true)
+            setIsDetectsSelected(false)
+        }
+        
+    }, [selectedComp])
 
     return (
         <div className='side_panel col-2 p-0 m-0'>

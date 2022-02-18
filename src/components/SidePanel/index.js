@@ -4,7 +4,7 @@ import React from 'react'
 import { Collapse } from 'react-bootstrap'
 import MessageBox from '../MessageBox'
 
-const index = ({ hidden, setSelectedComp, detectors, compName }) => {
+const index = ({ hidden, setSelectedComp, detectors, compName, compId }) => {
 
     return (
         <Collapse in={ hidden } dimension="width">
@@ -18,13 +18,13 @@ const index = ({ hidden, setSelectedComp, detectors, compName }) => {
                     </div>
                 </div>
                 { detectors.length > 0 ? 
-                    detectors.map((detector) => (
-                        <div key={ detector.id }>
+                    detectors.map((detector) => detector.compartmentId === compId && (
+                        <div key={ detector.macAddress }>
                             <div className='side_pan_sub_head' style={{backgroundColor: "#000000"}}>
                                 <h5 className='m-0 ms-3' style={{color: "white"}}>{ detector.macAddress }</h5>
                             </div>
                             
-                            { detector.sensorLogSet.length > 0 ?
+                            {/* { detector.sensorLogSet.length > 0 ?
                                 detector.sensorLogSet.map((sensor) => (
                                     <div key={ sensor.id } className='side_pan_content row ms-3'>
                                         <div className='col-7'>{ sensor.name }:</div>
@@ -33,9 +33,9 @@ const index = ({ hidden, setSelectedComp, detectors, compName }) => {
                                 ))
                                 :
                                 <div className='m-4'>
-                                    <MessageBox message={ "No detectors detected." } />
+                                    <MessageBox message={ "No sensors detected." } />
                                 </div>
-                            }
+                            } */}
                         </div>
                     ))
                     :

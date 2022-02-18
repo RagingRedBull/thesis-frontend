@@ -12,7 +12,6 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
     const [map] = useImage(imageUrl)
     const [compartments, setCompartments] = useState([])
     const [detectors, setDetectors] = useState([])
-    const [compDetectors, setCompDetectors] = useState([])
     const [selectedComp, setSelectedComp] = useState(null)
     const [compName, setCompName] = useState(null)
     const [scale, setScale] = useState(1)
@@ -85,18 +84,6 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
     const handleSelectComp = (compartment) => {
         setSelectedComp(compartment.id)
         setCompName(compartment.name)
-        getCompDetectors(compartment.id)
-    }
-
-    const getCompDetectors = (compId) => {
-        axios
-            .get(global.config.server.url + "/log/compartment/" + compId + "/")
-            .then((response) => {
-                setCompDetectors(response.data)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
     }
 
     const addNewCompartment = (compDetails) => {
@@ -197,7 +184,7 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
     
     return (
         <div className='row m-0 p-0'>
-            <SidePanel hidden={ isSelected() } setSelectedComp={ setSelectedComp } detectors={ compDetectors } compName={ compName } />
+            <SidePanel hidden={ isSelected() } setSelectedComp={ setSelectedComp } detectors={ detectors } compName={ compName } compId={ selectedComp } />
             <div className={isSelected() ? 'col-8 m-0 p-0 d-flex justify-content-center' : 'col-10 m-0 p-0 d-flex justify-content-center'}>
                 { hasFloors ? 
                     <div className='m-5'>

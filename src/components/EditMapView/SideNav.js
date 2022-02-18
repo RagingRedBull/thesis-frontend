@@ -75,21 +75,6 @@ const SideNav = ({ floors, setCurrentFloor, currentFloor, setFloors, handleDelet
                             <SortableItem key={ floor.id } index={ index } floor={ floor } currentFloor={ currentFloor } setCurrentFloor={ setCurrentFloor } />
                         ))}
                     </SortableContainer>
-                    {/* { floors.map((floor) => (
-                            <div key={ floor.id } className='mt-2' style={currentFloor.id === floor.id ? {backgroundColor: '#FFB140'} : null}> 
-                                <div 
-                                    onClick={ () => setCurrentFloor(floor) }
-                                    className='btn btn-lg btn-floor w-100 h-5 rounded-0 m-0 row d-flex'
-                                > 
-                                    <div className='col p-0 m-0'>
-                                        <p className='m-0'>{ floor.name }</p>
-                                    </div>
-                                    <div className='col p-0 m-0'>
-                                        <FontAwesomeIcon icon={ faPenSquare } hidden={currentFloor.id !== floor.id} onClick={ () => setShowEditFloor(true) } />
-                                    </div>
-                                </div>
-                            </div>
-                        ))} */}
                     <EditFloor show={ showEditFloor } setShow={ setShowEditFloor } currentFloor={ currentFloor } handleUpdate={ handleUpdate } deleteFloor={ handleDelete } />
                 </div>
             </div>
