@@ -34,25 +34,6 @@ function App() {
                 Add Floor
               </Link>
             </Nav>
-            <Nav>
-              <div className="container">
-                {!UserService.isLoggedIn() ? (
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => UserService.doLogin()}
-                  >
-                    Login
-                  </button>
-                ) : (
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => UserService.doLogout()}
-                  >
-                    Logout
-                  </button>
-                )}
-              </div>
-            </Nav>
           </Container>
         </Navbar>
         <Routes>
