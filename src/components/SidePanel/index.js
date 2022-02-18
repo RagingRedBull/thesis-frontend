@@ -8,7 +8,7 @@ const index = ({ hidden, setSelectedComp, detectors, compName, compId }) => {
 
     return (
         <Collapse in={ hidden } dimension="width">
-            <div className='side_panel col-2 p-0 m-0 border'>
+            <div className='side_panel col-2 p-0 m-0 border' style={{zIndex: "1"}}>
                 <div className='side_pan_head row m-1'>
                     <div className='col-10'>
                         <h5>{ compName ? compName : "Compartment Name" }</h5>
