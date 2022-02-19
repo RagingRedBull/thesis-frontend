@@ -22,7 +22,6 @@ const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelect
                 axios  
                     .get(global.config.server.url + "/floor/" + currentFloor.id + "/detectors")
                     .then((response) => {
-                        console.log(response.data)
                         setFloorDetectors(response.data)
                     })
                     .catch((err) => {
