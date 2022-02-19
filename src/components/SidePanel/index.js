@@ -1,10 +1,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import React from 'react'
+import { useEffect, useState } from 'react'
 import { Collapse } from 'react-bootstrap'
 import MessageBox from '../MessageBox'
 
-const index = ({ hidden, setSelectedComp, detectors, compName, compId }) => {
+const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => {
+    const [compDetectors, setCompDetectors] = useState([])
+
+    useEffect(() => {
+        if (!!(detectors)) {
+            setCompDetectors(detectors.map((detector) => detector.compartmentId === compId && {...detector}).filter((detector) => detector !== false))
+        }
+    }, [detectors, compId])
 
     return (
         <Collapse in={ hidden } dimension="width">
@@ -17,8 +24,8 @@ const index = ({ hidden, setSelectedComp, detectors, compName, compId }) => {
                         <FontAwesomeIcon icon={ faTimes } onClick={ () => { setSelectedComp(null) } } style={{cursor: "pointer"}} />
                     </div>
                 </div>
-                { !!(detectors) ? 
-                    detectors.map((detector) => detector.compartmentId === compId && (
+                { compDetectors.length > 0 ? 
+                    compDetectors.map((detector) => (
                         <div key={ detector.macAddress }>
                             <div className='side_pan_sub_head' style={{backgroundColor: "#000000"}}>
                                 <h5 className='m-0 ms-3' style={{color: "white"}}>{ detector.macAddress }</h5>
@@ -48,4 +55,4 @@ const index = ({ hidden, setSelectedComp, detectors, compName, compId }) => {
     )
 }
 
-export default index
+export default SidePanel
