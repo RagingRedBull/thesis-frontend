@@ -4,21 +4,41 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react'
 import AddCompartment from './AddCompartment'
 import EditCompartment from './EditCompartment'
+import AddDetector from './AddDetector'
+import axios from 'axios'
 
 const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelectComp, addNewCompartment, updateCompartment, deleteCompartment, detectors, connectDetectorCompartmentId, disconnectDetectorCompartmentId}) => {
     const [showAddCompartment, setShowAddCompartment] = useState(false)
     const [showEditCompartment, setShowEditCompartment] = useState(false)
+    const [showAddDetector, setShowAddDetector] = useState(false)
     const [currentCompartment, setCurrentCompartment] = useState(null)
     const [isCompsSelected, setIsCompSelected] = useState(true)
     const [isDetectorsSelected, setIsDetectsSelected] = useState(false)
+    const [floorDetectors, setFloorDetectors] = useState([])
 
     useEffect(() => {
+        const getFloorDetectors = async () => {
+            if (currentFloor) {
+                axios  
+                    .get(global.config.server.url + "/floor/" + currentFloor.id + "/detectors")
+                    .then((response) => {
+                        console.log(response.data)
+                        setFloorDetectors(response.data)
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+            }
+        }
+
         if (selectedComp) {
             setIsCompSelected(true)
             setIsDetectsSelected(false)
         }
+
+        getFloorDetectors()
         
-    }, [selectedComp])
+    }, [selectedComp, currentFloor])
 
     return (
         <div className='side_panel col-2 p-0 m-0'>
@@ -100,22 +120,26 @@ const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelect
                 }
                 { isDetectorsSelected &&
                     <>
-                        { detectors.map((detector) => detector.compartmentId && (
-                            <div key={ detector.macAddress } className="ps-3">
-                                <h6 style={{color: "green"}}>{ detector.name ? detector.name : detector.macAddress }</h6>
-                            </div>
-                        ))}
+                        <div className='overflow-auto' style={{height: "200px"}}>
+                            { floorDetectors.map((detector) => (
+                                <div key={ detector.macAddress } className="ps-3">
+                                    <h6 style={{color: "green"}}>{ detector.name ? detector.name : detector.macAddress }</h6>
+                                </div>
+                            ))}
+                        </div>
                         <div className='ps-1' style={{backgroundColor: "grey"}}>
                             <h5>Unassigned Detectors</h5>
                         </div>
-                        { detectors.map((detector) => detector.compartmentId === null && (
-                            <div key={ detector.macAddress } className="ps-3">
-                                <h6>{ detector.name ? detector.name : detector.macAddress }</h6>
+                        <div className='overflow-auto' style={{height: "200px"}}>
+                            { detectors.map((detector) => detector.compartmentId === null && (
+                                <div key={ detector.macAddress } className="ps-3">
+                                    <h6>{ detector.name ? detector.name : detector.macAddress }</h6>
+                                </div>
+                            ))}
+                            <div className='detector-add-btn row text-secondary m-0 ps-1' style={{ cursor: "pointer" }} onClick={ () => setShowAddDetector(true)} >
+                                <FontAwesomeIcon className='col-auto m-0 p-0' icon={ faPlus } />
+                                <h6 className='col-auto m-0 p-0 ps-1'>Add a detector</h6>
                             </div>
-                        ))}
-                        <div className='detector-add-btn row text-secondary m-0 ps-1' style={{ cursor: "pointer" }} >
-                            <FontAwesomeIcon className='col-auto m-0 p-0' icon={ faPlus } />
-                            <h6 className='col-auto m-0 p-0 ps-1'>Add a detector</h6>
                         </div>
                     </>
                 }
@@ -130,6 +154,10 @@ const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelect
                     detectors={ detectors } 
                     connectDetectorCompartmentId={ connectDetectorCompartmentId }
                     disconnectDetectorCompartmentId={ disconnectDetectorCompartmentId }
+                />
+                <AddDetector 
+                    show={ showAddDetector }
+                    setShow={ setShowAddDetector }
                 />
             </div>
         </div>
