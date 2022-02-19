@@ -10,7 +10,7 @@ import EditFloor from './EditFloor'
 import axios from "axios"
 import DragHandle from './DragHandle'
 
-const SortableItem = sortableElement(({floor, currentFloor, setCurrentFloor}) => (
+const SortableItem = sortableElement(({floor, currentFloor, setCurrentFloor, setShowEditFloor}) => (
   <div
     className='btn btn-lg btn-floor w-100 h-5 rounded-0 m-0 row d-flex'
     style={ currentFloor.id === floor.id ? {backgroundColor: '#FFB140'} : null }
@@ -21,7 +21,7 @@ const SortableItem = sortableElement(({floor, currentFloor, setCurrentFloor}) =>
         <p className='m-0'>{ floor.name }</p>
     </div>
     <div className='col p-0 m-0'>
-        <FontAwesomeIcon icon={ faPenSquare } />
+        <FontAwesomeIcon icon={ faPenSquare } onClick={() => setShowEditFloor(true)} />
     </div>
   </div>
 ))
@@ -72,7 +72,7 @@ const SideNav = ({ floors, setCurrentFloor, currentFloor, setFloors, handleDelet
                 <div>
                     <SortableContainer onSortEnd={ onSortEnd } useDragHandle>
                         { floors.map((floor, index) => (
-                            <SortableItem key={ floor.id } index={ index } floor={ floor } currentFloor={ currentFloor } setCurrentFloor={ setCurrentFloor } />
+                            <SortableItem key={ floor.id } index={ index } floor={ floor } currentFloor={ currentFloor } setCurrentFloor={ setCurrentFloor } setShowEditFloor={ setShowEditFloor } />
                         ))}
                     </SortableContainer>
                     <EditFloor show={ showEditFloor } setShow={ setShowEditFloor } currentFloor={ currentFloor } handleUpdate={ handleUpdate } deleteFloor={ handleDelete } />
