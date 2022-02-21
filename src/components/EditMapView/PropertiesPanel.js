@@ -7,7 +7,7 @@ import EditCompartment from './EditCompartment'
 import AddDetector from './AddDetector'
 import axios from 'axios'
 
-const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelectComp, addNewCompartment, updateCompartment, deleteCompartment, detectors, connectDetectorCompartmentId, disconnectDetectorCompartmentId}) => {
+const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelectComp, addNewCompartment, updateCompartment, deleteCompartment, detectors, connectDetectorCompartmentId, disconnectDetectorCompartmentId, addNewDetector}) => {
     const [showAddCompartment, setShowAddCompartment] = useState(false)
     const [showEditCompartment, setShowEditCompartment] = useState(false)
     const [showAddDetector, setShowAddDetector] = useState(false)
@@ -37,7 +37,7 @@ const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelect
 
         getFloorDetectors()
         
-    }, [selectedComp, currentFloor])
+    }, [selectedComp, currentFloor, detectors])
 
     return (
         <div className='side_panel col-2 p-0 m-0'>
@@ -120,7 +120,7 @@ const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelect
                 { isDetectorsSelected &&
                     <>
                         <div className='overflow-auto' style={{height: "200px"}}>
-                            { floorDetectors.map((detector) => (
+                            { floorDetectors.map((detector) => detector.compartmentId !== null && (
                                 <div key={ detector.macAddress } className="ps-3">
                                     <h6 style={{color: "green"}}>{ detector.name ? detector.name : detector.macAddress }</h6>
                                 </div>
@@ -157,6 +157,7 @@ const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelect
                 <AddDetector 
                     show={ showAddDetector }
                     setShow={ setShowAddDetector }
+                    addNewDetector={ addNewDetector }
                 />
             </div>
         </div>

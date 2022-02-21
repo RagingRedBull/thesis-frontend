@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Modal } from 'react-bootstrap'
 import MessageBox from "../MessageBox"
 
-function AddDetector({ show, setShow }) {
+function AddDetector({ show, setShow, addNewDetector }) {
     const [detectorId, setDetectorId] = useState(null)
     const [detectorName, setDetectorName] = useState('')
     const [message, setMessage] = useState(null)
@@ -15,18 +15,37 @@ function AddDetector({ show, setShow }) {
     const [mq135, setMq135] = useState(null)
     const [fire, setFire] = useState(null)
     const [sound, setSound] = useState(null)
+    const [hasConnection, setHasConnection] = useState(false)
 
 
     const submit = (e) => {
         e.preventDefault()
+
+        if (detectorId === null) {
+            setMessage("Please enter the detector's Mac Address")
+            return null
+        }
+
+        if (detectorName === '') {
+            setMessage("Please enter the name of the detector")
+            return null
+        }
+
+        if (!hasConnection) {
+            setMessage("Unable to establish connection with the detector.")
+        }
+
+        addNewDetector(detectorId, detectorName)
+        handleClose()
     }
 
     const getDetectorSensorData = async () => {
+        setMessage(null)
+
         if (detectorId) {
             axios
                 .get(global.config.server.url + "/detector/log/latest", { params: { macAddress: detectorId } })
                 .then((response) => {
-                    console.log(response.data)
                     response.data.sensorLogSet.map((sensor) => sensor.name === "DHT-11" && setDht11(sensor.temperature))
                     response.data.sensorLogSet.map((sensor) => sensor.name === "DHT-22" && setDht22(sensor.temperature))
                     response.data.sensorLogSet.map((sensor) => sensor.name === "MQ2" && setMq2(sensor.temperature))
@@ -35,7 +54,7 @@ function AddDetector({ show, setShow }) {
                     response.data.sensorLogSet.map((sensor) => sensor.name === "MQ135" && setMq135(sensor.temperature))
                     response.data.sensorLogSet.map((sensor) => sensor.name === "Fire" && setFire(sensor.temperature))
                     response.data.sensorLogSet.map((sensor) => sensor.name === "Sound" && setSound(sensor.temperature))
-                    // setDetectorSensorData(response.data.sensorLogSet)
+                    setHasConnection(true)
                 })
                 .catch(() => {
                     setMessage("Unable to find detector")
@@ -58,6 +77,7 @@ function AddDetector({ show, setShow }) {
         setMq135(null)
         setFire(null)
         setSound(null)
+        setHasConnection(false)
     }
 
     return (

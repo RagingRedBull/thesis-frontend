@@ -34,7 +34,7 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
             axios
                 .get(global.config.server.url + "/detector/all", { params: { pageNumber: 0, pageSize: 10}})
                 .then((response) => {
-                    setDetectors(response.data.content)
+                    setDetectors(response.data.content.map((detector) => !!(detector.name) && detector).filter((detector) => detector !== false))
                 })
                 .catch((err) => {
                     console.log(err)
@@ -181,6 +181,19 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
             alert("Error failed to delete compartment")
         }
     }
+
+    const addNewDetector = async (macAddress, name) => {
+        const response = await axios.post(global.config.server.url + "/detector/new", {
+            macAddress: macAddress,
+            name: name
+        })
+
+        if (response.status === 200) {
+            setDetectors([...detectors, response.data])
+        } else {
+            alert("Unable to add new detector.")
+        }
+    }
     
     return (
         <div className='row m-0 p-0'>
@@ -241,6 +254,7 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
                 detectors={ detectors } 
                 connectDetectorCompartmentId={ connectDetectorCompartmentId }
                 disconnectDetectorCompartmentId={ disconnectDetectorCompartmentId }
+                addNewDetector={ addNewDetector }
             />
         </div>
     )

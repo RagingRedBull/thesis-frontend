@@ -109,6 +109,7 @@ const EditCompartment = ({show, setShow, compartment, updateCompartment, deleteC
             <Popover.Body className='p-0'>
                 { unassignedDetectors.map((detector) => detector.compartmentId === null && (
                     <div 
+                        key={ detector.macAddress }
                         className='card rounded-0 p-1' 
                         style={{ cursor: "pointer" }}
                         onClick={() => {

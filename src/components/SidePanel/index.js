@@ -16,11 +16,10 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
             tempDetectors.forEach((detector) => {
                 axios.get(global.config.server.url + "/detector/log/latest", { params: { macAddress: detector.macAddress } })
                     .then((response) => {
-                        console.log(response.data)
                         setDetectorData(response.data)
                     })
                     .catch(() => {
-                        console.log("Unable to find detector")
+                        console.log("Unable to find sensors")
                     })
             })
         }
