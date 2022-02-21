@@ -26,7 +26,7 @@ function AddDetector({ show, setShow }) {
             axios
                 .get(global.config.server.url + "/detector/log/latest", { params: { macAddress: detectorId } })
                 .then((response) => {
-                    console.log(response.data.sensorLogSet)
+                    console.log(response.data)
                     response.data.sensorLogSet.map((sensor) => sensor.name === "DHT-11" && setDht11(sensor.temperature))
                     response.data.sensorLogSet.map((sensor) => sensor.name === "DHT-22" && setDht22(sensor.temperature))
                     response.data.sensorLogSet.map((sensor) => sensor.name === "MQ2" && setMq2(sensor.temperature))

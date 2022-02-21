@@ -3,13 +3,26 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react'
 import { Collapse } from 'react-bootstrap'
 import MessageBox from '../MessageBox'
+import axios from 'axios'
 
 const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => {
     const [compDetectors, setCompDetectors] = useState([])
+    const [detectorData, setDetectorData] = useState([])
 
     useEffect(() => {
         if (!!(detectors)) {
-            setCompDetectors(detectors.map((detector) => detector.compartmentId === compId && {...detector}).filter((detector) => detector !== false))
+            var tempDetectors = detectors.map((detector) => detector.compartmentId === compId && {...detector}).filter((detector) => detector !== false)
+            setCompDetectors(tempDetectors)
+            tempDetectors.forEach((detector) => {
+                axios.get(global.config.server.url + "/detector/log/latest", { params: { macAddress: detector.macAddress } })
+                    .then((response) => {
+                        console.log(response.data)
+                        setDetectorData(response.data)
+                    })
+                    .catch(() => {
+                        console.log("Unable to find detector")
+                    })
+            })
         }
     }, [detectors, compId])
 
@@ -30,19 +43,78 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
                             <div className='side_pan_sub_head' style={{backgroundColor: "#000000"}}>
                                 <h5 className='m-0 ms-3' style={{color: "white"}}>{ detector.macAddress }</h5>
                             </div>
-                            
-                            {/* { detector.sensorLogSet.length > 0 ?
-                                detector.sensorLogSet.map((sensor) => (
-                                    <div key={ sensor.id } className='side_pan_content row ms-3'>
-                                        <div className='col-7'>{ sensor.name }:</div>
-                                        <div className='col-5'>{ sensor.temperature }</div>
+                            {!!(detectorData) &&
+                                detectorData.macAddress === detector.macAddress ?
+                                    <div className='mt-2'> 
+                                        <div className='row'>
+                                            <div className='col'>Temp (DHT-11):</div>
+                                            <div className='col'>{ !!(detectorData.sensorLogSet[0]) ? detectorData.sensorLogSet[0].temperature : "No temperature" }</div>
+                                        </div>
+                                        <div className='row'>
+                                            <div className='col'>Temp2 (DHT-22):</div>
+                                            <div className='col'>{ !!(detectorData.sensorLogSet[1]) ? detectorData.sensorLogSet[1].temperature : "No Temperature" }</div>
+                                        </div>
+                                        <div className='row'>
+                                            <div className='col'>MQ2:</div>
+                                            <div className='col'>{ !!(detectorData.sensorLogSet[2]) ? detectorData.sensorLogSet[2].temperature : "No gas" }</div>
+                                        </div>
+                                        <div className='row'>
+                                            <div className='col'>MQ5:</div>
+                                            <div className='col'>{ !!(detectorData.sensorLogSet[3]) ? detectorData.sensorLogSet[3].temperature : "No gas"}</div>
+                                        </div>
+                                        <div className='row'>
+                                            <div className='col'>MQ7:</div>
+                                            <div className='col'>{ !!(detectorData.sensorLogSet[4]) ? detectorData.sensorLogSet[4].temperature : "No gas"}</div>
+                                        </div>
+                                        <div className='row'>
+                                            <div className='col'>MQ135:</div>
+                                            <div className='col'>{ !!(detectorData.sensorLogSet[5]) ? detectorData.sensorLogSet[5].temperature : "No gas" }</div>
+                                        </div>
+                                        <div className='row'>
+                                            <div className='col'>Fire:</div>
+                                            <div className='col'>{ !!(detectorData.sensorLogSet[6]) ? detectorData.sensorLogSet[6].temperature : "No Fire" }</div>
+                                        </div>
+                                        <div className='row'>
+                                            <div className='col'>Sound:</div>
+                                            <div className='col'>{ !!(detectorData.sensorLogSet[7]) ? detectorData.sensorLogSet[7].temperature : "No Sound"}</div>
+                                        </div>
                                     </div>
-                                ))
                                 :
-                                <div className='m-4'>
-                                    <MessageBox message={ "No sensors detected." } />
+                                <div className='mt-2'> 
+                                    <div className='row'>
+                                        <div className='col'>Temp (DHT-11):</div>
+                                        <div className='col'>{ "No temperature" }</div>
+                                    </div>
+                                    <div className='row'>
+                                        <div className='col'>Temp2 (DHT-22):</div>
+                                        <div className='col'>{ "No Temperature" }</div>
+                                    </div>
+                                    <div className='row'>
+                                        <div className='col'>MQ2:</div>
+                                        <div className='col'>{ "No gas" }</div>
+                                    </div>
+                                    <div className='row'>
+                                        <div className='col'>MQ5:</div>
+                                        <div className='col'>{ "No gas"}</div>
+                                    </div>
+                                    <div className='row'>
+                                        <div className='col'>MQ7:</div>
+                                        <div className='col'>{ "No gas"}</div>
+                                    </div>
+                                    <div className='row'>
+                                        <div className='col'>MQ135:</div>
+                                        <div className='col'>{ "No gas" }</div>
+                                    </div>
+                                    <div className='row'>
+                                        <div className='col'>Fire:</div>
+                                        <div className='col'>{ "No Fire" }</div>
+                                    </div>
+                                    <div className='row'>
+                                        <div className='col'>Sound:</div>
+                                        <div className='col'>{ "No Sound"}</div>
+                                    </div>
                                 </div>
-                            } */}
+                            }
                         </div>
                     ))
                     :
