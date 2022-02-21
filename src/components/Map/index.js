@@ -39,7 +39,19 @@ const Map = ({ image, hasFloors, floorId }) => {
             }
         }
 
+        const getDetectors = async () => {
+            axios
+                .get(global.config.server.url + "/detector/all", { params: { pageNumber: 0, pageSize: 10}})
+                .then((response) => {
+                    setDetectors(response.data.content)
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }
+
         getCompartments()
+        getDetectors()
         setSelectedComp(null)
     }, [floorId])
 
@@ -78,21 +90,10 @@ const Map = ({ image, hasFloors, floorId }) => {
             return false
         }
     }
-
-    const getDetectors = (compId) => {
-        axios
-            .get(global.config.server.url + "/detector/all", { params: { pageNumber: 0, pageSize: 10}})
-            .then((response) => {
-                setDetectors(response.data)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    }
     
     return (
         <div className='row m-0 p-0'>
-            <SidePanel hidden={ isSelected() } setSelectedComp={ setSelectedComp } detectors={ detectors } compName={ compName } />
+            <SidePanel hidden={ isSelected() } setSelectedComp={ setSelectedComp } detectors={ detectors } compName={ compName } compId={ selectedComp } />
             <div className='col-10 m-0 p-0 d-flex justify-content-center'>
                 { hasFloors ? 
                     <div className='m-5'>
@@ -134,7 +135,6 @@ const Map = ({ image, hasFloors, floorId }) => {
                                             onClick={ (e) => {
                                                 setSelectedComp(compartment.id)
                                                 setCompName(compartment.name)
-                                                getDetectors(compartment.id)
                                             }}
                                         />
                                     ))}
