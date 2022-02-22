@@ -1,6 +1,6 @@
 {
     "realm": "prmts",
-    "auth-server-url": "http://192.168.50.145:8083/auth/",
+    "auth-server-url": "http://192.168.1.45:8083/auth/",
     "ssl-required": "external",
     "resource": "prmts-react",
     "public-client": true,

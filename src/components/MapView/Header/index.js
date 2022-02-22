@@ -3,7 +3,7 @@ import { faCog, faInfoCircle, faWrench, faBell, faFileAlt as faFileAltSol, faAst
 import { faFileAlt as faFileAltReg } from '@fortawesome/free-regular-svg-icons'
 import { OverlayTrigger, Popover } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import UserService from "../../services/UserService"
+import UserService from "../../../services/UserService"
 
 const index = () => {
     const buildName = "Test Building"

@@ -1,6 +1,6 @@
-import SideNav from "../SideNav"
-import Map from "../Map"
-import Header from "../Header"
+import SideNav from "/SideNav"
+import Map from "/Map"
+import Header from "/Header"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import  '../../constants/constants.js'
