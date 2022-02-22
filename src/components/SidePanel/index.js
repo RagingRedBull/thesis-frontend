@@ -11,7 +11,7 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
 
     useEffect(() => {
         if (!!(detectors)) {
-            var tempDetectors = detectors.map((detector) => detector.compartmentId === compId && {...detector}).filter((detector) => detector !== false)
+            var tempDetectors = detectors.map((detector) => detector.compartmentId !== null && detector.compartmentId === compId && {...detector}).filter((detector) => detector !== false)
             setCompDetectors(tempDetectors)
             tempDetectors.forEach((detector) => {
                 axios.get(global.config.server.url + "/detector/log/latest", { params: { macAddress: detector.macAddress } })
