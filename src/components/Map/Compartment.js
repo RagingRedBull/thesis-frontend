@@ -1,6 +1,7 @@
 import axios from "axios"
 import { Fragment, useEffect, useState } from "react"
 import { Rect } from "react-konva"
+import { useInterval } from "../../services/UseInterval"
 
 const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, detectors }) => {
     const [sensorLogSet, setSensorLogSet] = useState([])
@@ -21,6 +22,20 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
 
         getSensorLogSet()
     }, [detectors])
+
+    useInterval(async () => {
+        console.log("Checking for updates on sensors.")
+        if (detectors.length > 0) {
+            axios
+                .get(global.config.server.url + "/detector/log/latest", { params: { macAddress: detectors[0].macAddress }})
+                .then((response) => {
+                    setSensorLogSet(response.data.sensorLogSet)
+                })
+                .catch((err) => {
+                    console.log(compartment.id + ": No sensors ")
+                })
+        }
+    }, 10000)
 
     const getCompartmentColor = () => {
         var highTemp = false
