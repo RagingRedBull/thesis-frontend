@@ -8,6 +8,7 @@ import NoMatch from "./pages/NoMatch";
 import "bootstrap/dist/js/bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import EditMapView from './components/EditMapView';
+import AddFloor from "./components/EditMapView/AddFloor";
 
 function App() {
   return (
