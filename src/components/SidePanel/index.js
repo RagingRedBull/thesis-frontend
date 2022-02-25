@@ -48,42 +48,42 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
                                         <div className='row'>
                                             <div className='col'>Temp (DHT-11):</div>
                                             {/* <div className='col'>{ !!(detectorData.sensorLogSet[0]) ? detectorData.sensorLogSet[0].temperature : "No temperature" }</div> */}
-                                            <div className='col'>{ detectorData.sensorLogSet.map((sensor) => sensor.name === "DHT-11" ? sensor.temperature : "No Temperature") }</div>
+                                            <div className='col'>{ detectorData.sensorLogSet.map((sensor) => sensor.name === "DHT-11" && sensor.temperature) }</div>
                                         </div>
                                         <div className='row'>
                                             <div className='col'>Temp2 (DHT-22):</div>
                                             {/* <div className='col'>{ !!(detectorData.sensorLogSet[1]) ? detectorData.sensorLogSet[1].temperature : "No Temperature" }</div> */}
-                                            <div className='col'>{ detectorData.sensorLogSet.map((sensor) => sensor.name === "DHT-22" ? sensor.temperature : "No Temperature") }</div>
+                                            <div className='col'>{ detectorData.sensorLogSet.map((sensor) => sensor.name === "DHT-22" && sensor.temperature) }</div>
                                         </div>
                                         <div className='row'>
                                             <div className='col'>MQ2:</div>
                                             {/* <div className='col'>{ !!(detectorData.sensorLogSet[2]) ? detectorData.sensorLogSet[2].mqValue : "No gas" }</div> */}
-                                            <div className='col'>{ detectorData.sensorLogSet.map((sensor) => sensor.name === "MQ-2" ? sensor.mqValue : "No gas") }</div>
+                                            <div className='col'>{ detectorData.sensorLogSet.map((sensor) => sensor.name === "MQ-2" && sensor.mqValue) }</div>
                                         </div>
                                         <div className='row'>
                                             <div className='col'>MQ5:</div>
                                             {/* <div className='col'>{ !!(detectorData.sensorLogSet[3]) ? detectorData.sensorLogSet[3].mqValue : "No gas"}</div> */}
-                                            <div className='col'>{ detectorData.sensorLogSet.map((sensor) => sensor.name === "MQ-5" ? sensor.mqValue : "No gas") }</div>
+                                            <div className='col'>{ detectorData.sensorLogSet.map((sensor) => sensor.name === "MQ-5" && sensor.mqValue) }</div>
                                         </div>
                                         <div className='row'>
                                             <div className='col'>MQ7:</div>
                                             {/* <div className='col'>{ !!(detectorData.sensorLogSet[4]) ? detectorData.sensorLogSet[4].mqValue : "No gas"}</div> */}
-                                            <div className='col'>{ detectorData.sensorLogSet.map((sensor) => sensor.name === "MQ-7" ? sensor.mqValue : "No gas") }</div>
+                                            <div className='col'>{ detectorData.sensorLogSet.map((sensor) => sensor.name === "MQ-7" && sensor.mqValue) }</div>
                                         </div>
                                         <div className='row'>
                                             <div className='col'>MQ135:</div>
                                             {/* <div className='col'>{ !!(detectorData.sensorLogSet[5]) ? detectorData.sensorLogSet[5].mqValue : "No gas" }</div> */}
-                                            <div className='col'>{ detectorData.sensorLogSet.map((sensor) => sensor.name === "MQ-135" ? sensor.mqValue : "No gas") }</div>
+                                            <div className='col'>{ detectorData.sensorLogSet.map((sensor) => sensor.name === "MQ-135" && sensor.mqValue) }</div>
                                         </div>
                                         <div className='row'>
                                             <div className='col'>Fire:</div>
                                             {/* <div className='col'>{ !!(detectorData.sensorLogSet[6]) ? detectorData.sensorLogSet[6].temperature : "No Fire" }</div> */}
-                                            <div className='col'>{ detectorData.sensorLogSet.map((sensor) => sensor.name === "Flame Sensor" ? sensor.mqValue : "No fire") }</div>
+                                            <div className='col'>{ detectorData.sensorLogSet.map((sensor) => sensor.name === "Flame Sensor" && sensor.mqValue) }</div>
                                         </div>
                                         <div className='row'>
                                             <div className='col'>Sound:</div>
                                             {/* <div className='col'>{ !!(detectorData.sensorLogSet[7]) ? detectorData.sensorLogSet[7].temperature : "No Sound"}</div> */}
-                                            <div className='col'>{ detectorData.sensorLogSet.map((sensor) => sensor.name === "Sound Sensor" ? sensor.mqValue : "No Sound") }</div>
+                                            <div className='col'>{ detectorData.sensorLogSet.map((sensor) => sensor.name === "Sound Sensor" && sensor.mqValue) }</div>
                                         </div>
                                     </div>
                                 :
