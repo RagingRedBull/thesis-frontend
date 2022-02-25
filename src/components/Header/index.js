@@ -13,16 +13,18 @@ const index = () => {
             <Popover.Body className='p-0 w-100'>
                 { UserService.isLoggedIn() ?
                     <>
-                        <div className='card rounded-0 w-100' style={{cursor: "pointer"}}>
-                            <div className='card-body row p-0 m-0'> 
-                                <div className='col-2 p-0 ps-1 m-0 mt-1'>
-                                    <FontAwesomeIcon icon={ faWrench } style={ settingsIconStyle } />
-                                </div>
-                                <div className='col-10 p-0 m-0 fs-5'>
-                                    Maintenance Mode
+                        <Link to="/edit-map" style={ linkStyle }>
+                            <div className='card rounded-0 w-100' style={{cursor: "pointer"}}>
+                                <div className='card-body row p-0 m-0'> 
+                                    <div className='col-2 p-0 ps-1 m-0 mt-1'>
+                                        <FontAwesomeIcon icon={ faWrench } style={ settingsIconStyle } />
+                                    </div>
+                                    <div className='col-10 p-0 m-0 fs-5'>
+                                        Maintenance Mode
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                         <div className='card rounded-0' style={{cursor: "pointer"}}>
                             <div className='card-body row p-0 m-0'> 
                                 <div className='col-2 p-0 ps-1 m-0 mt-1'>

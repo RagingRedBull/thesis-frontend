@@ -4,9 +4,9 @@ import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import UserService from "./services/UserService";
 import DetectorLog from './components/DetectorLog';
 import MapView from './components/MapView';
-import AddFloor from './components/AddFloor';
 import Login from './components/Login';
 import ChangePassword from './components/ChangePassword';
+import EditMapView from './components/EditMapView';
 import 'bootstrap/dist/js/bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -29,9 +29,6 @@ function App() {
               </Link>
               <Link to="/floor" className="nav-link">
                 Floors
-              </Link>
-              <Link to="/add-floor" className="nav-link">
-                Add Floor
               </Link>
             </Nav>
             <Nav>
@@ -60,8 +57,8 @@ function App() {
           <Route path="/logs" element={<DetectorLog />} />
           <Route path="/detector" element={<Detector />} />
           <Route path="/floor" element={<Floors />} />
-          <Route path="/add-floor" element={<AddFloor />} />
           <Route path="/change-password" element={<ChangePassword />} />
+          <Route path="/edit-map" element={<EditMapView />} />
         </Routes>
       </BrowserRouter>
     </div>
