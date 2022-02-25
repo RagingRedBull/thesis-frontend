@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { Collapse } from 'react-bootstrap'
 import MessageBox from '../MessageBox'
 import axios from 'axios'
+import { useInterval } from "../../services/UseInterval"
 
 const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => {
     const [compDetectors, setCompDetectors] = useState([])
@@ -24,6 +25,23 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
             })
         }
     }, [detectors, compId])
+
+    useInterval(async () => {
+        if (!!(detectors)) {
+            var tempDetectors = detectors.map((detector) => detector.compartmentId !== null && detector.compartmentId === compId && {...detector}).filter((detector) => detector !== false)
+            setCompDetectors(tempDetectors)
+            tempDetectors.forEach((detector) => {
+                axios.get(global.config.server.url + "/detector/log/latest", { params: { macAddress: detector.macAddress } })
+                    .then((response) => {
+                        setDetectorData(response.data)
+                    })
+                    .catch(() => {
+                        console.log("Unable to find sensors")
+                    })
+            })
+        }
+    }, 5000)
+
 
     return (
         <Collapse in={ hidden } dimension="width">
