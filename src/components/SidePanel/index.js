@@ -55,19 +55,19 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
                                         </div>
                                         <div className='row'>
                                             <div className='col'>MQ2:</div>
-                                            <div className='col'>{ !!(detectorData.sensorLogSet[2]) ? detectorData.sensorLogSet[2].temperature : "No gas" }</div>
+                                            <div className='col'>{ !!(detectorData.sensorLogSet[2]) ? detectorData.sensorLogSet[2].mqValue : "No gas" }</div>
                                         </div>
                                         <div className='row'>
                                             <div className='col'>MQ5:</div>
-                                            <div className='col'>{ !!(detectorData.sensorLogSet[3]) ? detectorData.sensorLogSet[3].temperature : "No gas"}</div>
+                                            <div className='col'>{ !!(detectorData.sensorLogSet[3]) ? detectorData.sensorLogSet[3].mqValue : "No gas"}</div>
                                         </div>
                                         <div className='row'>
                                             <div className='col'>MQ7:</div>
-                                            <div className='col'>{ !!(detectorData.sensorLogSet[4]) ? detectorData.sensorLogSet[4].temperature : "No gas"}</div>
+                                            <div className='col'>{ !!(detectorData.sensorLogSet[4]) ? detectorData.sensorLogSet[4].mqValue : "No gas"}</div>
                                         </div>
                                         <div className='row'>
                                             <div className='col'>MQ135:</div>
-                                            <div className='col'>{ !!(detectorData.sensorLogSet[5]) ? detectorData.sensorLogSet[5].temperature : "No gas" }</div>
+                                            <div className='col'>{ !!(detectorData.sensorLogSet[5]) ? detectorData.sensorLogSet[5].mqValue : "No gas" }</div>
                                         </div>
                                         <div className='row'>
                                             <div className='col'>Fire:</div>
