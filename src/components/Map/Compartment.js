@@ -35,7 +35,7 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
                     console.log(compartment.id + ": No sensors ")
                 })
         }
-    }, 10000)
+    }, 5000)
 
     const getCompartmentColor = () => {
         var highTemp = false
