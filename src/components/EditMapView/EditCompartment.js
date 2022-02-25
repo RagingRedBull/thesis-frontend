@@ -115,6 +115,7 @@ const EditCompartment = ({show, setShow, compartment, updateCompartment, deleteC
                         onClick={() => {
                             setCompDetectors([...compDetectors, {...detector, compartmentId: compartment.id}])
                             setUnassignedDetectors(unassignedDetectors.filter((unassDetector) => unassDetector.macAddress !== detector.macAddress))
+                            setRemovedCompDetectors(removedCompDetectors.filter((compDetector) => compDetector.macAddress !== detector.macAddress))
                             document.body.click()
                         }}
                     >
