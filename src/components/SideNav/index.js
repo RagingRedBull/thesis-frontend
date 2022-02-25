@@ -5,7 +5,7 @@ import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
 const index = ({ floors, setCurrentFloor, selFloorId }) => {
     return (
         <>
-            <div className='logo m-1'>
+            <div className='logo'>
                 <img 
                     src={ logo }
                     className='img-fluid img-thumbnail logo border-0'

@@ -1,13 +1,13 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DetectorLog from "./components/DetectorLog";
-import AddFloor from "./components/AddFloor";
 import ChangePassword from "./components/ChangePassword";
 import MapView from "./components/MapView";
 import PrivateRouteHelper from "./routes/PrivateRouteHelper";
 import NoMatch from "./pages/NoMatch";
 import "bootstrap/dist/js/bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import EditMapView from './components/EditMapView';
 
 function App() {
   return (
@@ -34,6 +34,14 @@ function App() {
               </PrivateRouteHelper>
             }
           />
+          <Route 
+            path="/edit-map"
+            element={
+              <PrivateRouteHelper>
+                <EditMapView />
+              </PrivateRouteHelper>
+           } 
+         />
           <Route path="*" element={<NoMatch />} />
         </Routes>
       </BrowserRouter>

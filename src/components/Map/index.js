@@ -1,9 +1,10 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { Stage, Layer, Image, Rect } from 'react-konva'
+import { Stage, Layer, Image } from 'react-konva'
 import useImage from 'use-image'
 import MessageBox from '../MessageBox'
 import SidePanel from '../SidePanel'
+import Compartment from './Compartment'
 
 const Map = ({ image, hasFloors, floorId }) => {
     const imageUrl = global.config.server.url + "/images/" + image
@@ -13,22 +14,45 @@ const Map = ({ image, hasFloors, floorId }) => {
     const [selectedComp, setSelectedComp] = useState(null)
     const [compName, setCompName] = useState(null)
     const [scale, setScale] = useState(1)
+    const [message, setMessage] = useState(null)
 
     useEffect(() => {
         const getCompartments = async () => {
             if (floorId) {
                 axios  
-                    .get(global.config.server.url + "/floor/" + floorId + "/compartment")
+                    .get(global.config.server.url + "/compartment", {
+                        params: {
+                            floorId: floorId 
+                        }
+                    })
                     .then((response) => {
-                        setCompartments(response.data)
+                        if (response.data.length < 1) {
+                            setMessage("Please add a compartment.")
+                        } else {
+                            setMessage(null)
+                            setCompartments(response.data)
+                        }
+                        
                     })
                     .catch((err) => {
-                        console.log(err)
+                        setMessage("Please add a compartment.")
                     })
             }
         }
 
+        const getDetectors = async () => {
+            axios
+                .get(global.config.server.url + "/detector/all", { params: { pageNumber: 0, pageSize: 10}})
+                .then((response) => {
+                    setDetectors(response.data.content)
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }
+
         getCompartments()
+        getDetectors()
         setSelectedComp(null)
     }, [floorId])
 
@@ -68,24 +92,24 @@ const Map = ({ image, hasFloors, floorId }) => {
         }
     }
 
-    const getDetectors = (compId) => {
-        axios
-            .get(global.config.server.url + "/log/compartment/" + compId + "/")
-            .then((response) => {
-                setDetectors(response.data)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+    const getCompDetectors = (compId) => {
+        var compDetectors = detectors.map((detector) => detector.compartmentId !== null && detector.compartmentId === compId 
+            ?
+                {...detector}
+            :
+                null
+        ).filter((detector) => detector !== null)
+
+        return compDetectors
     }
     
     return (
         <div className='row m-0 p-0'>
-            <SidePanel hidden={ isSelected() } setSelectedComp={ setSelectedComp } detectors={ detectors } compName={ compName } />
+            <SidePanel hidden={ isSelected() } setSelectedComp={ setSelectedComp } detectors={ detectors } compName={ compName } compId={ selectedComp } />
             <div className='col-10 m-0 p-0 d-flex justify-content-center'>
                 { hasFloors ? 
                     <div className='m-5'>
-                        { compartments.length < 1 & hasFloors ?
+                        { message ?
                             <div className='' style={{ width: '1280px', position: 'absolute', zIndex: 1}}>
                                 <MessageBox message="Please add a compartment." />
                             </div>
@@ -110,22 +134,29 @@ const Map = ({ image, hasFloors, floorId }) => {
                                         onTouchStart={ checkDeselect }
                                     />
                                     { compartments.map((compartment) => (
-                                        <Rect 
+                                        <Compartment 
                                             key={ compartment.id }
-                                            x={ compartment.xKonva }
-                                            y={ compartment.yKonva }
-                                            width={ compartment.widthKonva }
-                                            height={ compartment.heightKonva }
-                                            fill={ compartment.id === selectedComp ? "blue" : "white" }
-                                            stroke={ compartment.id === selectedComp ? "blue" : "black" }
-                                            strokeWidth={ compartment.id === selectedComp ? 5 : 5 }
-                                            opacity={ 0.5 }
-                                            onClick={ (e) => {
-                                                setSelectedComp(compartment.id)
-                                                setCompName(compartment.name)
-                                                getDetectors(compartment.id)
-                                            }}
+                                            compartment={ compartment }
+                                            isSelected={ compartment.id === selectedComp }
+                                            setSelectedComp={ setSelectedComp }
+                                            setCompName={ setCompName }
+                                            detectors={ getCompDetectors(compartment.id) }
                                         />
+                                        // <Rect 
+                                        //     key={ compartment.id }
+                                        //     x={ compartment.xkonva }
+                                        //     y={ compartment.ykonva }
+                                        //     width={ compartment.widthKonva }
+                                        //     height={ compartment.heightKonva }
+                                        //     fill={ compartment.id === selectedComp ? "blue" : "white" }
+                                        //     stroke={ compartment.id === selectedComp ? "blue" : "black" }
+                                        //     strokeWidth={ compartment.id === selectedComp ? 5 : 5 }
+                                        //     opacity={ 0.5 }
+                                        //     onClick={ (e) => {
+                                        //         setSelectedComp(compartment.id)
+                                        //         setCompName(compartment.name)
+                                        //     }}
+                                        // />
                                     ))}
                                 </Layer>
                             </Stage>
