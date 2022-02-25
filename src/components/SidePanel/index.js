@@ -33,6 +33,7 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
             tempDetectors.forEach((detector) => {
                 axios.get(global.config.server.url + "/detector/log/latest", { params: { macAddress: detector.macAddress } })
                     .then((response) => {
+                        console.log(response.data.timeRecorded)
                         setDetectorData(response.data)
                     })
                     .catch(() => {
@@ -40,7 +41,7 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
                     })
             })
         }
-    }, 5000)
+    }, 1000)
 
 
     return (
