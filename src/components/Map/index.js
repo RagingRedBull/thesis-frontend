@@ -6,7 +6,7 @@ import MessageBox from '../MessageBox'
 import SidePanel from '../SidePanel'
 import Compartment from './Compartment'
 
-const Map = ({ image, hasFloors, floorId }) => {
+const Map = ({ image, hasFloors, floorId, setAlarmingMode }) => {
     const imageUrl = global.config.server.url + "/images/" + image
     const [map] = useImage(imageUrl)
     const [compartments, setCompartments] = useState([])
@@ -141,22 +141,8 @@ const Map = ({ image, hasFloors, floorId }) => {
                                             setSelectedComp={ setSelectedComp }
                                             setCompName={ setCompName }
                                             detectors={ getCompDetectors(compartment.id) }
+                                            setAlarmingMode={ setAlarmingMode }
                                         />
-                                        // <Rect 
-                                        //     key={ compartment.id }
-                                        //     x={ compartment.xkonva }
-                                        //     y={ compartment.ykonva }
-                                        //     width={ compartment.widthKonva }
-                                        //     height={ compartment.heightKonva }
-                                        //     fill={ compartment.id === selectedComp ? "blue" : "white" }
-                                        //     stroke={ compartment.id === selectedComp ? "blue" : "black" }
-                                        //     strokeWidth={ compartment.id === selectedComp ? 5 : 5 }
-                                        //     opacity={ 0.5 }
-                                        //     onClick={ (e) => {
-                                        //         setSelectedComp(compartment.id)
-                                        //         setCompName(compartment.name)
-                                        //     }}
-                                        // />
                                     ))}
                                 </Layer>
                             </Stage>

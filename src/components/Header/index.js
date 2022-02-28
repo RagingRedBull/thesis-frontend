@@ -5,80 +5,105 @@ import { OverlayTrigger, Popover } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import UserService from "../../services/UserService"
 
-const index = () => {
+const index = ({alarmingMode, setAlarmingMode}) => {
     const buildName = "Test Building"
 
     const cogPopover = (
         <Popover className='w-100' style={{ width: "170px"}}>
             <Popover.Body className='p-0 w-100'>
                 { UserService.isLoggedIn() ?
-                    <>
-                        <Link to="/edit-map" style={ linkStyle }>
-                            <div className='card rounded-0 w-100' style={{cursor: "pointer"}}>
+                    alarmingMode ?
+                        <>
+                            <div className='card rounded-0' style={{cursor: "pointer"}} onClick={() => setAlarmingMode(false)}>
                                 <div className='card-body row p-0 m-0'> 
                                     <div className='col-2 p-0 ps-1 m-0 mt-1'>
-                                        <FontAwesomeIcon icon={ faWrench } style={ settingsIconStyle } />
+                                        <FontAwesomeIcon icon={ faSignInAlt } style={ settingsIconStyle } />
                                     </div>
                                     <div className='col-10 p-0 m-0 fs-5'>
-                                        Maintenance Mode
+                                        Establish Fire Out
                                     </div>
                                 </div>
                             </div>
-                        </Link>
-                        <div className='card rounded-0' style={{cursor: "pointer"}}>
-                            <div className='card-body row p-0 m-0'> 
-                                <div className='col-2 p-0 ps-1 m-0 mt-1'>
-                                    <FontAwesomeIcon icon={ faBell } style={ settingsIconStyle } />
-                                </div>
-                                <div className='col-10 p-0 m-0 fs-5'>
-                                    Fire Drill mode
-                                </div>
-                            </div>
-                        </div>
-                        <div className='card rounded-0' style={{cursor: "pointer"}}>
-                            <div className='card-body row p-0 m-0'> 
-                                <div className='col-2 p-0 ps-1 m-0 mt-1'>
-                                    <FontAwesomeIcon icon={ faFileAltReg } style={ settingsIconStyle } />
-                                </div>
-                                <div className='col-10 p-0 m-0 fs-5'>
-                                    Status reports
+                            <div className='card rounded-0' style={{cursor: "pointer"}} onClick={() => UserService.doLogout()}>
+                                <div className='card-body row p-0 m-0'> 
+                                    <div className='col-2 p-0 ps-1 m-0 mt-1'>
+                                        <FontAwesomeIcon icon={ faSignInAlt } style={ settingsIconStyle } />
+                                    </div>
+                                    <div className='col-10 p-0 m-0 fs-5'>
+                                        Logout
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className='card rounded-0' style={{cursor: "pointer"}}>
-                            <div className='card-body row p-0 m-0'> 
-                                <div className='col-2 p-0 ps-1 m-0 mt-1'>
-                                    <FontAwesomeIcon icon={ faFileAltSol } style={ settingsIconStyle } />
+                        </>
+                    :
+                        <>
+                            <Link to="/edit-map" style={ linkStyle }>
+                                <div className='card rounded-0 w-100' style={{cursor: "pointer"}}>
+                                    <div className='card-body row p-0 m-0'> 
+                                        <div className='col-2 p-0 ps-1 m-0 mt-1'>
+                                            <FontAwesomeIcon icon={ faWrench } style={ settingsIconStyle } />
+                                        </div>
+                                        <div className='col-10 p-0 m-0 fs-5'>
+                                            Maintenance Mode
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className='col-10 p-0 m-0 fs-5'>
-                                    Post-fire reports
-                                </div>
-                            </div>
-                        </div>
-                        <Link to="/change-password" style={ linkStyle }>
+                            </Link>
                             <div className='card rounded-0' style={{cursor: "pointer"}}>
                                 <div className='card-body row p-0 m-0'> 
                                     <div className='col-2 p-0 ps-1 m-0 mt-1'>
-                                        <FontAwesomeIcon icon={ faAsterisk } style={ settingsIconStyle } />
+                                        <FontAwesomeIcon icon={ faBell } style={ settingsIconStyle } />
                                     </div>
                                     <div className='col-10 p-0 m-0 fs-5'>
-                                        Reset Password
+                                        Fire Drill mode
                                     </div>
                                 </div>
                             </div>
-                        </Link>
-                        <div className='card rounded-0' style={{cursor: "pointer"}} onClick={() => UserService.doLogout()}>
-                        <div className='card-body row p-0 m-0'> 
-                            <div className='col-2 p-0 ps-1 m-0 mt-1'>
-                                <FontAwesomeIcon icon={ faSignInAlt } style={ settingsIconStyle } />
+                            <div className='card rounded-0' style={{cursor: "pointer"}}>
+                                <div className='card-body row p-0 m-0'> 
+                                    <div className='col-2 p-0 ps-1 m-0 mt-1'>
+                                        <FontAwesomeIcon icon={ faFileAltReg } style={ settingsIconStyle } />
+                                    </div>
+                                    <div className='col-10 p-0 m-0 fs-5'>
+                                        Status reports
+                                    </div>
+                                </div>
                             </div>
-                            <div className='col-10 p-0 m-0 fs-5'>
-                                Logout
+                            <div className='card rounded-0' style={{cursor: "pointer"}}>
+                                <div className='card-body row p-0 m-0'> 
+                                    <div className='col-2 p-0 ps-1 m-0 mt-1'>
+                                        <FontAwesomeIcon icon={ faFileAltSol } style={ settingsIconStyle } />
+                                    </div>
+                                    <div className='col-10 p-0 m-0 fs-5'>
+                                        Post-fire reports
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    </>
-                    :
+                            <Link to="/change-password" style={ linkStyle }>
+                                <div className='card rounded-0' style={{cursor: "pointer"}}>
+                                    <div className='card-body row p-0 m-0'> 
+                                        <div className='col-2 p-0 ps-1 m-0 mt-1'>
+                                            <FontAwesomeIcon icon={ faAsterisk } style={ settingsIconStyle } />
+                                        </div>
+                                        <div className='col-10 p-0 m-0 fs-5'>
+                                            Reset Password
+                                        </div>
+                                    </div>
+                                </div>
+                            </Link>
+                            <div className='card rounded-0' style={{cursor: "pointer"}} onClick={() => UserService.doLogout()}>
+                                <div className='card-body row p-0 m-0'> 
+                                    <div className='col-2 p-0 ps-1 m-0 mt-1'>
+                                        <FontAwesomeIcon icon={ faSignInAlt } style={ settingsIconStyle } />
+                                    </div>
+                                    <div className='col-10 p-0 m-0 fs-5'>
+                                        Logout
+                                    </div>
+                                </div>
+                            </div>
+                        </>
+                    
+                :
                     <div className='card rounded-0' style={{cursor: "pointer"}} onClick={() => UserService.doLogin()}>
                         <div className='card-body row p-0 m-0'> 
                             <div className='col-2 p-0 ps-1 m-0 mt-1'>
@@ -119,7 +144,7 @@ const index = () => {
     )
 
     return (
-        <div className='header row m-0 pe-0' style={ headerStyle }>
+        <div className='header row m-0 pe-0' style={ alarmingMode ? headerAlarmingStyle : headerStyle }>
             <div className='col-8 p-0 mt-3'>
                 <h3 className='proj-name pt-3 ps-5'>FIRE ALARM CONTROL UNIT |</h3>
             </div>
@@ -148,6 +173,12 @@ const index = () => {
 const headerStyle = {
     backgroundColor: '#FFB140',
     height: "125px"
+}
+
+const headerAlarmingStyle = {
+    backgroundColor: "#FB3640",
+    height: "125px",
+    color: "white"
 }
 
 const iconContainerStyle = {

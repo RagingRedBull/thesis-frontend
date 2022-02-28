@@ -3,7 +3,7 @@ import { Fragment, useEffect, useState } from "react"
 import { Rect } from "react-konva"
 import { useInterval } from "../../services/UseInterval"
 
-const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, detectors }) => {
+const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, detectors, setAlarmingMode }) => {
     const [sensorLogSet, setSensorLogSet] = useState([])
 
     useEffect(() => {
@@ -44,11 +44,13 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
 
         if (sensorLogSet.length > 0) {
             sensorLogSet.forEach((sensor) => {
-                if (sensor.type === "DHT" && sensor.temperature > 30) {
+                if (sensor.type === "DHT" && sensor.temperature > 50) {
                     highTemp = true
+                    setAlarmingMode(true)
                 }
-                if (sensor.type === "MQ" && sensor.mqValue > 30) {
+                if (sensor.type === "MQ" && sensor.mqValue > 300) {
                     smoke = true
+                    setAlarmingMode(true)
                 }
             })
         }
