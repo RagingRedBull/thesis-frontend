@@ -56,6 +56,9 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
                         if (sensor.type === "MQ" && sensor.mqValue > 300) {
                             isTriggered = true
                         }
+                        if (sensor.type === "FIRE" && sensor.flame) {
+                            isTriggered = true
+                        }
                     })
                 }
             }
@@ -110,11 +113,11 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
                                         </div>
                                         <div className='row'>
                                             <div className='col'>Fire:</div>
-                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "Fire") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "Fire" && sensor.mqValue) : "No Fire"}</div>
+                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "FIRE") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "FIRE" && sensor.flame) : "No Fire"}</div>
                                         </div>
                                         <div className='row'>
                                             <div className='col'>Sound:</div>
-                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "Sound") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "Sound" && sensor.mqValue) : "No Sound" }</div>
+                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "SOUND") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "Sound" && sensor.sound) : "No Sound" }</div>
                                         </div>
                                     </div>
                                 :
