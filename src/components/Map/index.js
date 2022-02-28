@@ -105,7 +105,13 @@ const Map = ({ image, hasFloors, floorId, setAlarmingMode }) => {
     
     return (
         <div className='row m-0 p-0'>
-            <SidePanel hidden={ isSelected() } setSelectedComp={ setSelectedComp } detectors={ detectors } compName={ compName } compId={ selectedComp } />
+            <SidePanel 
+                hidden={ isSelected() } 
+                setSelectedComp={ setSelectedComp } 
+                detectors={ detectors } 
+                compName={ compName } 
+                compId={ selectedComp } 
+            />
             <div className='col-10 m-0 p-0 d-flex justify-content-center'>
                 { hasFloors ? 
                     <div className='m-5'>

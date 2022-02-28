@@ -15,7 +15,7 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
                         setSensorLogSet(response.data.sensorLogSet)
                     })
                     .catch((err) => {
-                        console.log(compartment.id + ": No sensors ")
+                        console.log("No sensors ")
                     })
             }
         }
@@ -44,26 +44,27 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
 
         if (sensorLogSet.length > 0) {
             sensorLogSet.forEach((sensor) => {
-                if (sensor.type === "DHT" && sensor.temperature > 50) {
+                if (sensor.type === "DHT" && sensor.temperature > 30) {
                     highTemp = true
-                    setAlarmingMode(true)
                 }
                 if (sensor.type === "MQ" && sensor.mqValue > 300) {
                     smoke = true
-                    setAlarmingMode(true)
                 }
             })
         }
 
         if (fire) {
+            setAlarmingMode(true)
             return "red"
         }
 
         if (smoke && highTemp) {
+            setAlarmingMode(true)
             return "orange"
-        }
-
+        } 
+        
         if (highTemp) {
+            setAlarmingMode(true)
             return "yellow"
         }
 
