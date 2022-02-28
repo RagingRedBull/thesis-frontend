@@ -43,11 +43,31 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
         }
     }, 1000)
 
+    const isCompTriggered = () => {
+        var isTriggered = false
+
+        if (compDetectors.length > 0) {
+            if (detectorData) {
+                if (detectorData.sensorLogSet) {
+                    detectorData.sensorLogSet.forEach((sensor) => {
+                        if (sensor.type === "DHT" && sensor.temperature > 30) {
+                            isTriggered = true
+                        }
+                        if (sensor.type === "MQ" && sensor.mqValue > 300) {
+                            isTriggered = true
+                        }
+                    })
+                }
+            }
+        }
+
+        return isTriggered
+    }
 
     return (
         <Collapse in={ hidden } dimension="width">
             <div className='side_panel col-2 p-0 m-0 border'>
-                <div className='side_pan_head row m-1' style={false ? { backgroundColor: " #ED7014", color: "white" } : null}>
+                <div className='side_pan_head row m-0' style={isCompTriggered() ? { backgroundColor: " #ED7014", color: "white" } : null}>
                     <div className='col-10'>
                         <h5>{ compName ? compName : "Compartment Name" }</h5>
                     </div>
