@@ -4,9 +4,12 @@ import { faFileAlt as faFileAltReg } from '@fortawesome/free-regular-svg-icons'
 import { OverlayTrigger, Popover } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import UserService from "../../services/UserService"
+import { useState } from 'react'
+import EstablishFireOutModal from './EstablishFireOutModal'
 
-const index = ({alarmingMode, setAlarmingMode}) => {
+const Header = ({alarmingMode, setAlarmingMode}) => {
     const buildName = "Test Building"
+    const [showEstablishFireOutModal, setShowEstablishFireOutModal] = useState(false)
 
     const cogPopover = (
         <Popover className='w-100' style={{ width: "170px"}}>
@@ -14,7 +17,7 @@ const index = ({alarmingMode, setAlarmingMode}) => {
                 { UserService.isLoggedIn() ?
                     alarmingMode ?
                         <>
-                            <div className='card rounded-0' style={{cursor: "pointer"}} onClick={() => setAlarmingMode(false)}>
+                            <div className='card rounded-0' style={{cursor: "pointer"}} onClick={() => setShowEstablishFireOutModal(true)}>
                                 <div className='card-body row p-0 m-0'> 
                                     <div className='col-2 p-0 ps-1 m-0 mt-1'>
                                         <FontAwesomeIcon icon={ faSignInAlt } style={ settingsIconStyle } />
@@ -166,6 +169,11 @@ const index = ({alarmingMode, setAlarmingMode}) => {
                     </OverlayTrigger>
                 </div>
             </div>
+            <EstablishFireOutModal 
+                show={ showEstablishFireOutModal } 
+                setShow={ setShowEstablishFireOutModal }
+                setAlarmingMode={ setAlarmingMode }
+            />
         </div>
     )
 };
@@ -207,4 +215,4 @@ const settingsIconStyle = {
     width: "20px"
 }
 
-export default index;
+export default Header;
