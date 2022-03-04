@@ -1,0 +1,47 @@
+.edit-map-containter {
+    background-color: grey;
+    height: 100%;
+    min-height: 100vh;
+}
+
+.side-navigation {
+    background-color: #ECF0F1;
+}
+
+.logo-background {
+    background-color: #FB3640;
+}
+
+.side-navigation-header {
+    color: #000000;
+    text-decoration: underline;
+}
+
+.btn-floor {
+    color: #000000;
+}
+
+.trash-icon {
+    color: red;
+}
+
+.add-icon {
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.floors-header {
+    margin-left: 0.1px;
+}
+
+.img-url-label {
+    display: inline-block;
+}
+
+.floor-img-url {
+    display: inline-block;
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
