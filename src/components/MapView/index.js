@@ -9,6 +9,7 @@ import '../../css/MapView.css'
 const MapView = () => {
   const [floors, setFloors] = useState([])
   const [currentFloor, setCurrentFloor] = useState([])
+  const [alarmingMode, setAlarmingMode] = useState(false)
 
   // Get floors
   useEffect(() => {
@@ -40,8 +41,13 @@ const MapView = () => {
         <SideNav floors={ floors } setCurrentFloor={ setCurrentFloor } selFloorId={ currentFloor.id } />
       </div>
       <div className="col-11 p-0 m-0 row g-0">
-        <Header />
-        <Map image={ currentFloor.imageUrl } hasFloors={ floors.length > 0 } floorId={ currentFloor.id } />
+        <Header alarmingMode={ alarmingMode } setAlarmingMode={ setAlarmingMode } />
+        <Map 
+          image={ currentFloor.imageUrl } 
+          hasFloors={ floors.length > 0 } 
+          floorId={ currentFloor.id } 
+          setAlarmingMode ={ setAlarmingMode }
+        />
       </div>
     </div>
   )

@@ -6,7 +6,7 @@ import MessageBox from '../MessageBox'
 import SidePanel from '../SidePanel'
 import Compartment from './Compartment'
 
-const Map = ({ image, hasFloors, floorId }) => {
+const Map = ({ image, hasFloors, floorId, setAlarmingMode }) => {
     const imageUrl = global.config.server.url + "/images/" + image
     const [map] = useImage(imageUrl)
     const [compartments, setCompartments] = useState([])
@@ -105,7 +105,13 @@ const Map = ({ image, hasFloors, floorId }) => {
     
     return (
         <div className='row m-0 p-0'>
-            <SidePanel hidden={ isSelected() } setSelectedComp={ setSelectedComp } detectors={ detectors } compName={ compName } compId={ selectedComp } />
+            <SidePanel 
+                hidden={ isSelected() } 
+                setSelectedComp={ setSelectedComp } 
+                detectors={ detectors } 
+                compName={ compName } 
+                compId={ selectedComp } 
+            />
             <div className='col-10 m-0 p-0 d-flex justify-content-center'>
                 { hasFloors ? 
                     <div className='m-5'>
@@ -141,22 +147,8 @@ const Map = ({ image, hasFloors, floorId }) => {
                                             setSelectedComp={ setSelectedComp }
                                             setCompName={ setCompName }
                                             detectors={ getCompDetectors(compartment.id) }
+                                            setAlarmingMode={ setAlarmingMode }
                                         />
-                                        // <Rect 
-                                        //     key={ compartment.id }
-                                        //     x={ compartment.xkonva }
-                                        //     y={ compartment.ykonva }
-                                        //     width={ compartment.widthKonva }
-                                        //     height={ compartment.heightKonva }
-                                        //     fill={ compartment.id === selectedComp ? "blue" : "white" }
-                                        //     stroke={ compartment.id === selectedComp ? "blue" : "black" }
-                                        //     strokeWidth={ compartment.id === selectedComp ? 5 : 5 }
-                                        //     opacity={ 0.5 }
-                                        //     onClick={ (e) => {
-                                        //         setSelectedComp(compartment.id)
-                                        //         setCompName(compartment.name)
-                                        //     }}
-                                        // />
                                     ))}
                                 </Layer>
                             </Stage>
