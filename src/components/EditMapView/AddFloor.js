@@ -1,7 +1,8 @@
 import axios from "axios"
 import { useState } from "react"
-import { Modal, ModalTitle } from "react-bootstrap";
-import MessageBox from "../MessageBox";
+import { Modal, ModalTitle } from "react-bootstrap"
+import MessageBox from "../MessageBox"
+import UserService from "../../services/UserService";
 
 const AddFloor = ({show, setShow, floors, setFloors, setCurrentFloor}) => {
     const [name, setName] = useState('')
@@ -45,7 +46,10 @@ const AddFloor = ({show, setShow, floors, setFloors, setCurrentFloor}) => {
                 method: "post",
                 url:  global.config.server.url + "/images/new",
                 data: formData,
-                headers: { "Content-Type": "multipart/form-data" }
+                headers: { 
+                    "Content-Type": "multipart/form-data", 
+                    Authorization: `Bearer ${UserService.getToken()}`
+                }
             })
 
             const data = await response.data.imageUrl

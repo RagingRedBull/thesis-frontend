@@ -4,7 +4,7 @@ import axios from "axios"
 import SideNav from "./SideNav"
 import Map from "./Map"
 import Header from "./Header"
-
+import UserService from "../../services/UserService"
 
 const EditMapView = () => {
     const [floors, setFloors] = useState([])
@@ -16,7 +16,11 @@ const EditMapView = () => {
     }, [])
 
     const handleDeleteFloor = async (id) => {
-        const response = await axios.delete(global.config.server.url + "/floor/" + id + "/delete")
+        const response = await axios.delete(global.config.server.url + "/floor/" + id + "/delete", {
+            headers: {
+                Authorization: `Bearer ${UserService.getToken()}`
+            }
+        })
 
         if (response.status === 200) {
             setFloors(floors.filter((floor) => floor.id !== id))
@@ -52,6 +56,11 @@ const EditMapView = () => {
             description: updFloor.description,
             imageUrl: updFloor.imageUrl,
             order: updFloor.order
+        },
+        {
+            headers: {
+                Authorization: `Bearer ${UserService.getToken()}`
+            }
         })
 
         if (response.status === 200) {

@@ -6,6 +6,7 @@ import MessageBox from '../MessageBox'
 import SidePanel from '../SidePanel'
 import PropertiesPanel from './PropertiesPanel'
 import Rectangle from './Rectangle'
+import UserService from '../../services/UserService'
 
 const Map = ({ image, hasFloors, floorId, currentFloor }) => {
     const imageUrl = global.config.server.url + "/images/" + image
@@ -115,7 +116,9 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
 
     const updateCompartment = (updComp) => {
         axios
-            .put(global.config.server.url + "/compartment/update", updComp, { params: { floorId: floorId } })
+            .put(global.config.server.url + "/compartment/update", updComp, { 
+                params: { floorId: floorId }, 
+            })
             .then(response => {
                 if (response.status === 200) {
                     setCompartments(compartments.map((compartment) => compartment.id === response.data.id
@@ -173,7 +176,11 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
     }
 
     const deleteCompartment = async (compId) => {
-        const response = await axios.delete(global.config.server.url + "/compartment/" + compId + "/delete")
+        const response = await axios.delete(global.config.server.url + "/compartment/" + compId + "/delete", {
+            headers: {
+                Authorization: `Bearer ${UserService.getToken()}`
+            }
+        })
 
         if (response.status === 200) {
             setCompartments(compartments.filter((compartment) => compartment.id !== compId))
