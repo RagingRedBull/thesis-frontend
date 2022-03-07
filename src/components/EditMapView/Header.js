@@ -1,5 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCog, faInfoCircle, faHouse, faBell, faFileAlt as faFileAltSol, faAsterisk, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
+import { faCog } from '@fortawesome/free-solid-svg-icons'
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+import { faBell } from '@fortawesome/free-solid-svg-icons'
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons'
+import { faAsterisk } from '@fortawesome/free-solid-svg-icons'
+import { faFileAlt as faFileAltSol} from '@fortawesome/free-solid-svg-icons'
+import { faHome } from '@fortawesome/free-solid-svg-icons'
 import { faFileAlt as faFileAltReg } from '@fortawesome/free-regular-svg-icons'
 import { OverlayTrigger, Popover } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
@@ -19,7 +25,7 @@ const Header = ({alarmingMode, setAlarmingMode}) => {
                             <div className='card rounded-0 w-100' style={{cursor: "pointer"}}>
                                 <div className='card-body row p-0 m-0'> 
                                     <div className='col-2 p-0 ps-1 m-0 mt-1'>
-                                        <FontAwesomeIcon icon={ faHouse } style={ settingsIconStyle } />
+                                        <FontAwesomeIcon icon={ faHome } style={ settingsIconStyle } />
                                     </div>
                                     <div className='col-10 p-0 m-0 fs-5'>
                                         Home
