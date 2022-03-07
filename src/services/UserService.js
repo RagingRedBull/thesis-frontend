@@ -28,7 +28,7 @@ const isLoggedIn = () => {
 }
 
 const updateToken = (successCallback) =>
-  _kc.updateToken(300)
+  _kc.updateToken(500)
     .then(successCallback)
     .catch(doLogin);
 

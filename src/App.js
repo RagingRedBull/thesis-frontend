@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     if (UserService.isLoggedIn()) {
       console.log("UPDATING TOKEN");
-      UserService.updateToken();
+      UserService.updateToken2();
     }
   }, []);
 
