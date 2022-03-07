@@ -23,16 +23,25 @@ const doLogout = _kc.logout;
 
 const getToken = () => _kc.token;
 
-const isLoggedIn = () => !!_kc.token;
+const isLoggedIn = () => {
+  return !!_kc.token;
+}
 
 const updateToken = (successCallback) =>
-  _kc.updateToken(5)
+  _kc.updateToken(300)
     .then(successCallback)
     .catch(doLogin);
 
 const getUsername = () => _kc.tokenParsed?.preferred_username;
 
 const hasRole = (roles) => roles.some((role) => _kc.hasRealmRole(role));
+
+const updateToken2 = () =>
+  _kc.updateToken(1)
+    .then(() => {
+      console.log("UPDATES THE TOKEN");
+    })
+    .catch(doLogin);
 
 const UserService = {
   initKeycloak,
@@ -41,6 +50,7 @@ const UserService = {
   isLoggedIn,
   getToken,
   updateToken,
+  updateToken2,
   getUsername,
   hasRole,
 };

@@ -7,10 +7,19 @@ import PrivateRouteHelper from "./routes/PrivateRouteHelper";
 import NoMatch from "./pages/NoMatch";
 import "bootstrap/dist/js/bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import EditMapView from './components/EditMapView';
+import EditMapView from "./components/EditMapView";
 import AddFloor from "./components/EditMapView/AddFloor";
+import UserService from "./services/UserService";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    if (UserService.isLoggedIn()) {
+      console.log("UPDATING TOKEN");
+      UserService.updateToken();
+    }
+  }, []);
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -35,14 +44,14 @@ function App() {
               </PrivateRouteHelper>
             }
           />
-          <Route 
+          <Route
             path="/edit-map"
             element={
               <PrivateRouteHelper>
                 <EditMapView />
               </PrivateRouteHelper>
-           } 
-         />
+            }
+          />
           <Route path="*" element={<NoMatch />} />
         </Routes>
       </BrowserRouter>
