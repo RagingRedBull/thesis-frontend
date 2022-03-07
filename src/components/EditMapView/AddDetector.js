@@ -52,8 +52,8 @@ function AddDetector({ show, setShow, addNewDetector }) {
                     response.data.sensorLogSet.map((sensor) => sensor.name === "MQ-5" && setMq5(sensor.mqValue))
                     response.data.sensorLogSet.map((sensor) => sensor.name === "MQ-7" && setMq7(sensor.mqValue))
                     response.data.sensorLogSet.map((sensor) => sensor.name === "MQ-135" && setMq135(sensor.mqValue))
-                    response.data.sensorLogSet.map((sensor) => sensor.name === "Fire" && setFire(sensor.temperature))
-                    response.data.sensorLogSet.map((sensor) => sensor.name === "Sound" && setSound(sensor.temperature))
+                    response.data.sensorLogSet.map((sensor) => sensor.name === "FIRE" && setFire(sensor.flame))
+                    response.data.sensorLogSet.map((sensor) => sensor.name === "SOUND" && setSound(sensor.sound))
                     setHasConnection(true)
                 })
                 .catch(() => {

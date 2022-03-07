@@ -3,8 +3,10 @@ import { Fragment, useEffect, useState } from "react"
 import { Rect } from "react-konva"
 import { useInterval } from "../../services/UseInterval"
 
-const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, detectors }) => {
+const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, detectors, setAlarmingMode }) => {
     const [sensorLogSet, setSensorLogSet] = useState([])
+    const [currentTimeRecorded, setCurrentTimeRecorded] = useState(null)
+    const [prevTimeRecorded, setPrevTimeRecorded] = useState(null)
 
     useEffect(() => {
         const getSensorLogSet = async () => {
@@ -13,9 +15,10 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
                     .get(global.config.server.url + "/detector/log/latest", { params: { macAddress: detectors[0].macAddress }})
                     .then((response) => {
                         setSensorLogSet(response.data.sensorLogSet)
+                        setCurrentTimeRecorded(response.data.timeRecorded)
                     })
                     .catch((err) => {
-                        console.log(compartment.id + ": No sensors ")
+                        console.log("No sensors ")
                     })
             }
         }
@@ -30,6 +33,8 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
                 .get(global.config.server.url + "/detector/log/latest", { params: { macAddress: detectors[0].macAddress }})
                 .then((response) => {
                     setSensorLogSet(response.data.sensorLogSet)
+                    setPrevTimeRecorded(currentTimeRecorded)
+                    setCurrentTimeRecorded(response.data.timeRecorded)
                 })
                 .catch((err) => {
                     console.log(compartment.id + ": No sensors ")
@@ -47,21 +52,45 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
                 if (sensor.type === "DHT" && sensor.temperature > 30) {
                     highTemp = true
                 }
-                if (sensor.type === "MQ" && sensor.mqValue > 30) {
+                if (sensor.type === "MQ" && sensor.mqValue > 300) {
                     smoke = true
                 }
             })
         }
 
         if (fire) {
+            if (prevTimeRecorded) {
+                if (prevTimeRecorded !== currentTimeRecorded) {
+                    setAlarmingMode(true)
+                }
+            } else {
+                setAlarmingMode(true)
+            }
+
             return "red"
         }
 
         if (smoke && highTemp) {
-            return "orange"
-        }
+            if (prevTimeRecorded) {
+                if (prevTimeRecorded !== currentTimeRecorded) {
+                    setAlarmingMode(true)
+                }
+            } else {
+                setAlarmingMode(true)
+            }
 
+            return "orange"
+        } 
+        
         if (highTemp) {
+            if (prevTimeRecorded) {
+                if (prevTimeRecorded !== currentTimeRecorded) {
+                    setAlarmingMode(true)
+                }
+            } else {
+                setAlarmingMode(true)
+            }
+
             return "yellow"
         }
 
