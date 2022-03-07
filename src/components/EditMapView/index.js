@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import SideNav from "./SideNav"
 import Map from "./Map"
-import Header from "../Header"
+import Header from "./Header"
 
 
 const EditMapView = () => {
