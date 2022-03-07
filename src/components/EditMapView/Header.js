@@ -14,7 +14,6 @@ import { useState } from 'react'
 
 const Header = ({alarmingMode, setAlarmingMode}) => {
     const buildName = "Test Building"
-    const [showEstablishFireOutModal, setShowEstablishFireOutModal] = useState(false)
 
     const cogPopover = (
         <Popover className='w-100' style={{ width: "170px"}}>
@@ -149,11 +148,6 @@ const Header = ({alarmingMode, setAlarmingMode}) => {
                     </OverlayTrigger>
                 </div>
             </div>
-            <EstablishFireOutModal 
-                show={ showEstablishFireOutModal } 
-                setShow={ setShowEstablishFireOutModal }
-                setAlarmingMode={ setAlarmingMode }
-            />
         </div>
     )
 };
