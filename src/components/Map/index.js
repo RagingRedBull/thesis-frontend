@@ -51,7 +51,6 @@ const Map = ({ image, hasFloors, floorId, setAlarmingMode, mlOutput, floorOrder 
                     console.log(err)
                 })
         }
-        console.log(compartments)
 
         getCompartments()
         getDetectors()
