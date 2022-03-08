@@ -10,19 +10,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import EditMapView from "./components/EditMapView";
 import AddFloor from "./components/EditMapView/AddFloor";
 import UserService from "./services/UserService";
-import axios from "axios";
-import { useEffect } from "react";
 import { useInterval } from "./services/UseInterval";
 
 function App() {
   useInterval(async () => {
     UserService.updateToken();
-    console.log("TOKEN: ", UserService.getToken());
   }, 300000);
-
-  useEffect(() => {
-    
-  })
 
   return (
     <div className="App">

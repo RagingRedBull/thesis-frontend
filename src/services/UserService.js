@@ -35,7 +35,7 @@ const isLoggedIn = () => {
 
 const updateToken = () => {
   _kc
-    .updateToken(10)
+    .updateToken(300)
     .then(function (refreshed) {
       if (!!refreshed) {
         console.log("Token was successfully refreshed");
@@ -48,27 +48,6 @@ const updateToken = () => {
     });
 };
 
-const onTokenExpired = () => {
-  _kc.onTokenExpired = () => {
-    _kc
-      .updateToken(300)
-      .then(function (refreshed) {
-        if (!!refreshed) {
-          console.log("Token was successfully refreshed");
-        } else {
-          console.log("Token is still valid");
-        }
-      })
-      .catch(function () {
-        console.log("Failed to refresh the token, or the session has expired");
-      });
-  };
-};
-
-const isTokenExpired = (min) => {
-  return !!_kc.isTokenExpired(min);
-};
-
 const getUsername = () => _kc.tokenParsed?.preferred_username;
 
 const hasRole = (roles) => roles.some((role) => _kc.hasRealmRole(role));
@@ -79,8 +58,6 @@ const UserService = {
   doLogout,
   isLoggedIn,
   getToken,
-  onTokenExpired,
-  isTokenExpired,
   updateToken,
   getUsername,
   hasRole,
