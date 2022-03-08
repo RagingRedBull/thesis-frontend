@@ -3,7 +3,7 @@ import { Fragment, useEffect, useState } from "react"
 import { Rect } from "react-konva"
 import { useInterval } from "../../services/UseInterval"
 
-const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, detectors, setAlarmingMode }) => {
+const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, detectors, setAlarmingMode, mlOutput, floorOrder }) => {
     const [sensorLogSet, setSensorLogSet] = useState([])
     const [currentTimeRecorded, setCurrentTimeRecorded] = useState(null)
     const [prevTimeRecorded, setPrevTimeRecorded] = useState(null)
@@ -22,7 +22,6 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
                     })
             }
         }
-
         getSensorLogSet()
     }, [detectors])
 
@@ -81,20 +80,32 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
 
             return "orange"
         } 
-        
-        if (highTemp) {
-            if (prevTimeRecorded) {
-                if (prevTimeRecorded !== currentTimeRecorded) {
-                    setAlarmingMode(true)
-                }
-            } else {
-                setAlarmingMode(true)
-            }
 
+        if (isMlOutputOverlap()) {
+            return "red"
+        }
+        
+        if (smoke) {
             return "yellow"
         }
 
         return "white"
+    }
+
+    const isWithin = (origin, start, end) => {
+        if (origin >= start && origin <= end) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    const isMlOutputOverlap = () => {
+        if ((isWithin(compartment.xdimension, mlOutput.xstart, mlOutput.xend) || isWithin(mlOutput.xstart, compartment.xdimension, compartment.xdimension + compartment.width)) && (isWithin(compartment.ydimension, mlOutput.ystart, mlOutput.yend) || isWithin(mlOutput.ystart, compartment.ydimension, compartment.ydimension + compartment.depth)) && (isWithin(floorOrder, mlOutput.floorStart, mlOutput.floorEnd))) {
+            return true
+        } else {
+            return false
+        }
     }
 
     return (

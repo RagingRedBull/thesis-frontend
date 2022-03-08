@@ -6,7 +6,7 @@ import MessageBox from '../MessageBox'
 import SidePanel from '../SidePanel'
 import Compartment from './Compartment'
 
-const Map = ({ image, hasFloors, floorId, setAlarmingMode }) => {
+const Map = ({ image, hasFloors, floorId, setAlarmingMode, mlOutput, floorOrder }) => {
     const imageUrl = global.config.server.url + "/images/" + image
     const [map] = useImage(imageUrl)
     const [compartments, setCompartments] = useState([])
@@ -28,6 +28,7 @@ const Map = ({ image, hasFloors, floorId, setAlarmingMode }) => {
                     .then((response) => {
                         if (response.data.length < 1) {
                             setMessage("Please add a compartment.")
+                            setCompartments(response.data)
                         } else {
                             setMessage(null)
                             setCompartments(response.data)
@@ -50,6 +51,7 @@ const Map = ({ image, hasFloors, floorId, setAlarmingMode }) => {
                     console.log(err)
                 })
         }
+        console.log(compartments)
 
         getCompartments()
         getDetectors()
@@ -148,6 +150,8 @@ const Map = ({ image, hasFloors, floorId, setAlarmingMode }) => {
                                             setCompName={ setCompName }
                                             detectors={ getCompDetectors(compartment.id) }
                                             setAlarmingMode={ setAlarmingMode }
+                                            mlOutput={ mlOutput }
+                                            floorOrder={ floorOrder }
                                         />
                                     ))}
                                 </Layer>

@@ -10,7 +10,6 @@ import { faFileAlt as faFileAltReg } from '@fortawesome/free-regular-svg-icons'
 import { OverlayTrigger, Popover } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import UserService from "../../services/UserService"
-import { useState } from 'react'
 
 const Header = ({alarmingMode, setAlarmingMode}) => {
     const buildName = "Test Building"

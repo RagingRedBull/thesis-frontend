@@ -5,11 +5,13 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import  '../../constants/constants.js'
 import '../../css/MapView.css'
+import { useInterval } from "../../services/UseInterval"
 
 const MapView = () => {
   const [floors, setFloors] = useState([])
   const [currentFloor, setCurrentFloor] = useState([])
   const [alarmingMode, setAlarmingMode] = useState(false)
+  const [mlOutput, setMlOutput] = useState([])
 
   // Get floors
   useEffect(() => {
@@ -33,7 +35,37 @@ const MapView = () => {
         })
     }
     getFloors()
+    getAlarmingMode()
+    getMachLearnOutput()
   }, [])
+
+  useInterval(
+    () => {
+      getAlarmingMode()
+      getMachLearnOutput()
+    },
+    5000
+  )
+
+  const getAlarmingMode = async () => {
+    axios
+      .get(
+        global.config.server.url + "/alarming"
+      )
+      .then((response) => {
+        setAlarmingMode(response.data)
+      })
+  }
+
+  const getMachLearnOutput = async () => {
+    axios
+      .get(
+        global.config.server.url + "/ml/output"
+      )
+      .then((response) => {
+        setMlOutput(response.data)
+      })
+  }
 
   return (
     <div className="container-fluid row p-0 m-0" style={ mapViewStyle }>
@@ -46,14 +78,15 @@ const MapView = () => {
           image={ currentFloor.imageUrl } 
           hasFloors={ floors.length > 0 } 
           floorId={ currentFloor.id } 
-          setAlarmingMode ={ setAlarmingMode }
+          setAlarmingMode={ setAlarmingMode }
+          mlOutput={ mlOutput }
+          floorOrder={ currentFloor.order }
         />
       </div>
     </div>
   )
 }
 
-// To be replaced with Tailwind
 const mapViewStyle = {
   backgroundColor: "grey",
   height: "100%",
