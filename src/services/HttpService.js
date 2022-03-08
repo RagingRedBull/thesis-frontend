@@ -23,24 +23,10 @@ const configure = () => {
 
 const getAxiosClient = () => _axios;
 
-// const getAlarmingModeStatus = () => {
-//   const mode = false;
-//   _axios
-//     .get(global.config.server.url + "/alarming")
-//     .then((response) => {
-//       mode = response.data;
-//       return mode;
-//     })
-//     .catch((err) => {
-//       console.log("Error", err);
-//     });
-// };
-
 const HttpService = {
   HttpMethods,
   configure,
   getAxiosClient,
-  // getAlarmingModeStatus,
 };
 
 export default HttpService;
