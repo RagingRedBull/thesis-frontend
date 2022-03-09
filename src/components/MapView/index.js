@@ -73,7 +73,7 @@ const MapView = () => {
         <SideNav floors={ floors } setCurrentFloor={ setCurrentFloor } selFloorId={ currentFloor.id } />
       </div>
       <div className="col-11 p-0 m-0 row g-0">
-        <Header alarmingMode={ alarmingMode } setAlarmingMode={ setAlarmingMode } />
+        <Header alarmingMode={ alarmingMode } />
         <Map 
           image={ currentFloor.imageUrl } 
           hasFloors={ floors.length > 0 } 

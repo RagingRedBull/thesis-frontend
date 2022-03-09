@@ -1,9 +1,32 @@
+import axios from 'axios'
 import React from 'react'
 import { Modal } from 'react-bootstrap'
 
-const EstablishFireOutModal = ({show, setShow, setAlarmingMode}) => {
+const EstablishFireOutModal = ({show, setShow}) => {
     const handleClose = () => {
         setShow(false)
+    }
+
+    const establishFireOut = async () => {
+        axios
+            .get(global.config.server.url + "/alarming/update", {
+                params: {
+                    enableAlarming: false
+                }
+            })
+            .then((response) => {
+                if (response.status === 200) {
+                    alert("Successfully established fire out.")
+                    console.log(response)
+                } else {
+                    alert("Establishing fire out was unsuccessful.")
+                }
+            })
+            .catch((err => {
+                alert("Unable to establish fire out.")
+            }))
+
+
     }
 
     return (
@@ -26,7 +49,7 @@ const EstablishFireOutModal = ({show, setShow, setAlarmingMode}) => {
                     type="button"
                     className="btn btn-success btn-block"
                     onClick={() => {
-                        setAlarmingMode(false)
+                        establishFireOut()
                         handleClose()
                     }}
                 >

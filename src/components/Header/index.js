@@ -7,7 +7,7 @@ import UserService from "../../services/UserService"
 import { useState } from 'react'
 import EstablishFireOutModal from './EstablishFireOutModal'
 
-const Header = ({alarmingMode, setAlarmingMode}) => {
+const Header = ({alarmingMode}) => {
     const buildName = "Test Building"
     const [showEstablishFireOutModal, setShowEstablishFireOutModal] = useState(false)
 
@@ -40,6 +40,16 @@ const Header = ({alarmingMode, setAlarmingMode}) => {
                         </>
                     :
                         <>
+                            <div className='card rounded-0' style={{cursor: "pointer"}} onClick={() => setShowEstablishFireOutModal(true)}>
+                                <div className='card-body row p-0 m-0'> 
+                                    <div className='col-2 p-0 ps-1 m-0 mt-1'>
+                                        <FontAwesomeIcon icon={ faSignInAlt } style={ settingsIconStyle } />
+                                    </div>
+                                    <div className='col-10 p-0 m-0 fs-5'>
+                                        Establish Fire Out
+                                    </div>
+                                </div>
+                            </div>
                             <Link to="/edit-map" style={ linkStyle }>
                                 <div className='card rounded-0 w-100' style={{cursor: "pointer"}}>
                                     <div className='card-body row p-0 m-0'> 
@@ -172,7 +182,6 @@ const Header = ({alarmingMode, setAlarmingMode}) => {
             <EstablishFireOutModal 
                 show={ showEstablishFireOutModal } 
                 setShow={ setShowEstablishFireOutModal }
-                setAlarmingMode={ setAlarmingMode }
             />
         </div>
     )
