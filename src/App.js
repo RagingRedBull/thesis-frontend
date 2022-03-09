@@ -1,24 +1,38 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DetectorLog from "./components/DetectorLog";
-import ChangePassword from "./components/ChangePassword";
 import MapView from "./components/MapView";
 import PrivateRouteHelper from "./routes/PrivateRouteHelper";
 import NoMatch from "./pages/NoMatch";
 import "bootstrap/dist/js/bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import EditMapView from "./components/EditMapView";
-import AddFloor from "./components/EditMapView/AddFloor";
 import UserService from "./services/UserService";
-import { useEffect } from "react";
+import { useInterval } from "./services/UseInterval";
+import { useState } from "react";
+import axios from "axios";
 
 function App() {
-  useEffect(() => {
-    if (UserService.isLoggedIn()) {
-      console.log("UPDATING TOKEN");
-      UserService.updateToken2();
-    }
-  }, []);
+  const [alarmingStatus, setAlarmingStatus] = useState();
+
+  useInterval(async () => {
+    UserService.updateToken();
+  }, 300000);
+
+  const getAlarmingModeStatus = () => {
+    axios
+      .get(global.config.server.url + "/alarming")
+      .then((response) => {
+        setAlarmingStatus(response.data);
+      })
+      .catch((err) => {
+        console.log("Error", err);
+      });
+  };
+
+  useInterval(() => {
+    getAlarmingModeStatus();
+  }, 1000);
 
   return (
     <div className="App">
@@ -26,28 +40,10 @@ function App() {
         <Routes>
           <Route path="/" element={<MapView />} />
           <Route path="/logs" element={<DetectorLog />} />
-          <Route path="/detector" element={<Detector />} />
-          <Route path="/floor" element={<Floors />} />
-          <Route
-            path="/add-floor"
-            element={
-              <PrivateRouteHelper>
-                <AddFloor />
-              </PrivateRouteHelper>
-            }
-          />
-          <Route
-            path="/change-password"
-            element={
-              <PrivateRouteHelper>
-                <ChangePassword />
-              </PrivateRouteHelper>
-            }
-          />
           <Route
             path="/edit-map"
             element={
-              <PrivateRouteHelper>
+              <PrivateRouteHelper status={alarmingStatus}>
                 <EditMapView />
               </PrivateRouteHelper>
             }
@@ -57,13 +53,6 @@ function App() {
       </BrowserRouter>
     </div>
   );
-}
-
-function Detector() {
-  return <h3>Detector</h3>;
-}
-function Floors() {
-  return <h3>Floors</h3>;
 }
 
 export default App;

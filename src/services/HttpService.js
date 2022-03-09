@@ -2,9 +2,9 @@ import axios from "axios";
 import UserService from "./UserService";
 
 const HttpMethods = {
-  GET: 'GET',
-  POST: 'POST',
-  DELETE: 'DELETE',
+  GET: "GET",
+  POST: "POST",
+  DELETE: "DELETE",
 };
 
 const _axios = axios.create();
