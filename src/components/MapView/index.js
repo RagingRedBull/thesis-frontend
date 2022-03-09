@@ -78,7 +78,7 @@ const MapView = () => {
           image={ currentFloor.imageUrl } 
           hasFloors={ floors.length > 0 } 
           floorId={ currentFloor.id } 
-          setAlarmingMode={ setAlarmingMode }
+          alarmingMode={ alarmingMode }
           mlOutput={ mlOutput }
           floorOrder={ currentFloor.order }
         />

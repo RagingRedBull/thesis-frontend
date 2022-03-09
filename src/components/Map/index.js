@@ -6,7 +6,7 @@ import MessageBox from '../MessageBox'
 import SidePanel from '../SidePanel'
 import Compartment from './Compartment'
 
-const Map = ({ image, hasFloors, floorId, setAlarmingMode, mlOutput, floorOrder }) => {
+const Map = ({ image, hasFloors, floorId, mlOutput, floorOrder, alarmingMode }) => {
     const imageUrl = global.config.server.url + "/images/" + image
     const [map] = useImage(imageUrl)
     const [compartments, setCompartments] = useState([])
@@ -148,9 +148,9 @@ const Map = ({ image, hasFloors, floorId, setAlarmingMode, mlOutput, floorOrder 
                                             setSelectedComp={ setSelectedComp }
                                             setCompName={ setCompName }
                                             detectors={ getCompDetectors(compartment.id) }
-                                            setAlarmingMode={ setAlarmingMode }
                                             mlOutput={ mlOutput }
                                             floorOrder={ floorOrder }
+                                            alarmingMode={ alarmingMode }
                                         />
                                     ))}
                                 </Layer>

@@ -136,7 +136,7 @@ const Header = ({alarmingMode, setAlarmingMode}) => {
                 </div>
                 <div id='yellow' className='m-0 p-0'>
                     <h6 className='m-0' style={{color:'yellow'}}><i>YELLLOW</i></h6>
-                    <p>High temperature</p>
+                    <p>Smoke</p>
                 </div>
                 <div id='white' className='m-0 p-0'>
                     <h6 className='m-0'><i>WHITE / no color</i></h6>
