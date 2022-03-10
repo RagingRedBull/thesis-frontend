@@ -1,17 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCog } from '@fortawesome/free-solid-svg-icons'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
-import { faBell } from '@fortawesome/free-solid-svg-icons'
-import { faSignInAlt } from '@fortawesome/free-solid-svg-icons'
-import { faAsterisk } from '@fortawesome/free-solid-svg-icons'
-import { faFileAlt as faFileAltSol} from '@fortawesome/free-solid-svg-icons'
+import { faCog, faWrench, faBell, faFileAlt as faFileAltSol, faAsterisk, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 import { faHome } from '@fortawesome/free-solid-svg-icons'
-import { faFileAlt as faFileAltReg } from '@fortawesome/free-regular-svg-icons'
 import { OverlayTrigger, Popover } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import UserService from "../../services/UserService"
 
-const Header = ({alarmingMode, setAlarmingMode}) => {
+const Header = ({alarmingMode}) => {
     const buildName = "Test Building"
 
     const cogPopover = (
@@ -31,6 +25,18 @@ const Header = ({alarmingMode, setAlarmingMode}) => {
                                 </div>
                             </div>
                         </Link>
+                        <Link to="/edit-map" style={ linkStyle }>
+                            <div className='card rounded-0 w-100' style={{cursor: "pointer"}}>
+                                <div className='card-body row p-0 m-0'> 
+                                    <div className='col-2 p-0 ps-1 m-0 mt-1'>
+                                        <FontAwesomeIcon icon={ faWrench } style={ settingsIconStyle } />
+                                    </div>
+                                    <div className='col-10 p-0 m-0 fs-5'>
+                                        Maintenance Mode
+                                    </div>
+                                </div>
+                            </div>
+                        </Link>
                         <div className='card rounded-0' style={{cursor: "pointer"}}>
                             <div className='card-body row p-0 m-0'> 
                                 <div className='col-2 p-0 ps-1 m-0 mt-1'>
@@ -41,18 +47,6 @@ const Header = ({alarmingMode, setAlarmingMode}) => {
                                 </div>
                             </div>
                         </div>
-                        <Link to="/status-logs" style={ linkStyle }>
-                            <div className='card rounded-0' style={{cursor: "pointer"}}>
-                                <div className='card-body row p-0 m-0'> 
-                                    <div className='col-2 p-0 ps-1 m-0 mt-1'>
-                                        <FontAwesomeIcon icon={ faFileAltReg } style={ settingsIconStyle } />
-                                    </div>
-                                    <div className='col-10 p-0 m-0 fs-5'>
-                                        Status reports
-                                    </div>
-                                </div>
-                            </div>
-                        </Link>
                         <div className='card rounded-0' style={{cursor: "pointer"}}>
                             <div className='card-body row p-0 m-0'> 
                                 <div className='col-2 p-0 ps-1 m-0 mt-1'>
@@ -86,6 +80,7 @@ const Header = ({alarmingMode, setAlarmingMode}) => {
                             </div>
                         </div>
                     </>
+                
                 :
                     <div className='card rounded-0' style={{cursor: "pointer"}} onClick={() => UserService.doLogin()}>
                         <div className='card-body row p-0 m-0'> 
@@ -97,17 +92,7 @@ const Header = ({alarmingMode, setAlarmingMode}) => {
                             </div>
                         </div>
                     </div>
-                }
-            </Popover.Body>
-        </Popover>
-    )
-
-    const infoPopover = (
-        <Popover>
-            <Popover.Body className='p-2'>
-                <div className='m-0 p-0'>
-                    <h6 className='m-0 text-center'>{ UserService.getUsername() }</h6>
-                </div>
+            }
             </Popover.Body>
         </Popover>
     )
@@ -122,12 +107,6 @@ const Header = ({alarmingMode, setAlarmingMode}) => {
             </div>
             <div className='col-1 mt-3'>
                 <div className='row h-100'>
-                    <OverlayTrigger trigger='click' placement='bottom' overlay={ infoPopover }>
-                        <div className='col p-0' style={ iconContainerStyle }>
-                            <FontAwesomeIcon className="" icon={ faUser } style={ iconStyle } />
-                        </div>
-                    </OverlayTrigger>
-
                     <OverlayTrigger trigger='click' placement='bottom' overlay={ cogPopover }>
                         <div className='col p-0' style={ iconContainerStyle }>
                             <FontAwesomeIcon className="" icon={ faCog } style={ iconStyle } />

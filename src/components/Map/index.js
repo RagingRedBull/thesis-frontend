@@ -5,8 +5,9 @@ import useImage from 'use-image'
 import MessageBox from '../MessageBox'
 import SidePanel from '../SidePanel'
 import Compartment from './Compartment'
+import { useInterval } from '../../services/UseInterval'
 
-const Map = ({ image, hasFloors, floorId, mlOutput, floorOrder, alarmingMode }) => {
+const Map = ({ image, hasFloors, floorId, floorOrder, alarmingMode }) => {
     const imageUrl = global.config.server.url + "/images/" + image
     const [map] = useImage(imageUrl)
     const [compartments, setCompartments] = useState([])
@@ -15,6 +16,7 @@ const Map = ({ image, hasFloors, floorId, mlOutput, floorOrder, alarmingMode }) 
     const [compName, setCompName] = useState(null)
     const [scale, setScale] = useState(1)
     const [message, setMessage] = useState(null)
+    const [mlOutput, setMlOutput] = useState([])
 
     useEffect(() => {
         const getCompartments = async () => {
@@ -55,7 +57,32 @@ const Map = ({ image, hasFloors, floorId, mlOutput, floorOrder, alarmingMode }) 
         getCompartments()
         getDetectors()
         setSelectedComp(null)
-    }, [floorId])
+        if (alarmingMode) {
+            getMachLearnOutput()
+        }
+    }, [floorId, alarmingMode])
+
+    useInterval(
+        () => {
+            if (alarmingMode) {
+                getMachLearnOutput()
+            }
+        },
+        5000
+      )
+
+    const getMachLearnOutput = async () => {
+        axios
+          .get(
+            global.config.server.url + "/ml/output"
+          )
+          .then((response) => {
+            setMlOutput(response.data)
+          })
+          .catch((err) => {
+            console.log(err)
+          }) 
+      }
 
     const zoom = (e) => {
         e.evt.preventDefault()

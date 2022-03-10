@@ -73,7 +73,7 @@ const EditMapView = () => {
             <div className="side-navigation col-1 p-0 text-center">
                 <SideNav floors={ floors } setCurrentFloor={ setCurrentFloor } currentFloor={ currentFloor } setFloors={ setFloors } handleDelete={ handleDeleteFloor } handleUpdate={ handleUpdateFloor } />
             </div>
-            <div className="col-11 p-0 m-0 row g-0">
+            <div className="h-100 col-11 p-0 m-0 row g-0">
                 <Header />
                 <Map image={ currentFloor.imageUrl } hasFloors={ floors.length > 0 } floorId={ currentFloor.id } currentFloor={ currentFloor } />
             </div>
