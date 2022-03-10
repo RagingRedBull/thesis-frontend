@@ -3,8 +3,8 @@ import { Fragment, useEffect, useState } from "react"
 import { Rect, Image } from "react-konva"
 import useImage from "use-image"
 import { useInterval } from "../../services/UseInterval"
-import smokeImage from "../../images/smoke_icon.png"
-import tempImage from "../../images/temp_icon.png"
+import smokeImage from "../../images/cloud-solid.svg"
+import tempImage from "../../images/temperature-high-solid.svg"
 
 const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, detectors, mlSmokeOutput, mlHeatOutput, floorOrder, alarmingMode }) => {
     const [sensorLogSet, setSensorLogSet] = useState([])

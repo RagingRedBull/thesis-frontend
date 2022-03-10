@@ -24,6 +24,8 @@ const AddCompartment = ({show, setShow, addNewCompartment}) => {
         setMessage(null)
     }
 
+    const floatRegExp = new RegExp('^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$')
+
     const submit = (e) => {
         e.preventDefault()
 
@@ -32,18 +34,35 @@ const AddCompartment = ({show, setShow, addNewCompartment}) => {
             return null
         }
         if (compDetails.xdimension === null) {
-            setMessage("Please enter the actual x coordinate of the compartment in meters")
+            setMessage("Please enter the x coordinate of the compartment in meters.")
+            return null
+        }
+        if (!floatRegExp.test(compDetails.xdimension)) {
+            setMessage("X coordinate must be numeric!")
             return null
         }
         if (compDetails.ydimension === null) {
-            setMessage("Please enter the actual y coordinate of the compartment in meters")
+            setMessage("Please enter the y coordinate of the compartment in meters.")
+            return null
+        }
+        if (!floatRegExp.test(compDetails.ydimension)) {
+            setMessage("Y coordinate must be numeric!")
             return null
         }
         if (compDetails.width === null) {
             setMessage("Please enter the width of the compartment in meters")
+            return null
+        }
+        if (!floatRegExp.test(compDetails.width)) {
+            setMessage("Width must be numeric!")
+            return null
         }
         if (compDetails.depth === null) {
             setMessage("Please enter the depth of the compartment in meters")
+            return null
+        }
+        if (!floatRegExp.test(compDetails.depth)) {
+            setMessage("Depth must be numeric!")
             return null
         }
         
@@ -78,12 +97,15 @@ const AddCompartment = ({show, setShow, addNewCompartment}) => {
                                     <div className='input-group-text'>x</div>
                                 </div>
                                 <input 
-                                    type='number' 
+                                    type='text' 
                                     placeholder={ 0 }
                                     onChange={(e) => setCompDetails({...compDetails, xdimension: e.target.value})}
                                     style={{width: "50px"}}
                                     min={ 0 }
                                 />
+                                <div className='input-group-prepend'>
+                                    <div className='input-group-text'>m</div>
+                                </div>
                             </div>
                         </div>
                         <div className='col'>
@@ -92,12 +114,15 @@ const AddCompartment = ({show, setShow, addNewCompartment}) => {
                                     <div className='input-group-text'>y</div>
                                 </div>
                                 <input 
-                                    type='number' 
+                                    type='text' 
                                     placeholder={ 0 }
                                     onChange={(e) => setCompDetails({...compDetails, ydimension: e.target.value})}
                                     style={{width: "50px"}}
                                     min={ 0 }
                                 />
+                                <div className='input-group-prepend'>
+                                    <div className='input-group-text'>m</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -109,12 +134,15 @@ const AddCompartment = ({show, setShow, addNewCompartment}) => {
                                     <div className='input-group-text'>width</div>
                                 </div>
                                 <input 
-                                    type='number' 
+                                    type='text' 
                                     placeholder={ 0 }
                                     onChange={(e) => setCompDetails({...compDetails, width: e.target.value})}
                                     style={{width: "50px"}}
                                     min={ 0 }
                                 />
+                                <div className='input-group-prepend'>
+                                    <div className='input-group-text'>m</div>
+                                </div>
                             </div>
                         </div>
                         <div className='col'>
@@ -123,12 +151,15 @@ const AddCompartment = ({show, setShow, addNewCompartment}) => {
                                     <div className='input-group-text'>depth</div>
                                 </div>
                                 <input 
-                                    type='number' 
+                                    type='text' 
                                     placeholder={ 0 }
                                     onChange={(e) => setCompDetails({...compDetails, depth: e.target.value})}
                                     style={{width: "50px"}}
                                     min={ 0 }
                                 />
+                                <div className='input-group-prepend'>
+                                    <div className='input-group-text'>m</div>
+                                </div>
                             </div>
                         </div>
                     </div>
