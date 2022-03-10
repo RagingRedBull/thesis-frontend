@@ -24,10 +24,10 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
                         setSensorLogSet(response.data.sensorLogSet)
                         response.data.sensorLogSet.forEach((sensor) => {
                             if(sensor.type === "DHT"){
-                                if(sensor.name === "DHT-11" && sensor.temperature > 30){
+                                if(sensor.name === "DHT-11" && sensor.temperature > 35){
                                     setIsHighTemp(true)
                                 }
-                                else if (sensor.name === "DHT-22" && sensor.temperature > 30){
+                                else if (sensor.name === "DHT-22" && sensor.temperature > 35){
                                     setIsHighTemp(true)
                                 }
                                 else{
@@ -99,14 +99,11 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
         if (sensorLogSet.length > 0) {
             sensorLogSet.forEach((sensor) => {
                 if(sensor.type === "DHT"){
-                    if(sensor.name === "DHT-11" && sensor.temperature > 30){
+                    if(sensor.name === "DHT-11" && sensor.temperature > 35){
                         highTemp = true
                     }
-                    else if (sensor.name === "DHT-22" && sensor.temperature > 30){
+                    else if (sensor.name === "DHT-22" && sensor.temperature > 35){
                         highTemp = true
-                    }
-                    else{
-                        highTemp = false
                     }
                 }
                 else if(sensor.type === "MQ"){
@@ -122,16 +119,10 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
                     else if (sensor.name === "MQ-135" && sensor.mqValue > 300){
                         smoke = true
                     }
-                    else{
-                        smoke = false
-                    }
                 }
                 else if(sensor.type === "FIRE"){
                     if(sensor.name === "FIRE" && sensor.sensorValue > 80){
                         fire = true                    
-                    }
-                    else{
-                        fire = false
                     }
                 }
             })

@@ -51,14 +51,11 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
                 if (detectorData.sensorLogSet) {
                     detectorData.sensorLogSet.forEach((sensor) => {
                         if(sensor.type === "DHT"){
-                            if(sensor.name === "DHT-11" && sensor.temperature > 30){
+                            if(sensor.name === "DHT-11" && sensor.temperature > 35){
                                 isTriggered = true;
                             }
-                            else if (sensor.name === "DHT-22" && sensor.temperature > 30){
+                            else if (sensor.name === "DHT-22" && sensor.temperature > 35){
                                 isTriggered = true;
-                            }
-                            else{
-                                isTriggered = false;
                             }
                         }
                         else if(sensor.type === "MQ"){
@@ -74,24 +71,15 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
                             else if (sensor.name === "MQ-135" && sensor.mqValue > 300){
                                 isTriggered = true;
                             }
-                            else{
-                                isTriggered = false;
-                            }
                         }
                         else if(sensor.type === "FIRE"){
                             if(sensor.name === "FIRE" && sensor.sensorValue > 80){
                                 isTriggered = true;
                             }
-                            else{
-                                isTriggered = false;
-                            }
                         }
                         else if(sensor.type === "SOUND"){
                             if(sensor.name === "SOUND" && (sensor.sound < 80 && sensor.sound > 88 )){
                                 isTriggered = true;
-                            }
-                            else{
-                                isTriggered = false;
                             }
                         }
                     })
