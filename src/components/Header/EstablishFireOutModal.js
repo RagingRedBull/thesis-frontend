@@ -17,7 +17,6 @@ const EstablishFireOutModal = ({show, setShow}) => {
             .then((response) => {
                 if (response.status === 200) {
                     alert("Successfully established fire out.")
-                    console.log(response)
                 } else {
                     alert("Establishing fire out was unsuccessful.")
                 }

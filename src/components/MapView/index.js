@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import  '../../constants/constants.js'
 import '../../css/MapView.css'
+import { useInterval } from "../../services/UseInterval"
 
 const MapView = () => {
   const [floors, setFloors] = useState([])
@@ -35,6 +36,10 @@ const MapView = () => {
     getFloors()
     getAlarmingMode()
   }, [])
+
+  useInterval(() => {
+    getAlarmingMode()
+  }, 5000)
 
   const getAlarmingMode = async () => {
     axios
