@@ -50,14 +50,49 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
             if (detectorData) {
                 if (detectorData.sensorLogSet) {
                     detectorData.sensorLogSet.forEach((sensor) => {
-                        if (sensor.type === "DHT" && sensor.temperature > 30) {
-                            isTriggered = true
+                        if(sensor.type === "DHT"){
+                            if(sensor.name === "DHT-11" && sensor.temperature > 30){
+                                isTriggered = true;
+                            }
+                            else if (sensor.name === "DHT-22" && sensor.temperature > 30){
+                                isTriggered = true;
+                            }
+                            else{
+                                isTriggered = false;
+                            }
                         }
-                        if (sensor.type === "MQ" && sensor.mqValue > 300) {
-                            isTriggered = true
+                        else if(sensor.type === "MQ"){
+                            if(sensor.name === "MQ-2" && sensor.mq_value > 300){
+                                isTriggered = true;
+                            }
+                            else if (sensor.name === "MQ-5" && sensor.mq_value > 300){
+                                isTriggered = true;
+                            }
+                            else if (sensor.name === "MQ-7" && sensor.mq_value > 300){
+                                isTriggered = true;
+                            }
+                            else if (sensor.name === "MQ-135" && sensor.mq_value > 300){
+                                isTriggered = true;
+                            }
+                            else{
+                                isTriggered = false;
+                            }
                         }
-                        if (sensor.type === "FIRE" && sensor.flame) {
-                            isTriggered = true
+                        else if(sensor.type === "FIRE"){
+                            if(sensor.name === "FIRE" && sensor.flame_value > 80){
+                                isTriggered = true;
+                            }
+                            else{
+                                isTriggered = false;
+                            }
+                        }
+                        else if(sensor.type === "SOUND"){
+                            if(sensor.name === "SOUND" && (sensor.sound_value < 80 && sensor.sound_value > 88 )){
+                                isTriggered = true;
+                            }
+                            else{
+                                isTriggered = false;
+                            }
                         }
                     })
                 }
@@ -97,27 +132,27 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
                                         </div>
                                         <div className='row'>
                                             <div className='col'>MQ-2:</div>
-                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "MQ-2") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "MQ-2" && sensor.mqValue) : "No Smoke" }</div>
+                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "MQ-2") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "MQ-2" && sensor.mq_value) : "No Smoke/Gas" }</div>
                                         </div>
                                         <div className='row'>
                                             <div className='col'>MQ-5:</div>
-                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "MQ-5") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "MQ-5" && sensor.mqValue) : "No Smoke" }</div>
+                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "MQ-5") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "MQ-5" && sensor.mq_value) : "No Smoke/Gas" }</div>
                                         </div>
                                         <div className='row'>
                                             <div className='col'>MQ-7:</div>
-                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "MQ-7") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "MQ-7" && sensor.mqValue) : "No Smoke"}</div>
+                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "MQ-7") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "MQ-7" && sensor.mq_value) : "No Smoke/Gas"}</div>
                                         </div>
                                         <div className='row'>
                                             <div className='col'>MQ-135:</div>
-                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "MQ-135") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "MQ-135" && sensor.mqValue) : "No Smoke"}</div>
+                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "MQ-135") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "MQ-135" && sensor.mq_value) : "No Smoke/Gas"}</div>
                                         </div>
                                         <div className='row'>
                                             <div className='col'>Fire:</div>
-                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "FIRE") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "FIRE" && sensor.flame) : "No Fire"}</div>
+                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "FIRE") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "FIRE" && sensor.flame_value) : "No Fire"}</div>
                                         </div>
                                         <div className='row'>
                                             <div className='col'>Sound:</div>
-                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "SOUND") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "Sound" && sensor.sound) : "No Sound" }</div>
+                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "SOUND") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "SOUND" && sensor.sound_value) : "No Sound" }</div>
                                         </div>
                                     </div>
                                 :
@@ -132,19 +167,19 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
                                     </div>
                                     <div className='row'>
                                         <div className='col'>MQ2:</div>
-                                        <div className='col'>{ "No gas" }</div>
+                                        <div className='col'>{ "No Smoke/Gas" }</div>
                                     </div>
                                     <div className='row'>
                                         <div className='col'>MQ5:</div>
-                                        <div className='col'>{ "No gas"}</div>
+                                        <div className='col'>{ "No Smoke/Gas"}</div>
                                     </div>
                                     <div className='row'>
                                         <div className='col'>MQ7:</div>
-                                        <div className='col'>{ "No gas"}</div>
+                                        <div className='col'>{ "No Smoke/Gas"}</div>
                                     </div>
                                     <div className='row'>
                                         <div className='col'>MQ135:</div>
-                                        <div className='col'>{ "No gas" }</div>
+                                        <div className='col'>{ "No Smoke/Gas" }</div>
                                     </div>
                                     <div className='row'>
                                         <div className='col'>Fire:</div>

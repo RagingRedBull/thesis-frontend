@@ -12,6 +12,8 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
     const [tempIcon] = useImage(tempImage)
     const [isSmoke, setIsSmoke] = useState(false)
     const [isHighTemp, setIsHighTemp] = useState(false)
+    const [isFire, setIsFire] = useState(false);
+    const [isSound, setIsSound] = useState(false);
 
     useEffect(() => {
         const getSensorLogSet = async () => {
@@ -21,15 +23,49 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
                     .then((response) => {
                         setSensorLogSet(response.data.sensorLogSet)
                         response.data.sensorLogSet.forEach((sensor) => {
-                            if (sensor.type === "DHT" && sensor.temperature > 30) {
-                                setIsHighTemp(true)
-                            } else {
-                                setIsHighTemp(false)
+                            if(sensor.type === "DHT"){
+                                if(sensor.name === "DHT-11" && sensor.temperature > 30){
+                                    setIsHighTemp(true)
+                                }
+                                else if (sensor.name === "DHT-22" && sensor.temperature > 30){
+                                    setIsHighTemp(true)
+                                }
+                                else{
+                                    setIsHighTemp(false)
+                                }
                             }
-                            if (sensor.type === "MQ" && sensor.mqValue > 300) {
-                                setIsSmoke(true)
-                            } else {
-                                setIsSmoke(false)
+                            else if(sensor.type === "MQ"){
+                                if(sensor.name === "MQ-2" && sensor.mq_value > 300){
+                                    setIsSmoke(true)
+                                }
+                                else if (sensor.name === "MQ-5" && sensor.mq_value > 300){
+                                    setIsSmoke(true)
+                                }
+                                else if (sensor.name === "MQ-7" && sensor.mq_value > 300){
+                                    setIsSmoke(true)
+                                }
+                                else if (sensor.name === "MQ-135" && sensor.mq_value > 300){
+                                    setIsSmoke(true)
+                                }
+                                else{
+                                    setIsSmoke(false)
+                                }
+                            }
+                            else if(sensor.type === "FIRE"){
+                                if(sensor.name === "FIRE" && sensor.flame_value > 80){
+                                    setIsFire(true)
+                                }
+                                else{
+                                    setIsFire(false)
+                                }
+                            }
+                            else if(sensor.type === "SOUND"){
+                                if(sensor.name === "SOUND" && (sensor.sound_value < 80 && sensor.sound_value > 88 )){
+                                    setIsSound(true)
+                                }
+                                else{
+                                    setIsSound(false)
+                                }
                             }
                         })
                     })
@@ -62,11 +98,41 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
 
         if (sensorLogSet.length > 0) {
             sensorLogSet.forEach((sensor) => {
-                if (sensor.type === "DHT" && sensor.temperature > 30) {
-                    highTemp = true
+                if(sensor.type === "DHT"){
+                    if(sensor.name === "DHT-11" && sensor.temperature > 30){
+                        highTemp = true
+                    }
+                    else if (sensor.name === "DHT-22" && sensor.temperature > 30){
+                        highTemp = true
+                    }
+                    else{
+                        highTemp = false
+                    }
                 }
-                if (sensor.type === "MQ" && sensor.mqValue > 300) {
-                    smoke = true
+                else if(sensor.type === "MQ"){
+                    if(sensor.name === "MQ-2" && sensor.mq_value > 300){
+                        smoke = true
+                    }
+                    else if (sensor.name === "MQ-5" && sensor.mq_value > 300){
+                        smoke = true
+                    }
+                    else if (sensor.name === "MQ-7" && sensor.mq_value > 300){
+                        smoke = true
+                    }
+                    else if (sensor.name === "MQ-135" && sensor.mq_value > 300){
+                        smoke = true
+                    }
+                    else{
+                        smoke = false
+                    }
+                }
+                else if(sensor.type === "FIRE"){
+                    if(sensor.name === "FIRE" && sensor.flame_value > 80){
+                        fire = true                    
+                    }
+                    else{
+                        fire = false
+                    }
                 }
             })
         }
