@@ -62,16 +62,16 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
                             }
                         }
                         else if(sensor.type === "MQ"){
-                            if(sensor.name === "MQ-2" && sensor.mq_value > 300){
+                            if(sensor.name === "MQ-2" && sensor.mqValue > 300){
                                 isTriggered = true;
                             }
-                            else if (sensor.name === "MQ-5" && sensor.mq_value > 300){
+                            else if (sensor.name === "MQ-5" && sensor.mqValue > 300){
                                 isTriggered = true;
                             }
-                            else if (sensor.name === "MQ-7" && sensor.mq_value > 300){
+                            else if (sensor.name === "MQ-7" && sensor.mqValue > 300){
                                 isTriggered = true;
                             }
-                            else if (sensor.name === "MQ-135" && sensor.mq_value > 300){
+                            else if (sensor.name === "MQ-135" && sensor.mqValue > 300){
                                 isTriggered = true;
                             }
                             else{
@@ -79,7 +79,7 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
                             }
                         }
                         else if(sensor.type === "FIRE"){
-                            if(sensor.name === "FIRE" && sensor.flame_value > 80){
+                            if(sensor.name === "FIRE" && sensor.sensorValue > 80){
                                 isTriggered = true;
                             }
                             else{
@@ -87,7 +87,7 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
                             }
                         }
                         else if(sensor.type === "SOUND"){
-                            if(sensor.name === "SOUND" && (sensor.sound_value < 80 && sensor.sound_value > 88 )){
+                            if(sensor.name === "SOUND" && (sensor.sound < 80 && sensor.sound > 88 )){
                                 isTriggered = true;
                             }
                             else{
@@ -132,27 +132,27 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
                                         </div>
                                         <div className='row'>
                                             <div className='col'>MQ-2:</div>
-                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "MQ-2") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "MQ-2" && sensor.mq_value) : "No Smoke/Gas" }</div>
+                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "MQ-2") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "MQ-2" && sensor.mqValue) : "No Smoke/Gas" }</div>
                                         </div>
                                         <div className='row'>
                                             <div className='col'>MQ-5:</div>
-                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "MQ-5") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "MQ-5" && sensor.mq_value) : "No Smoke/Gas" }</div>
+                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "MQ-5") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "MQ-5" && sensor.mqValue) : "No Smoke/Gas" }</div>
                                         </div>
                                         <div className='row'>
                                             <div className='col'>MQ-7:</div>
-                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "MQ-7") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "MQ-7" && sensor.mq_value) : "No Smoke/Gas"}</div>
+                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "MQ-7") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "MQ-7" && sensor.mqValue) : "No Smoke/Gas"}</div>
                                         </div>
                                         <div className='row'>
                                             <div className='col'>MQ-135:</div>
-                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "MQ-135") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "MQ-135" && sensor.mq_value) : "No Smoke/Gas"}</div>
+                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "MQ-135") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "MQ-135" && sensor.mqValue) : "No Smoke/Gas"}</div>
                                         </div>
                                         <div className='row'>
                                             <div className='col'>Fire:</div>
-                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "FIRE") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "FIRE" && sensor.flame_value) : "No Fire"}</div>
+                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "FIRE") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "FIRE" && sensor.sensorValue) : "No Fire"}</div>
                                         </div>
                                         <div className='row'>
                                             <div className='col'>Sound:</div>
-                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "SOUND") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "SOUND" && sensor.sound_value) : "No Sound" }</div>
+                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "SOUND") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "SOUND" && sensor.sound) : "No Sound" }</div>
                                         </div>
                                     </div>
                                 :
