@@ -51,7 +51,7 @@ const MapView = () => {
       <div className="col-1 p-0 text-center"  style={ sideNavStyle }>
         <SideNav floors={ floors } setCurrentFloor={ setCurrentFloor } selFloorId={ currentFloor.id } />
       </div>
-      <div className="col-11 p-0 m-0 row g-0">
+      <div className="h-100 col-11 p-0 m-0 row g-0">
         <Header alarmingMode={ alarmingMode } />
         <Map 
           image={ currentFloor.imageUrl } 

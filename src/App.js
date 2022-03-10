@@ -1,6 +1,5 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import DetectorLog from "./components/DetectorLog";
 import MapView from "./components/MapView";
 import PrivateRouteHelper from "./routes/PrivateRouteHelper";
 import NoMatch from "./pages/NoMatch";
@@ -11,6 +10,7 @@ import UserService from "./services/UserService";
 import { useInterval } from "./services/UseInterval";
 import { useState } from "react";
 import axios from "axios";
+import StatusReport from "./components/StatusReport";
 
 function App() {
   const [alarmingStatus, setAlarmingStatus] = useState();
@@ -39,7 +39,14 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MapView />} />
-          <Route path="/logs" element={<DetectorLog />} />
+          <Route 
+            path="/status-logs" 
+            element={
+              <PrivateRouteHelper status={alarmingStatus}>
+                <StatusReport />
+              </PrivateRouteHelper>
+            } 
+          />
           <Route
             path="/edit-map"
             element={
