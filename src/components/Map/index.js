@@ -16,7 +16,8 @@ const Map = ({ image, hasFloors, floorId, floorOrder, alarmingMode }) => {
     const [compName, setCompName] = useState(null)
     const [scale, setScale] = useState(1)
     const [message, setMessage] = useState(null)
-    const [mlOutput, setMlOutput] = useState([])
+    const [mlSmokeOutput, setMlSmokeOutput] = useState([])
+    const [mlHeatOutput, setHeatMlOutput] = useState([])
 
     useEffect(() => {
         const getCompartments = async () => {
@@ -58,31 +59,46 @@ const Map = ({ image, hasFloors, floorId, floorOrder, alarmingMode }) => {
         getDetectors()
         setSelectedComp(null)
         if (alarmingMode) {
-            getMachLearnOutput()
+            getMachLearnSmokeOutput()
+            getMachLearnHeatOutput()
         }
     }, [floorId, alarmingMode])
 
     useInterval(
         () => {
             if (alarmingMode) {
-                getMachLearnOutput()
+                getMachLearnSmokeOutput()
+                getMachLearnHeatOutput()
             }
         },
         5000
-      )
+    )
 
-    const getMachLearnOutput = async () => {
+    const getMachLearnSmokeOutput = async () => {
         axios
           .get(
-            global.config.server.url + "/ml/output"
+            global.config.server.url + "/ml/output/smoke"
           )
           .then((response) => {
-            setMlOutput(response.data)
+            setMlSmokeOutput(response.data)
           })
           .catch((err) => {
             console.log(err)
           }) 
-      }
+    }
+    
+    const getMachLearnHeatOutput = async () => {
+        axios
+          .get(
+            global.config.server.url + "/ml/output/heat"
+          )
+          .then((response) => {
+            setHeatMlOutput(response.data)
+          })
+          .catch((err) => {
+            console.log(err)
+          }) 
+    }
 
     const zoom = (e) => {
         e.evt.preventDefault()
@@ -175,7 +191,8 @@ const Map = ({ image, hasFloors, floorId, floorOrder, alarmingMode }) => {
                                             setSelectedComp={ setSelectedComp }
                                             setCompName={ setCompName }
                                             detectors={ getCompDetectors(compartment.id) }
-                                            mlOutput={ mlOutput }
+                                            mlSmokeOutput={ mlSmokeOutput }
+                                            mlHeatOutput={ mlHeatOutput }
                                             floorOrder={ floorOrder }
                                             alarmingMode={ alarmingMode }
                                         />

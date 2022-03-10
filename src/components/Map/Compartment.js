@@ -6,7 +6,7 @@ import { useInterval } from "../../services/UseInterval"
 import smokeImage from "../../images/smoke_icon.png"
 import tempImage from "../../images/temp_icon.png"
 
-const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, detectors, mlOutput, floorOrder, alarmingMode }) => {
+const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, detectors, mlSmokeOutput, mlHeatOutput, floorOrder, alarmingMode }) => {
     const [sensorLogSet, setSensorLogSet] = useState([])
     const [smokeIcon] = useImage(smokeImage)
     const [tempIcon] = useImage(tempImage)
@@ -160,8 +160,16 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
         }
     }
 
-    const isMlOutputOverlap = () => {
-        if ((isWithin(compartment.xdimension, mlOutput.xstart, mlOutput.xend) || isWithin(mlOutput.xstart, compartment.xdimension, compartment.xdimension + compartment.width)) && (isWithin(compartment.ydimension, mlOutput.ystart, mlOutput.yend) || isWithin(mlOutput.ystart, compartment.ydimension, compartment.ydimension + compartment.depth)) && (isWithin(floorOrder, mlOutput.floorStart, mlOutput.floorEnd))) {
+    const isMlSmokeOutputOverlap = () => {
+        if ((isWithin(compartment.xdimension, mlSmokeOutput.xstart, mlSmokeOutput.xend) || isWithin(mlSmokeOutput.xstart, compartment.xdimension, compartment.xdimension + compartment.width)) && (isWithin(compartment.ydimension, mlSmokeOutput.ystart, mlSmokeOutput.yend) || isWithin(mlSmokeOutput.ystart, compartment.ydimension, compartment.ydimension + compartment.depth)) && (isWithin(floorOrder, mlSmokeOutput.floorStart, mlSmokeOutput.floorEnd))) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    const isMlHeatOutputOverlap = () => {
+        if ((isWithin(compartment.xdimension, mlHeatOutput.xstart, mlHeatOutput.xend) || isWithin(mlHeatOutput.xstart, compartment.xdimension, compartment.xdimension + compartment.width)) && (isWithin(compartment.ydimension, mlHeatOutput.ystart, mlHeatOutput.yend) || isWithin(mlHeatOutput.ystart, compartment.ydimension, compartment.ydimension + compartment.depth)) && (isWithin(floorOrder, mlHeatOutput.floorStart, mlHeatOutput.floorEnd))) {
             return true
         } else {
             return false
@@ -188,7 +196,7 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
                 strokeWidth={ isSelected ? 5 : 5 }
                 opacity={ 0.5 }
             />
-            { alarmingMode && isMlOutputOverlap() && isSmoke && 
+            { alarmingMode && isMlSmokeOutputOverlap() && isSmoke &&
                 <Image 
                     image={ smokeIcon }
                     x={ isHighTemp ? compartment.xkonva + compartment.widthKonva / 2 : compartment.xkonva + compartment.widthKonva / 2 + compartment.widthKonva / 4 }
@@ -197,7 +205,7 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
                     height={ compartment.heightKonva / 6}
                 />
             }
-            { alarmingMode && isMlOutputOverlap() && isHighTemp && 
+            { alarmingMode && isMlHeatOutputOverlap() && isHighTemp && 
                 <Image 
                     image={ tempIcon }
                     x={ compartment.xkonva + compartment.widthKonva / 2 + compartment.widthKonva / 4}
