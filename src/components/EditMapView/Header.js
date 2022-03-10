@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { faBell } from '@fortawesome/free-solid-svg-icons'
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 import { faAsterisk } from '@fortawesome/free-solid-svg-icons'
@@ -103,24 +103,10 @@ const Header = ({alarmingMode, setAlarmingMode}) => {
     )
 
     const infoPopover = (
-        <Popover className='w-100'>
-            <Popover.Header>Legend</Popover.Header>
+        <Popover>
             <Popover.Body className='p-2'>
-                <div id='red' className='m-0 p-0'>
-                    <h6 className='m-0' style={{color:'red'}}><i>RED</i></h6>
-                    <p>Fire in the area is considered <u>dangerous</u></p>
-                </div>
-                <div id='orange' className='m-0 p-0'>
-                    <h6 className='m-0' style={{color:'orange'}}><i>ORANGE</i></h6>
-                    <p>Smoke and very high temperature is present</p>
-                </div>
-                <div id='yellow' className='m-0 p-0'>
-                    <h6 className='m-0' style={{color:'yellow'}}><i>YELLLOW</i></h6>
-                    <p>High temperature</p>
-                </div>
-                <div id='white' className='m-0 p-0'>
-                    <h6 className='m-0'><i>WHITE / no color</i></h6>
-                    <p>Normal condition</p>
+                <div className='m-0 p-0'>
+                    <h6 className='m-0 text-center'>{ UserService.getUsername() }</h6>
                 </div>
             </Popover.Body>
         </Popover>
@@ -138,7 +124,7 @@ const Header = ({alarmingMode, setAlarmingMode}) => {
                 <div className='row h-100'>
                     <OverlayTrigger trigger='click' placement='bottom' overlay={ infoPopover }>
                         <div className='col p-0' style={ iconContainerStyle }>
-                            <FontAwesomeIcon className="" icon={ faInfoCircle } style={ iconStyle } />
+                            <FontAwesomeIcon className="" icon={ faUser } style={ iconStyle } />
                         </div>
                     </OverlayTrigger>
 
