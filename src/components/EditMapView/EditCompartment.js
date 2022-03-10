@@ -236,16 +236,22 @@ const EditCompartment = ({show, setShow, compartment, updateCompartment, deleteC
                                         </td>
                                     </tr>
                                 ))}
-                                <tr>
-                                    <th scope='row' colSpan={3}>
-                                        <OverlayTrigger trigger='click' placement='bottom' overlay={ detectorsPopover } rootClose={ true }>
-                                            <div className='detector-add-btn row text-secondary m-0 ps-1' style={{ cursor: "pointer" }}>
-                                                <FontAwesomeIcon className='col-auto m-0 p-0' icon={ faPlus } />
-                                                <h6 className='col-auto m-0 p-0 ps-1'>Add a detector</h6>
-                                            </div>
-                                        </OverlayTrigger>
-                                    </th>
-                                </tr>
+                                {
+                                    compDetectors.length > 0 ? 
+                                        null
+                                    :
+                                        <tr>
+                                            <th scope='row' colSpan={3}>
+                                                <OverlayTrigger trigger='click' placement='bottom' overlay={ detectorsPopover } rootClose={ true }>
+                                                    <div className='detector-add-btn row text-secondary m-0 ps-1' style={{ cursor: "pointer" }}>
+                                                        <FontAwesomeIcon className='col-auto m-0 p-0' icon={ faPlus } />
+                                                        <h6 className='col-auto m-0 p-0 ps-1'>Add a detector</h6>
+                                                    </div>
+                                                </OverlayTrigger>
+                                            </th>
+                                        </tr>
+                                }
+                                
                             </tbody>
                         </table>
                     </div>
