@@ -143,6 +143,11 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
                 {
                     detectorUnitId: detectorId,
                     compartmentId: compId,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${UserService.getToken()}`
+                    }
                 }
             )
             .then(response => {
@@ -164,6 +169,11 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
                 {
                     detectorUnitId: detectorId,
                     compartmentId: null,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${UserService.getToken()}`
+                    }
                 }
             )
             .then(response => {
