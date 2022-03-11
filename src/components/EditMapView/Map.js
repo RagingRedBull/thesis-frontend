@@ -108,6 +108,7 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
     }
 
     const updateCompartment = (updComp) => {
+        console.log(UserService.getToken())
         axios
             .put(global.config.server.url + "/compartment/update", updComp, { 
                 params: { floorId: floorId },
