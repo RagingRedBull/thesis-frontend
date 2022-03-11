@@ -117,7 +117,10 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
     const updateCompartment = (updComp) => {
         axios
             .put(global.config.server.url + "/compartment/update", updComp, { 
-                params: { floorId: floorId }, 
+                params: { floorId: floorId },
+                headers: {
+                    Authorization: `Bearer ${UserService.getToken()}`
+                } 
             })
             .then(response => {
                 if (response.status === 200) {
