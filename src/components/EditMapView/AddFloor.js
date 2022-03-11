@@ -68,18 +68,22 @@ const AddFloor = ({show, setShow, floors, setFloors, setCurrentFloor}) => {
             "order": floors.length > 0 ? floors[floors.length - 1].order + 1 : 0 
         }
 
-        axios.post( global.config.server.url + "/floor/new", floor)
-            .then(response => { 
-                if (response.status === 200) {
-                    setMessage("Successfully Added Floor!")
-                    setIsSuccess(true)
-                    setFloors([...floors, response.data])
-                    setCurrentFloor(response.data)
-                } else {
-                    setMessage("Error! Unable to add floor.")
-                }
-            })
-            .catch(error => { setMessage("Error! Unable to add floor.") })
+        axios.post( global.config.server.url + "/floor/new", floor, {
+            headers: {
+                Authorization: `Bearer ${UserService.getToken()}`
+            }
+        })
+        .then(response => { 
+            if (response.status === 200) {
+                setMessage("Successfully Added Floor!")
+                setIsSuccess(true)
+                setFloors([...floors, response.data])
+                setCurrentFloor(response.data)
+            } else {
+                setMessage("Error! Unable to add floor.")
+            }
+        })
+        .catch(error => { setMessage("Error! Unable to add floor.") })
     }
 
     const handleClose = () => {

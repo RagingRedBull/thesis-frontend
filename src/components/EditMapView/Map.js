@@ -102,7 +102,11 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
         }
 
         axios
-            .post(global.config.server.url + "/compartment/new", newCompartment)
+            .post(global.config.server.url + "/compartment/new", newCompartment, {
+                headers: {
+                    Authorization: `Bearer ${UserService.getToken()}`
+                }
+            })
             .then(response => {
                 if (response.status === 200) {
                     setCompartments([...compartments, response.data])

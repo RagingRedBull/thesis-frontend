@@ -9,6 +9,7 @@ import AddFloor from './AddFloor'
 import EditFloor from './EditFloor'
 import axios from "axios"
 import DragHandle from './DragHandle'
+import UserService from '../../services/UserService'
 
 const SortableItem = sortableElement(({floor, currentFloor, setCurrentFloor, setShowEditFloor}) => (
   <div
@@ -44,6 +45,10 @@ const SideNav = ({ floors, setCurrentFloor, currentFloor, setFloors, handleDelet
                 description: floor.description,
                 imageUrl: floor.imageUrl,
                 order: index
+            }, {
+                headers: {
+                    Authorization: `Bearer ${UserService.getToken()}`
+                }
             })
         })
 
