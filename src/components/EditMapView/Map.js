@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import { Stage, Layer, Image } from 'react-konva'
 import useImage from 'use-image'
 import MessageBox from '../MessageBox'
-import SidePanel from '../SidePanel'
 import PropertiesPanel from './PropertiesPanel'
 import Rectangle from './Rectangle'
 import UserService from '../../services/UserService'
@@ -14,7 +13,6 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
     const [compartments, setCompartments] = useState([])
     const [detectors, setDetectors] = useState([])
     const [selectedComp, setSelectedComp] = useState(null)
-    const [compName, setCompName] = useState(null)
     const [scale, setScale] = useState(1)
 
     useEffect(() => {
@@ -74,17 +72,8 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
         }
     }
 
-    const isSelected = () => {
-        if (selectedComp !== null) {
-            return true
-        } else {
-            return false
-        }
-    }
-
     const handleSelectComp = (compartment) => {
         setSelectedComp(compartment.id)
-        setCompName(compartment.name)
     }
 
     const addNewCompartment = (compDetails) => {
@@ -221,8 +210,7 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
     
     return (
         <div className='row m-0 p-0'>
-            <SidePanel hidden={ isSelected() } setSelectedComp={ setSelectedComp } detectors={ detectors } compName={ compName } compId={ selectedComp } />
-            <div className={isSelected() ? 'col-8 m-0 p-0 d-flex justify-content-center' : 'col-10 m-0 p-0 d-flex justify-content-center'}>
+            <div className='col-10 m-0 p-0 d-flex justify-content-center'>
                 { hasFloors ? 
                     <div className='m-5'>
                         { compartments.length < 1 & hasFloors ?
