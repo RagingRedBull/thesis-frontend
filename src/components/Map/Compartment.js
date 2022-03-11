@@ -5,11 +5,13 @@ import useImage from "use-image"
 import { useInterval } from "../../services/UseInterval"
 import smokeImage from "../../images/cloud-solid.svg"
 import tempImage from "../../images/temperature-high-solid.svg"
+import soundImage from "../../images/speaker.png"
 
 const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, detectors, mlSmokeOutput, mlHeatOutput, floorOrder, alarmingMode }) => {
     const [sensorLogSet, setSensorLogSet] = useState([])
     const [smokeIcon] = useImage(smokeImage)
     const [tempIcon] = useImage(tempImage)
+    const [soundIcon] = useImage(soundImage)
     const [isSmoke, setIsSmoke] = useState(false)
     const [isHighTemp, setIsHighTemp] = useState(false)
     const [isFire, setIsFire] = useState(false);
@@ -38,7 +40,7 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
                                 if(sensor.name === "MQ-2" && sensor.mqValue > 300){
                                     setIsSmoke(true)
                                 }
-                                else if (sensor.name === "MQ-5" && sensor.mqValue > 400){
+                                else if (sensor.name === "MQ-5" && sensor.mqValue > 300){
                                     setIsSmoke(true)
                                 }
                                 else if (sensor.name === "MQ-7" && sensor.mqValue > 300){
@@ -60,7 +62,7 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
                                 }
                             }
                             else if(sensor.type === "SOUND"){
-                                if(sensor.name === "SOUND" && (sensor.sound < 80 && sensor.sound > 96 )){
+                                if(sensor.name === "SOUND" && (sensor.sound < 80 && sensor.sound > 88 )){
                                     setIsSound(true)
                                 }
                                 else{
@@ -187,6 +189,15 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
                 strokeWidth={ isSelected ? 5 : 5 }
                 opacity={ 0.5 }
             />
+            { alarmingMode && isSound &&
+                <Image 
+                    image={ soundIcon }
+                    x={ compartment.xkonva + compartment.widthKonva / 2 + compartment.widthKonva / 4 }
+                    y={ compartment.ykonva }
+                    width={ compartment.widthKonva / 6 }
+                    height={ compartment.heightKonva / 6}
+                />
+            }
             { alarmingMode && isMlSmokeOutputOverlap() && isSmoke &&
                 <Image 
                     image={ smokeIcon }
