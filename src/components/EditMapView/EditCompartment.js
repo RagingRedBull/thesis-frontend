@@ -77,6 +77,8 @@ const EditCompartment = ({show, setShow, compartment, updateCompartment, deleteC
         }
     }
 
+    const floatRegExp = new RegExp('^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$')
+
     const submit = (e) => {
         e.preventDefault()
 
@@ -85,18 +87,35 @@ const EditCompartment = ({show, setShow, compartment, updateCompartment, deleteC
             return null
         }
         if (xdimension === null) {
-            setMessage("Please enter the actual x coordinate of the compartment in meters")
+            setMessage("Please enter the x coordinate of the compartment in meters.")
+            return null
+        }
+        if (!floatRegExp.test(xdimension)) {
+            setMessage("X coordinate must be numeric!")
             return null
         }
         if (ydimension === null) {
-            setMessage("Please enter the actual y coordinate of the compartment in meters")
+            setMessage("Please enter the y coordinate of the compartment in meters.")
+            return null
+        }
+        if (!floatRegExp.test(ydimension)) {
+            setMessage("Y coordinate must be numeric!")
             return null
         }
         if (width === null) {
             setMessage("Please enter the width of the compartment in meters")
+            return null
+        }
+        if (!floatRegExp.test(width)) {
+            setMessage("Width must be numeric!")
+            return null
         }
         if (depth === null) {
             setMessage("Please enter the depth of the compartment in meters")
+            return null
+        }
+        if (!floatRegExp.test(depth)) {
+            setMessage("Depth must be numeric!")
             return null
         }
 
@@ -160,13 +179,16 @@ const EditCompartment = ({show, setShow, compartment, updateCompartment, deleteC
                                     <div className='input-group-text'>x</div>
                                 </div>
                                 <input 
-                                    type='number' 
+                                    type='text' 
                                     placeholder={ 0 }
                                     onChange={(e) => setXdimension(e.target.value)}
                                     style={{width: "50px"}}
                                     value={ xdimension }
                                     min={ 0 }
                                 />
+                                <div className='input-group-prepend'>
+                                    <div className='input-group-text'>m</div>
+                                </div>
                             </div>
                         </div>
                         <div className='col'>
@@ -175,13 +197,16 @@ const EditCompartment = ({show, setShow, compartment, updateCompartment, deleteC
                                     <div className='input-group-text'>y</div>
                                 </div>
                                 <input 
-                                    type='number' 
+                                    type='text' 
                                     placeholder={ 0 }
                                     onChange={(e) => setYdimension(e.target.value)}
                                     style={{width: "50px"}}
                                     value={ ydimension }
                                     min={ 0 }
                                 />
+                                <div className='input-group-prepend'>
+                                    <div className='input-group-text'>m</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -193,13 +218,16 @@ const EditCompartment = ({show, setShow, compartment, updateCompartment, deleteC
                                     <div className='input-group-text'>width</div>
                                 </div>
                                 <input 
-                                    type='number' 
+                                    type='text' 
                                     placeholder={ 0 }
                                     onChange={(e) => setWidth(e.target.value)}
                                     style={{width: "50px"}}
                                     value={ width }
                                     min={ 0 }
                                 />
+                                <div className='input-group-prepend'>
+                                    <div className='input-group-text'>m</div>
+                                </div>
                             </div>
                         </div>
                         <div className='col'>
@@ -208,13 +236,16 @@ const EditCompartment = ({show, setShow, compartment, updateCompartment, deleteC
                                     <div className='input-group-text'>depth</div>
                                 </div>
                                 <input 
-                                    type='number' 
+                                    type='text' 
                                     placeholder={ 0 }
                                     onChange={(e) => setDepth(e.target.value)}
                                     style={{width: "50px"}}
                                     value={ depth }
                                     min={ 0 }
                                 />
+                                <div className='input-group-prepend'>
+                                    <div className='input-group-text'>m</div>
+                                </div>
                             </div>
                         </div>
                     </div>
