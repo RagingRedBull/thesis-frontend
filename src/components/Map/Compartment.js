@@ -38,7 +38,7 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
                                 if(sensor.name === "MQ-2" && sensor.mqValue > 300){
                                     setIsSmoke(true)
                                 }
-                                else if (sensor.name === "MQ-5" && sensor.mqValue > 300){
+                                else if (sensor.name === "MQ-5" && sensor.mqValue > 400){
                                     setIsSmoke(true)
                                 }
                                 else if (sensor.name === "MQ-7" && sensor.mqValue > 300){
@@ -60,7 +60,7 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
                                 }
                             }
                             else if(sensor.type === "SOUND"){
-                                if(sensor.name === "SOUND" && (sensor.sound < 80 && sensor.sound > 88 )){
+                                if(sensor.name === "SOUND" && (sensor.sound < 80 && sensor.sound > 96 )){
                                     setIsSound(true)
                                 }
                                 else{
