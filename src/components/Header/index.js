@@ -1,116 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCog, faInfoCircle, faWrench, faBell, faFileAlt as faFileAltSol, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
-import { faFileAlt as faFileAltReg } from '@fortawesome/free-regular-svg-icons'
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { OverlayTrigger, Popover } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import UserService from "../../services/UserService"
-import { useState } from 'react'
-import EstablishFireOutModal from './EstablishFireOutModal'
 
 const Header = ({alarmingMode}) => {
     const buildName = "Test Building"
-    const [showEstablishFireOutModal, setShowEstablishFireOutModal] = useState(false)
-
-    const cogPopover = (
-        <Popover className='w-100' style={{ width: "170px"}}>
-            <Popover.Body className='p-0 w-100'>
-                { UserService.isLoggedIn() ?
-                    alarmingMode ?
-                        <>
-                            <div className='card rounded-0' style={{cursor: "pointer"}} onClick={() => setShowEstablishFireOutModal(true)}>
-                                <div className='card-body row p-0 m-0'> 
-                                    <div className='col-2 p-0 ps-1 m-0 mt-1'>
-                                        <FontAwesomeIcon icon={ faSignInAlt } style={ settingsIconStyle } />
-                                    </div>
-                                    <div className='col-10 p-0 m-0 fs-5'>
-                                        Establish Fire Out
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='card rounded-0' style={{cursor: "pointer"}} onClick={() => UserService.doLogout()}>
-                                <div className='card-body row p-0 m-0'> 
-                                    <div className='col-2 p-0 ps-1 m-0 mt-1'>
-                                        <FontAwesomeIcon icon={ faSignInAlt } style={ settingsIconStyle } />
-                                    </div>
-                                    <div className='col-10 p-0 m-0 fs-5'>
-                                        Logout
-                                    </div>
-                                </div>
-                            </div>
-                        </>
-                    :
-                        <>
-                            <Link to="/edit-map" style={ linkStyle }>
-                                <div className='card rounded-0 w-100' style={{cursor: "pointer"}}>
-                                    <div className='card-body row p-0 m-0'> 
-                                        <div className='col-2 p-0 ps-1 m-0 mt-1'>
-                                            <FontAwesomeIcon icon={ faWrench } style={ settingsIconStyle } />
-                                        </div>
-                                        <div className='col-10 p-0 m-0 fs-5'>
-                                            Maintenance Mode
-                                        </div>
-                                    </div>
-                                </div>
-                            </Link>
-                            <div className='card rounded-0' style={{cursor: "pointer"}}>
-                                <div className='card-body row p-0 m-0'> 
-                                    <div className='col-2 p-0 ps-1 m-0 mt-1'>
-                                        <FontAwesomeIcon icon={ faBell } style={ settingsIconStyle } />
-                                    </div>
-                                    <div className='col-10 p-0 m-0 fs-5'>
-                                        Fire Drill mode
-                                    </div>
-                                </div>
-                            </div>
-                            <Link to="/status-logs" style={ linkStyle }>
-                                <div className='card rounded-0' style={{cursor: "pointer"}}>
-                                    <div className='card-body row p-0 m-0'> 
-                                        <div className='col-2 p-0 ps-1 m-0 mt-1'>
-                                            <FontAwesomeIcon icon={ faFileAltReg } style={ settingsIconStyle } />
-                                        </div>
-                                        <div className='col-10 p-0 m-0 fs-5'>
-                                            Status reports
-                                        </div>
-                                    </div>
-                                </div>
-                            </Link>
-                            <div className='card rounded-0' style={{cursor: "pointer"}}>
-                                <div className='card-body row p-0 m-0'> 
-                                    <div className='col-2 p-0 ps-1 m-0 mt-1'>
-                                        <FontAwesomeIcon icon={ faFileAltSol } style={ settingsIconStyle } />
-                                    </div>
-                                    <div className='col-10 p-0 m-0 fs-5'>
-                                        Post-fire reports
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='card rounded-0' style={{cursor: "pointer"}} onClick={() => UserService.doLogout()}>
-                                <div className='card-body row p-0 m-0'> 
-                                    <div className='col-2 p-0 ps-1 m-0 mt-1'>
-                                        <FontAwesomeIcon icon={ faSignInAlt } style={ settingsIconStyle } />
-                                    </div>
-                                    <div className='col-10 p-0 m-0 fs-5'>
-                                        Logout
-                                    </div>
-                                </div>
-                            </div>
-                        </>
-                    
-                :
-                    <div className='card rounded-0' style={{cursor: "pointer"}} onClick={() => UserService.doLogin()}>
-                        <div className='card-body row p-0 m-0'> 
-                            <div className='col-2 p-0 ps-1 m-0 mt-1'>
-                                <FontAwesomeIcon icon={ faSignInAlt } style={ settingsIconStyle } />
-                            </div>
-                            <div className='col-10 p-0 m-0 fs-5'>
-                                Login
-                            </div>
-                        </div>
-                    </div>
-                }
-            </Popover.Body>
-        </Popover>
-    )
 
     const infoPopover = (
         <Popover className='w-100'>
@@ -147,22 +40,12 @@ const Header = ({alarmingMode}) => {
             <div className='col-1 mt-3'>
                 <div className='row h-100'>
                     <OverlayTrigger trigger='click' placement='bottom' overlay={ infoPopover }>
-                        <div className='col p-0' style={ iconContainerStyle }>
+                        <div className='d-flex justify-content-center' style={ iconContainerStyle }>
                             <FontAwesomeIcon className="" icon={ faInfoCircle } style={ iconStyle } />
-                        </div>
-                    </OverlayTrigger>
-
-                    <OverlayTrigger trigger='click' placement='bottom' overlay={ cogPopover }>
-                        <div className='col p-0' style={ iconContainerStyle }>
-                            <FontAwesomeIcon className="" icon={ faCog } style={ iconStyle } />
                         </div>
                     </OverlayTrigger>
                 </div>
             </div>
-            <EstablishFireOutModal 
-                show={ showEstablishFireOutModal } 
-                setShow={ setShowEstablishFireOutModal }
-            />
         </div>
     )
 };
@@ -192,16 +75,6 @@ const iconStyle = {
     height: "60px",
     width: "60px",
     cursor: "pointer"
-}
-
-const linkStyle = {
-    textDecoration: "none",
-    color: "black"
-}
-
-const settingsIconStyle = {
-    height: "20px",
-    width: "20px"
 }
 
 export default Header;
