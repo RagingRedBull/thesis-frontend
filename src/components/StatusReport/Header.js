@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCog, faWrench, faBell, faFileAlt as faFileAltSol, faAsterisk, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
+import { faCog, faWrench, faBell, faFileAlt as faFileAltSol, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 import { faHome } from '@fortawesome/free-solid-svg-icons'
 import { OverlayTrigger, Popover } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
@@ -57,18 +57,6 @@ const Header = ({alarmingMode}) => {
                                 </div>
                             </div>
                         </div>
-                        <Link to="/change-password" style={ linkStyle }>
-                            <div className='card rounded-0' style={{cursor: "pointer"}}>
-                                <div className='card-body row p-0 m-0'> 
-                                    <div className='col-2 p-0 ps-1 m-0 mt-1'>
-                                        <FontAwesomeIcon icon={ faAsterisk } style={ settingsIconStyle } />
-                                    </div>
-                                    <div className='col-10 p-0 m-0 fs-5'>
-                                        Reset Password
-                                    </div>
-                                </div>
-                            </div>
-                        </Link>
                         <div className='card rounded-0' style={{cursor: "pointer"}} onClick={() => UserService.doLogout()}>
                             <div className='card-body row p-0 m-0'> 
                                 <div className='col-2 p-0 ps-1 m-0 mt-1'>
@@ -108,7 +96,7 @@ const Header = ({alarmingMode}) => {
             <div className='col-1 mt-3'>
                 <div className='row h-100'>
                     <OverlayTrigger trigger='click' placement='bottom' overlay={ cogPopover }>
-                        <div className='col p-0' style={ iconContainerStyle }>
+                        <div className='d-flex justify-content-center' style={ iconContainerStyle }>
                             <FontAwesomeIcon className="" icon={ faCog } style={ iconStyle } />
                         </div>
                     </OverlayTrigger>
