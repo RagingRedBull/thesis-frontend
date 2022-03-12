@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const ReportLogsTable = ({reportLogs, getReportLogs}) => {
+const ReportLogsTable = ({reportLogs, getReportLogs, totalPages, pageNumber, getNextReportLogs, getPrevReportLogs, getLastReportLogs, getFirstReportLogs}) => {
     const [date, setDate] = useState(null)
     const [errors, setErrors] = useState([])
 
@@ -16,8 +16,6 @@ const ReportLogsTable = ({reportLogs, getReportLogs}) => {
         }
 
         getReportLogs(date)
-        console.log(reportLogs.length)
-        // Insert get dates here
     }
 
     const validate = (values) => {
@@ -84,7 +82,7 @@ const ReportLogsTable = ({reportLogs, getReportLogs}) => {
                                             reportLogs.map((reportLog, index) => 
                                                 <tr key={ index }>
                                                     <th scope='row'>
-                                                        { reportLog.start } - { reportLog.end }
+                                                        { reportLog.start } - { reportLog.end.split(".")[0] }
                                                     </th>
                                                     <td>
                                                         { reportLog.macAddress}
@@ -216,19 +214,26 @@ const ReportLogsTable = ({reportLogs, getReportLogs}) => {
                                 </table>
                             </div>
                             <div className='card-footer'>
-                                <nav>
-                                    <ul className="pagination mb-0">
-                                        <li className="page-item"><a className="page-link" href="#">Previous</a></li>
-                                        <li className="page-item"><a className="page-link" href="#">1</a></li>
-                                        <li className="page-item"><a className="page-link" href="#">2</a></li>
-                                        <li className="page-item"><a className="page-link" href="#">3</a></li>
-                                        <li className="page-item"><a className="page-link" href="#">Next</a></li>
-                                    </ul>
-                                </nav>
+                                <div className='mt-2' style={{float: "left"}}>
+                                    <h6>Showing Page { pageNumber + 1 } of { totalPages }</h6>
+                                </div>
+                                <div style={{float: "right"}}>
+                                    <nav>
+                                        <ul className="pagination mb-0">
+                                            <li className={ pageNumber === 0 ? "page-item disabled" : "page-item"}><button className="page-link" onClick={() => getFirstReportLogs() }>{"<<"}</button></li>
+                                            <li className={ pageNumber === 0 ? "page-item disabled" : "page-item"}><button className="page-link" onClick={() => getPrevReportLogs() }>{"<"}</button></li>
+                                            <li className="page-item disabled"><button className="page-link" style={{color: "black"}}>{ pageNumber + 1 }</button></li>
+                                            <li className={pageNumber === totalPages - 1 ? "page-item disabled" : "page-item"}><button className="page-link" onClick={() => getNextReportLogs() }>{">"}</button></li>
+                                            <li className={pageNumber === totalPages - 1 ? "page-item disabled" : "page-item"}><button className="page-link" onClick={() => getLastReportLogs() }>{">>"}</button></li>
+                                        </ul>
+                                    </nav>
+                                </div>
                             </div>
                         </div>
                     :
-                        <h5>No logs.</h5>
+                        <div className='m-2 mb-3'>
+                            <h5>No logs.</h5>
+                        </div>
                 }
             </div>
         </div>

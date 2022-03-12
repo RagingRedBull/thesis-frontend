@@ -6,26 +6,96 @@ import ReportDates from './ReportLogsTable'
 import axios from 'axios'
 
 const StatusReport = () => {
+    const [logDate, setLogDate] = useState()
     const [reportLogs, setReportLogs] = useState([])
     const [pageSize, setPageSize] = useState()
     const [totalPages, setTotalPages] = useState()
     const [pageNumber, setPageNumber] = useState(0)
+
     useEffect(() => {
         getPageSize()
     }, [])
 
     const getReportLogs = async (date) => {
         axios.get(
-            "http://172.104.70.74:8080/prmts/log/status-report",
+            global.config.server.url + "/log/status-report",
             {
-                params: { day: date }
+                params: { 
+                    day: date,
+                    pageNumber: 0,
+                    pageSize: pageSize
+                }
             }
         ).then(response => {
-            setReportLogs(response.data)
+            setReportLogs(response.data.content)
+            setPageNumber(0)
+            setTotalPages(response.data.totalPages)
+            setLogDate(date)
         })
     }
 
-    const getNextReportLogs = () => {
+    const getNextReportLogs = async () => {
+        axios.get(
+            global.config.server.url + "/log/status-report",
+            {
+                params: { 
+                    day: logDate,
+                    pageNumber: pageNumber + 1,
+                    pageSize: pageSize
+                }
+            }
+        ).then(response => {
+            setReportLogs(response.data.content)
+            setPageNumber(pageNumber + 1)
+        })
+    }
+
+    const getPrevReportLogs = async () => {
+        axios.get(
+            global.config.server.url + "/log/status-report",
+            {
+                params: { 
+                    day: logDate,
+                    pageNumber: pageNumber - 1,
+                    pageSize: pageSize
+                }
+            }
+        ).then(response => {
+            setReportLogs(response.data.content)
+            setPageNumber(pageNumber - 1)
+        })
+    }
+
+    const getLastReportLogs = async () => {
+        axios.get(
+            global.config.server.url + "/log/status-report",
+            {
+                params: { 
+                    day: logDate,
+                    pageNumber: totalPages - 1,
+                    pageSize: pageSize
+                }
+            }
+        ).then(response => {
+            setReportLogs(response.data.content)
+            setPageNumber(totalPages - 1)
+        })
+    }
+
+    const getFirstReportLogs = async () => {
+        axios.get(
+            global.config.server.url + "/log/status-report",
+            {
+                params: { 
+                    day: logDate,
+                    pageNumber: 0,
+                    pageSize: pageSize
+                }
+            }
+        ).then(response => {
+            setReportLogs(response.data.content)
+            setPageNumber(0)
+        })
     }
 
     const getPageSize = async () => {
@@ -44,8 +114,13 @@ const StatusReport = () => {
                 <ReportDates 
                     reportLogs={ reportLogs } 
                     getReportLogs={ getReportLogs }
+                    totalPages={ totalPages }
+                    pageNumber={ pageNumber }
+                    getNextReportLogs={ getNextReportLogs }
+                    getPrevReportLogs={ getPrevReportLogs }
+                    getLastReportLogs={ getLastReportLogs }
+                    getFirstReportLogs={ getFirstReportLogs }
                 />
-                {/* <ReportTable /> */}
             </div>
         </div>
     )
