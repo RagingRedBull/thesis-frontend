@@ -14,7 +14,6 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
     const [soundIcon] = useImage(soundImage)
     const [isSmoke, setIsSmoke] = useState(false)
     const [isHighTemp, setIsHighTemp] = useState(false)
-    const [isFire, setIsFire] = useState(false);
     const [isSound, setIsSound] = useState(false);
 
     useEffect(() => {
@@ -51,14 +50,6 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
                                 }
                                 else{
                                     setIsSmoke(false)
-                                }
-                            }
-                            else if(sensor.type === "FIRE"){
-                                if(sensor.name === "FIRE" && sensor.sensorValue > 85){
-                                    setIsFire(true)
-                                }
-                                else{
-                                    setIsFire(false)
                                 }
                             }
                             else if(sensor.type === "SOUND"){
