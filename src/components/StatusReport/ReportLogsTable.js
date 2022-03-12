@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const ReportDates = ({reportLogs, getReportLogs}) => {
+const ReportLogsTable = ({reportLogs, getReportLogs}) => {
     const [date, setDate] = useState(null)
     const [errors, setErrors] = useState([])
 
@@ -16,6 +16,7 @@ const ReportDates = ({reportLogs, getReportLogs}) => {
         }
 
         getReportLogs(date)
+        console.log(reportLogs.length)
         // Insert get dates here
     }
 
@@ -59,140 +60,179 @@ const ReportDates = ({reportLogs, getReportLogs}) => {
             </div>
             <div>
                 <h2>Status Reports</h2>
-                <table className='table'>
-                    <thead>
-                        <tr>
-                            <th scope='col'></th>
-                        </tr>
-                    </thead>
-                    {
-                        reportLogs ?
-                        <>
-                            <thead>
-                                <tr>
-                                    <th scope='col'>Time</th>
-                                    <th scope='col'>Mac Address</th>
-                                    <th scope='col'>DHT-11</th>
-                                    <th scope='col'>DHT-22</th>
-                                    <th scope='col'>MQ-2</th>
-                                    <th scope='col'>MQ-5</th>
-                                    <th scope='col'>MQ-7</th>
-                                    <th scope='col'>MQ-135</th>
-                                    <th scope='col'>Fire</th>
-                                    <th scope='col'>Sound</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td scope='col'>
-                                        2:10pm
-                                    </td>
-                                    <td scope='col'>
-                                        3C:61:05:D0:A5:B1
-                                    </td>
-                                    <td scope='col'>
-                                        <div className='col'>
-                                            Min: 100
-                                        </div>
-                                        <div className='col'>
-                                            Avg: 100
-                                        </div>
-                                        <div className='col'>
-                                            Max: 100
-                                        </div>
-                                    </td>
-                                    <td scope='col'>
-                                        <div className='col'>
-                                            Min: 100
-                                        </div>
-                                        <div className='col'>
-                                            Avg: 100
-                                        </div>
-                                        <div className='col'>
-                                            Max: 100
-                                        </div>
-                                    </td>
-                                    <td scope='col'>
-                                        <div className='col'>
-                                            Min: 100
-                                        </div>
-                                        <div className='col'>
-                                            Avg: 100
-                                        </div>
-                                        <div className='col'>
-                                            Max: 100
-                                        </div>
-                                    </td>
-                                    <td scope='col'>
-                                        <div className='col'>
-                                            Min: 100
-                                        </div>
-                                        <div className='col'>
-                                            Avg: 100
-                                        </div>
-                                        <div className='col'>
-                                            Max: 100
-                                        </div>
-                                    </td>
-                                    <td scope='col'>
-                                        <div className='col'>
-                                            Min: 100
-                                        </div>
-                                        <div className='col'>
-                                            Avg: 100
-                                        </div>
-                                        <div className='col'>
-                                            Max: 100
-                                        </div>
-                                    </td>
-                                    <td scope='col'>
-                                        <div className='col'>
-                                            Min: 100
-                                        </div>
-                                        <div className='col'>
-                                            Avg: 100
-                                        </div>
-                                        <div className='col'>
-                                            Max: 100
-                                        </div>
-                                    </td>
-                                    <td scope='col'>
-                                        <div className='col'>
-                                            Min: 100
-                                        </div>
-                                        <div className='col'>
-                                            Avg: 100
-                                        </div>
-                                        <div className='col'>
-                                            Max: 100
-                                        </div>
-                                    </td>
-                                    <td scope='col'>
-                                        <div className='col'>
-                                            Min: 100
-                                        </div>
-                                        <div className='col'>
-                                            Avg: 100
-                                        </div>
-                                        <div className='col'>
-                                            Max: 100
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </>
-                        :
-                            <thead>
-                                <tr>
-                                    <th scope='col'>No logs.</th>
-                                </tr>
-                            </thead>
-                    }
-                    
-                </table>
+                {
+                    reportLogs.length > 0 ?
+                        <div className='card mb-3'>
+                            <div className='card-body'>
+                                <table className='table'>
+                                    <thead>
+                                        <tr>
+                                            <th scope='col'>Time</th>
+                                            <th scope='col'>Mac Address</th>
+                                            <th scope='col'>DHT-11</th>
+                                            <th scope='col'>DHT-22</th>
+                                            <th scope='col'>MQ-2</th>
+                                            <th scope='col'>MQ-5</th>
+                                            <th scope='col'>MQ-7</th>
+                                            <th scope='col'>MQ-135</th>
+                                            <th scope='col'>Fire</th>
+                                            <th scope='col'>Sound</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            reportLogs.map((reportLog, index) => 
+                                                <tr key={ index }>
+                                                    <th scope='row'>
+                                                        { reportLog.start } - { reportLog.end }
+                                                    </th>
+                                                    <td>
+                                                        { reportLog.macAddress}
+                                                    </td>
+                                                    {
+                                                        reportLog.sensorStatusReportLogDtoList.map((sensor, innerIndex) => sensor.sensorName === "DHT-11" &&
+                                                        <td key={ innerIndex }>
+                                                            <div className='col'>
+                                                                Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
+                                                            </div>
+                                                            <div className='col'>
+                                                                Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
+                                                            </div>
+                                                            <div className='col'>
+                                                                Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
+                                                            </div>
+                                                        </td>
+                                                        )
+                                                    }
+                                                    {
+                                                        reportLog.sensorStatusReportLogDtoList.map((sensor, innerIndex) => sensor.sensorName === "DHT-22" &&
+                                                        <td key={ innerIndex }>
+                                                            <div className='col'>
+                                                                Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
+                                                            </div>
+                                                            <div className='col'>
+                                                                Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
+                                                            </div>
+                                                            <div className='col'>
+                                                                Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
+                                                            </div>
+                                                        </td>
+                                                        )
+                                                    }
+                                                    {
+                                                        reportLog.sensorStatusReportLogDtoList.map((sensor, innerIndex) => sensor.sensorName === "MQ-2" &&
+                                                        <td key={ innerIndex }>
+                                                            <div className='col'>
+                                                                Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
+                                                            </div>
+                                                            <div className='col'>
+                                                                Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
+                                                            </div>
+                                                            <div className='col'>
+                                                                Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
+                                                            </div>
+                                                        </td>
+                                                        )
+                                                    }
+                                                    {
+                                                        reportLog.sensorStatusReportLogDtoList.map((sensor, innerIndex) => sensor.sensorName === "MQ-5" &&
+                                                        <td key={ innerIndex }>
+                                                            <div className='col'>
+                                                                Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
+                                                            </div>
+                                                            <div className='col'>
+                                                                Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
+                                                            </div>
+                                                            <div className='col'>
+                                                                Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
+                                                            </div>
+                                                        </td>
+                                                        )
+                                                    }
+                                                    {
+                                                        reportLog.sensorStatusReportLogDtoList.map((sensor, innerIndex) => sensor.sensorName === "MQ-7" &&
+                                                        <td key={ innerIndex }>
+                                                            <div className='col'>
+                                                                Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
+                                                            </div>
+                                                            <div className='col'>
+                                                                Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
+                                                            </div>
+                                                            <div className='col'>
+                                                                Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
+                                                            </div>
+                                                        </td>
+                                                        )
+                                                    }
+                                                    {
+                                                        reportLog.sensorStatusReportLogDtoList.map((sensor, innerIndex) => sensor.sensorName === "MQ-135" &&
+                                                        <td key={ innerIndex }>
+                                                            <div className='col'>
+                                                                Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
+                                                            </div>
+                                                            <div className='col'>
+                                                                Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
+                                                            </div>
+                                                            <div className='col'>
+                                                                Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
+                                                            </div>
+                                                        </td>
+                                                        )
+                                                    }
+                                                    {
+                                                        reportLog.sensorStatusReportLogDtoList.map((sensor, innerIndex) => sensor.sensorName === "FIRE" &&
+                                                        <td key={ innerIndex }>
+                                                            <div className='col'>
+                                                                Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
+                                                            </div>
+                                                            <div className='col'>
+                                                                Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
+                                                            </div>
+                                                            <div className='col'>
+                                                                Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
+                                                            </div>
+                                                        </td>
+                                                        )
+                                                    }
+                                                    {
+                                                        reportLog.sensorStatusReportLogDtoList.map((sensor, innerIndex) => sensor.sensorName === "SOUND" &&
+                                                        <td key={ innerIndex }>
+                                                            <div className='col'>
+                                                                Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
+                                                            </div>
+                                                            <div className='col'>
+                                                                Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
+                                                            </div>
+                                                            <div className='col'>
+                                                                Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
+                                                            </div>
+                                                        </td>
+                                                        )
+                                                    }
+                                                </tr>
+                                            )
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className='card-footer'>
+                                <nav>
+                                    <ul className="pagination mb-0">
+                                        <li className="page-item"><a className="page-link" href="#">Previous</a></li>
+                                        <li className="page-item"><a className="page-link" href="#">1</a></li>
+                                        <li className="page-item"><a className="page-link" href="#">2</a></li>
+                                        <li className="page-item"><a className="page-link" href="#">3</a></li>
+                                        <li className="page-item"><a className="page-link" href="#">Next</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    :
+                        <h5>No logs.</h5>
+                }
             </div>
         </div>
     )
 }
 
-export default ReportDates
+export default ReportLogsTable

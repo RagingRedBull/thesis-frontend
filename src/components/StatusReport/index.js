@@ -1,16 +1,37 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SideNav from './SideNav'
 import Header from './Header'
-import '../../css/StatusReport.css'
-import ReportTable from './ReportTable'
+import '../../css/StatusReport.css' 
 import ReportDates from './ReportLogsTable'
+import axios from 'axios'
 
 const StatusReport = () => {
-    const [reportLogs, setReportLogs] = useState()
+    const [reportLogs, setReportLogs] = useState([])
+    const [pageSize, setPageSize] = useState()
+    const [totalPages, setTotalPages] = useState()
+    const [pageNumber, setPageNumber] = useState(0)
+    useEffect(() => {
+        getPageSize()
+    }, [])
 
-    const getReportLogs = (date) => {
-        setReportLogs(date)
-        console.log(reportLogs)
+    const getReportLogs = async (date) => {
+        axios.get(
+            "http://172.104.70.74:8080/prmts/log/status-report",
+            {
+                params: { day: date }
+            }
+        ).then(response => {
+            setReportLogs(response.data)
+        })
+    }
+
+    const getNextReportLogs = () => {
+    }
+
+    const getPageSize = async () => {
+        axios.get(global.config.server.url + "/detector/all", { params: { pageNumber: 0, pageSize: 10}})
+            .then(response => { setPageSize(response.data.content.length) })
+            .catch(() => { alert("There are no detectors registered!") })
     }
 
     return (
