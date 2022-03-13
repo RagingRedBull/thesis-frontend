@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import SideNav from './SideNav'
 import Header from './Header'
 import '../../css/StatusReport.css' 
-import ReportDates from './ReportLogsTable'
+import ReportLogsTable from './ReportLogsTable'
 import axios from 'axios'
 
 const StatusReport = ({fireDrillMode}) => {
@@ -111,7 +111,7 @@ const StatusReport = ({fireDrillMode}) => {
             </div>
             <div className='h-100 col-11 p-0 m-0 row g-0'>
                 <Header fireDrillMode={ fireDrillMode } />
-                <ReportDates 
+                <ReportLogsTable 
                     reportLogs={ reportLogs } 
                     getReportLogs={ getReportLogs }
                     totalPages={ totalPages }
