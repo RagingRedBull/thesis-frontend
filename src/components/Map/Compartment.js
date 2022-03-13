@@ -53,7 +53,7 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
                                 }
                             }
                             else if(sensor.type === "SOUND"){
-                                if(sensor.name === "SOUND" && (sensor.sound < 80 || sensor.sound > 99 )){
+                                if(sensor.name === "SOUND" && (sensor.sound < 80 || sensor.sound > 300 )){
                                     setIsSound(true)
                                 }
                                 else{
@@ -114,7 +114,7 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
                     }
                 }
                 else if(sensor.type === "FIRE"){
-                    if(sensor.name === "FIRE" && sensor.sensorValue > 85){
+                    if(sensor.name === "FIRE" && sensor.sensorValue > 120){
                         fire = true                    
                     }
                 }
