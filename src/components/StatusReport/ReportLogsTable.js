@@ -218,21 +218,10 @@ const ReportLogsTable = ({reportLogs, getReportLogs, totalPages, pageNumber, get
                                                                         Min: No Value
                                                                     </div>
                                                                     <div className='col'>
-                                                                        Avg: Min: No Value
+                                                                        Avg: No Value
                                                                     </div>
                                                                     <div className='col'>
-                                                                        Max: Min: No Value
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div className='col'>
-                                                                        Min: No Value
-                                                                    </div>
-                                                                    <div className='col'>
-                                                                        Avg: Min: No Value
-                                                                    </div>
-                                                                    <div className='col'>
-                                                                        Max: Min: No Value
+                                                                        Max: No Value
                                                                     </div>
                                                                 </td>
                                                                 <td>
@@ -240,21 +229,10 @@ const ReportLogsTable = ({reportLogs, getReportLogs, totalPages, pageNumber, get
                                                                         Min: No Value
                                                                     </div>
                                                                     <div className='col'>
-                                                                        Avg: Min: No Value
+                                                                        Avg: No Value
                                                                     </div>
                                                                     <div className='col'>
-                                                                        Max: Min: No Value
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div className='col'>
-                                                                        Min: No Value
-                                                                    </div>
-                                                                    <div className='col'>
-                                                                        Avg: Min: No Value
-                                                                    </div>
-                                                                    <div className='col'>
-                                                                        Max: Min: No Value
+                                                                        Max:No Value
                                                                     </div>
                                                                 </td>
                                                                 <td>
@@ -262,21 +240,10 @@ const ReportLogsTable = ({reportLogs, getReportLogs, totalPages, pageNumber, get
                                                                         Min: No Value
                                                                     </div>
                                                                     <div className='col'>
-                                                                        Avg: Min: No Value
+                                                                        Avg: No Value
                                                                     </div>
                                                                     <div className='col'>
-                                                                        Max: Min: No Value
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div className='col'>
-                                                                        Min: No Value
-                                                                    </div>
-                                                                    <div className='col'>
-                                                                        Avg: Min: No Value
-                                                                    </div>
-                                                                    <div className='col'>
-                                                                        Max: Min: No Value
+                                                                        Max: No Value
                                                                     </div>
                                                                 </td>
                                                                 <td>
@@ -284,10 +251,10 @@ const ReportLogsTable = ({reportLogs, getReportLogs, totalPages, pageNumber, get
                                                                         Min: No Value
                                                                     </div>
                                                                     <div className='col'>
-                                                                        Avg: Min: No Value
+                                                                        Avg: No Value
                                                                     </div>
                                                                     <div className='col'>
-                                                                        Max: Min: No Value
+                                                                        Max: No Value
                                                                     </div>
                                                                 </td>
                                                                 <td>
@@ -295,10 +262,43 @@ const ReportLogsTable = ({reportLogs, getReportLogs, totalPages, pageNumber, get
                                                                         Min: No Value
                                                                     </div>
                                                                     <div className='col'>
-                                                                        Avg: Min: No Value
+                                                                        Avg: No Value
                                                                     </div>
                                                                     <div className='col'>
-                                                                        Max: Min: No Value
+                                                                        Max: No Value
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div className='col'>
+                                                                        Min: No Value
+                                                                    </div>
+                                                                    <div className='col'>
+                                                                        Avg: No Value
+                                                                    </div>
+                                                                    <div className='col'>
+                                                                        Max: No Value
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div className='col'>
+                                                                        Min: No Value
+                                                                    </div>
+                                                                    <div className='col'>
+                                                                        Avg: No Value
+                                                                    </div>
+                                                                    <div className='col'>
+                                                                        Max: No Value
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div className='col'>
+                                                                        Min: No Value
+                                                                    </div>
+                                                                    <div className='col'>
+                                                                        Avg: No Value
+                                                                    </div>
+                                                                    <div className='col'>
+                                                                        Max: No Value
                                                                     </div>
                                                                 </td>
                                                             </>
