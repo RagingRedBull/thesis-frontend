@@ -33,13 +33,13 @@ const PostFireReportLogsTable = ({postFireLogs, reset, selectedDate}) => {
                                     <tr>
                                         <th scope='row'>{ new Date (postFireLogs.timeOccurred).toTimeString().split(" ")[0] }</th>
                                         <td>{ postFireLogs.compartmentName }</td>
-                                        <td>{ postFireLogs.sensorLogSet.some(sensor => sensor.name === "DHT-11") ? postFireLogs.sensorLogSet.map((sensor) => sensor.name === "DHT-11" && "Detected") : "Normal"}</td>
-                                        <td>{ postFireLogs.sensorLogSet.some(sensor => sensor.name === "DHT-22") ? postFireLogs.sensorLogSet.map((sensor) => sensor.name === "DHT-22" && "Detected") : "Normal"}</td>
-                                        <td>{ postFireLogs.sensorLogSet.some(sensor => sensor.name === "MQ-2") ? postFireLogs.sensorLogSet.map((sensor) => sensor.name === "MQ-2" && "Detected") : "Normal"}</td>
-                                        <td>{ postFireLogs.sensorLogSet.some(sensor => sensor.name === "MQ-5") ? postFireLogs.sensorLogSet.map((sensor) => sensor.name === "MQ-5" && "Detected") : "Normal"}</td>
-                                        <td>{ postFireLogs.sensorLogSet.some(sensor => sensor.name === "MQ-7") ? postFireLogs.sensorLogSet.map((sensor) => sensor.name === "MQ-7" && "Detected") : "Normal"}</td>
-                                        <td>{ postFireLogs.sensorLogSet.some(sensor => sensor.name === "MQ-135") ? postFireLogs.sensorLogSet.map((sensor) => sensor.name === "MQ-135" && "Detected") : "Normal"}</td>
-                                        <td>{ postFireLogs.sensorLogSet.some(sensor => sensor.name === "FIRE") ? postFireLogs.sensorLogSet.map((sensor) => sensor.name === "FIRE" && "Detected") : "Normal"}</td>
+                                        <td className={ postFireLogs.sensorLogSet.some(sensor => sensor.name === "DHT-11") ? "table-danger" : null}>{ postFireLogs.sensorLogSet.some(sensor => sensor.name === "DHT-11") ? "Detected" : "Normal"}</td>
+                                        <td className={ postFireLogs.sensorLogSet.some(sensor => sensor.name === "DHT-22") ? "table-danger" : null}>{ postFireLogs.sensorLogSet.some(sensor => sensor.name === "DHT-22") ? "Detected" : "Normal"}</td>
+                                        <td className={ postFireLogs.sensorLogSet.some(sensor => sensor.name === "MQ-2") ? "table-danger" : null}>{ postFireLogs.sensorLogSet.some(sensor => sensor.name === "MQ-2") ? "Detected" : "Normal"}</td>
+                                        <td className={ postFireLogs.sensorLogSet.some(sensor => sensor.name === "MQ-5") ? "table-danger" : null}>{ postFireLogs.sensorLogSet.some(sensor => sensor.name === "MQ-5") ? "Detected" : "Normal"}</td>
+                                        <td className={ postFireLogs.sensorLogSet.some(sensor => sensor.name === "MQ-7") ? "table-danger" : null}>{ postFireLogs.sensorLogSet.some(sensor => sensor.name === "MQ-7") ? "Detected" : "Normal"}</td>
+                                        <td className={ postFireLogs.sensorLogSet.some(sensor => sensor.name === "MQ-135") ? "table-danger" : null}>{ postFireLogs.sensorLogSet.some(sensor => sensor.name === "MQ-135") ? "Detected" : "Normal"}</td>
+                                        <td className={ postFireLogs.sensorLogSet.some(sensor => sensor.name === "FIRE") ? "table-danger" : null}>{ postFireLogs.sensorLogSet.some(sensor => sensor.name === "FIRE") ? "Detected" : "Normal"}</td>
                                     </tr>
                                 </tbody>
                             </table>
