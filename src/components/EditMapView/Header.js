@@ -71,16 +71,18 @@ const Header = ({ fireDrillMode }) => {
                                 </div>
                             </div>
                         </Link>
-                        <div className='card rounded-0' style={{cursor: "pointer"}}>
-                            <div className='card-body row p-0 m-0'> 
-                                <div className='col-2 p-0 ps-1 m-0 mt-1'>
-                                    <FontAwesomeIcon icon={ faFileAltSol } style={ settingsIconStyle } />
-                                </div>
-                                <div className='col-10 p-0 m-0 fs-5'>
-                                    Post-fire reports
+                        <Link to="/post-fire-logs" style={ linkStyle }>
+                            <div className='card rounded-0' style={{cursor: "pointer"}}>
+                                <div className='card-body row p-0 m-0'> 
+                                    <div className='col-2 p-0 ps-1 m-0 mt-1'>
+                                        <FontAwesomeIcon icon={ faFileAltSol } style={ settingsIconStyle } />
+                                    </div>
+                                    <div className='col-10 p-0 m-0 fs-5'>
+                                        Post-fire reports
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                         <div className='card rounded-0' style={{cursor: "pointer"}} onClick={() => UserService.doLogout()}>
                             <div className='card-body row p-0 m-0'> 
                                 <div className='col-2 p-0 ps-1 m-0 mt-1'>

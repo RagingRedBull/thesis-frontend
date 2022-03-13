@@ -11,6 +11,7 @@ import { useInterval } from "./services/UseInterval";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import StatusReport from "./components/StatusReport";
+import PostFireReport from "./components/PostFireReport";
 
 function App() {
   const [alarmingMode, setAlarmingMode] = useState(false);
@@ -61,6 +62,14 @@ function App() {
             element={
               <PrivateRouteHelper status={ alarmingMode }>
                 <StatusReport fireDrillMode={ fireDrillMode } />
+              </PrivateRouteHelper>
+            } 
+          />
+          <Route 
+            path="/post-fire-logs" 
+            element={
+              <PrivateRouteHelper status={ alarmingMode }>
+                <PostFireReport fireDrillMode={ fireDrillMode } />
               </PrivateRouteHelper>
             } 
           />

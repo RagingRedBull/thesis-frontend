@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCog, faWrench, faBell, faFileAlt as faFileAltSol, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
+import { faCog, faWrench, faBell, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
+import { faFileAlt as faFileAltReg } from '@fortawesome/free-regular-svg-icons'
 import { faHome } from '@fortawesome/free-solid-svg-icons'
 import { OverlayTrigger, Popover } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
@@ -66,14 +67,14 @@ const Header = ({fireDrillMode}) => {
                                     </div>
                                 </div>
                         }
-                        <Link to="/post-fire-logs" style={ linkStyle }>
+                        <Link to="/status-logs" style={ linkStyle }>
                             <div className='card rounded-0' style={{cursor: "pointer"}}>
                                 <div className='card-body row p-0 m-0'> 
                                     <div className='col-2 p-0 ps-1 m-0 mt-1'>
-                                        <FontAwesomeIcon icon={ faFileAltSol } style={ settingsIconStyle } />
+                                        <FontAwesomeIcon icon={ faFileAltReg } style={ settingsIconStyle } />
                                     </div>
                                     <div className='col-10 p-0 m-0 fs-5'>
-                                        Post-fire reports
+                                        Status reports
                                     </div>
                                 </div>
                             </div>
