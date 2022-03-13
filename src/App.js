@@ -8,12 +8,19 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import EditMapView from "./components/EditMapView";
 import UserService from "./services/UserService";
 import { useInterval } from "./services/UseInterval";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import StatusReport from "./components/StatusReport";
 
 function App() {
-  const [alarmingStatus, setAlarmingStatus] = useState();
+  const [alarmingMode, setAlarmingMode] = useState(false);
+  const [fireDrillMode, setFireDrillMode] = useState(false);
+
+  useEffect(() => {
+    getAlarmingModeStatus();
+    getFireDrillMode();
+  }, []);
+  
 
   useInterval(async () => {
     UserService.updateToken();
@@ -23,26 +30,36 @@ function App() {
     axios
       .get(global.config.server.url + "/alarming")
       .then((response) => {
-        setAlarmingStatus(response.data);
+        setAlarmingMode(response.data);
       })
       .catch((err) => {
         console.log("Error", err);
       });
   };
 
+  const getFireDrillMode = () => {
+    axios.get(
+      global.config.server.url + "/fire-drill"
+      )
+      .then((response) => {
+        setFireDrillMode(response.data)
+      })
+  };
+
   useInterval(() => {
     getAlarmingModeStatus();
+    getFireDrillMode();
   }, 1000);
 
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<MapView />} />
+          <Route path="/" element={<MapView alarmingMode={ alarmingMode } fireDrillMode={ fireDrillMode }/>} />
           <Route 
             path="/status-logs" 
             element={
-              <PrivateRouteHelper status={alarmingStatus}>
+              <PrivateRouteHelper status={ alarmingMode }>
                 <StatusReport />
               </PrivateRouteHelper>
             } 
@@ -50,7 +67,7 @@ function App() {
           <Route
             path="/edit-map"
             element={
-              <PrivateRouteHelper status={alarmingStatus}>
+              <PrivateRouteHelper status={ alarmingMode }>
                 <EditMapView />
               </PrivateRouteHelper>
             }
