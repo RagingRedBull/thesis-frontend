@@ -2,23 +2,23 @@ import axios from "axios";
 import React from "react";
 import { Modal } from "react-bootstrap";
 
-const EstablishFireDrillModal = ({ show, setShow }) => {
+const EnableFireDrillModal = ({ show, setShow }) => {
   const handleClose = () => {
     setShow(false);
   };
 
   const establishFireDrill = async () => {
     axios
-      .get(global.config.server.url + "/alarming/update", {
+      .get(global.config.server.url + "/fire-drill/update", {
         params: {
-          enableAlarming: false,
+          enableFireDrillMode: true,
         },
       })
       .then((response) => {
         if (response.status === 200) {
-          alert("Successfully established fire drill.");
+          alert("Successfully enabled fire drill.");
         } else {
-          alert("Establishing fire drill was unsuccessful.");
+          alert("Enabling fire drill was unsuccessful.");
         }
       })
       .catch((err) => {
@@ -29,7 +29,7 @@ const EstablishFireDrillModal = ({ show, setShow }) => {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header>
-        <Modal.Title>Establish Fire Drill</Modal.Title>
+        <Modal.Title>Enable Fire Drill</Modal.Title>
       </Modal.Header>
       <Modal.Body>Are you sure you want to start a fire drill?</Modal.Body>
       <Modal.Footer>
@@ -48,11 +48,11 @@ const EstablishFireDrillModal = ({ show, setShow }) => {
             handleClose();
           }}
         >
-          Establish
+          Enable
         </button>
       </Modal.Footer>
     </Modal>
   );
 };
 
-export default EstablishFireDrillModal;
+export default EnableFireDrillModal;

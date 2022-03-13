@@ -11,6 +11,7 @@ const MapView = () => {
   const [floors, setFloors] = useState([])
   const [currentFloor, setCurrentFloor] = useState([])
   const [alarmingMode, setAlarmingMode] = useState(false)
+  const [fireDrillMode, setFireDrillMode] = useState(false)
 
   // Get floors
   useEffect(() => {
@@ -35,11 +36,13 @@ const MapView = () => {
     }
     getFloors()
     getAlarmingMode()
+    getFireDrillMode()
   }, [])
 
   useInterval(() => {
     getAlarmingMode()
-  }, 5000)
+    getFireDrillMode()
+  }, 1000)
 
   const getAlarmingMode = async () => {
     axios
@@ -51,13 +54,21 @@ const MapView = () => {
       })
   }
 
+  const getFireDrillMode = () => {
+    axios.get(
+      global.config.server.url + "/fire-drill"
+      )
+      .then((response) => {
+        setFireDrillMode(response.data)
+      })
+  }
   return (
     <div className="container-fluid row p-0 m-0" style={ mapViewStyle }>
       <div className="col-1 p-0 text-center"  style={ sideNavStyle }>
         <SideNav floors={ floors } setCurrentFloor={ setCurrentFloor } selFloorId={ currentFloor.id } />
       </div>
       <div className="h-100 col-11 p-0 m-0 row g-0">
-        <Header alarmingMode={ alarmingMode } />
+        <Header alarmingMode={ alarmingMode } fireDrillMode={ fireDrillMode } />
         <Map 
           image={ currentFloor.imageUrl } 
           hasFloors={ floors.length > 0 } 
