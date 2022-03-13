@@ -36,16 +36,16 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
                                 }
                             }
                             else if(sensor.type === "MQ"){
-                                if(sensor.name === "MQ-2" && sensor.mqValue > 300){
+                                if(sensor.name === "MQ-2" && sensor.mqValue > 165){
                                     setIsSmoke(true)
                                 }
-                                else if (sensor.name === "MQ-5" && sensor.mqValue > 500){
+                                else if (sensor.name === "MQ-5" && sensor.mqValue > 455){
                                     setIsSmoke(true)
                                 }
-                                else if (sensor.name === "MQ-7" && sensor.mqValue > 300){
+                                else if (sensor.name === "MQ-7" && sensor.mqValue > 190){
                                     setIsSmoke(true)
                                 }
-                                else if (sensor.name === "MQ-135" && sensor.mqValue > 300){
+                                else if (sensor.name === "MQ-135" && sensor.mqValue > 210){
                                     setIsSmoke(true)
                                 }
                                 else{
@@ -100,16 +100,16 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
                     }
                 }
                 else if(sensor.type === "MQ"){
-                    if(sensor.name === "MQ-2" && sensor.mqValue > 300){
+                    if(sensor.name === "MQ-2" && sensor.mqValue > 165){
                         smoke = true
                     }
-                    else if (sensor.name === "MQ-5" && sensor.mqValue > 500){
+                    else if (sensor.name === "MQ-5" && sensor.mqValue > 455){
                         smoke = true
                     }
-                    else if (sensor.name === "MQ-7" && sensor.mqValue > 300){
+                    else if (sensor.name === "MQ-7" && sensor.mqValue > 190){
                         smoke = true
                     }
-                    else if (sensor.name === "MQ-135" && sensor.mqValue > 300){
+                    else if (sensor.name === "MQ-135" && sensor.mqValue > 210){
                         smoke = true
                     }
                 }
