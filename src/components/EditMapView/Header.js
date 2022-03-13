@@ -30,16 +30,6 @@ const Header = ({alarmingMode, setAlarmingMode}) => {
                                 </div>
                             </div>
                         </Link>
-                        <div className='card rounded-0' style={{cursor: "pointer"}}>
-                            <div className='card-body row p-0 m-0'> 
-                                <div className='col-2 p-0 ps-1 m-0 mt-1'>
-                                    <FontAwesomeIcon icon={ faBell } style={ settingsIconStyle } />
-                                </div>
-                                <div className='col-10 p-0 m-0 fs-5'>
-                                    Fire Drill mode
-                                </div>
-                            </div>
-                        </div>
                         <Link to="/status-logs" style={ linkStyle }>
                             <div className='card rounded-0' style={{cursor: "pointer"}}>
                                 <div className='card-body row p-0 m-0'> 
