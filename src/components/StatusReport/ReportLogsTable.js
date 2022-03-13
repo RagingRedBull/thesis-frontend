@@ -232,7 +232,7 @@ const ReportLogsTable = ({reportLogs, getReportLogs, totalPages, pageNumber, get
                                                                         Avg: No Value
                                                                     </div>
                                                                     <div className='col'>
-                                                                        Max:No Value
+                                                                        Max: No Value
                                                                     </div>
                                                                 </td>
                                                                 <td>
