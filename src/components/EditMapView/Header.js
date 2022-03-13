@@ -9,9 +9,14 @@ import { faFileAlt as faFileAltReg } from '@fortawesome/free-regular-svg-icons'
 import { OverlayTrigger, Popover } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import UserService from "../../services/UserService"
+import { useState } from 'react'
+import EnableFireDrillModal from "../Header/EnableFireDrillModal"
+import DisableFireDrillModal from "../Header/DisableFireDrillModal"
 
-const Header = ({alarmingMode, setAlarmingMode}) => {
+const Header = ({ fireDrillMode }) => {
     const buildName = "Test Building"
+    const [showEnableFireDrillModal, setShowEnableFireDrillModal] = useState(false)
+    const [showDisableFireDrillModal, setShowDisableFireDrillModal] = useState(false)
 
     const cogPopover = (
         <Popover className='w-100' style={{ width: "170px"}}>
@@ -30,6 +35,30 @@ const Header = ({alarmingMode, setAlarmingMode}) => {
                                 </div>
                             </div>
                         </Link>
+                        {
+                            fireDrillMode ?
+                                <div className='card rounded-0' style={{cursor: "pointer"}} onClick={() => setShowDisableFireDrillModal(true)}>
+                                    <div className='card-body row p-0 m-0'> 
+                                        <div className='col-2 p-0 ps-1 m-0 mt-1'>
+                                            <FontAwesomeIcon icon={ faBell } style={ settingsIconStyle } />
+                                        </div>
+                                        <div className='col-10 p-0 m-0 fs-5'>
+                                            Disable Fire Drill mode
+                                        </div>
+                                    </div>
+                                </div>
+                            :
+                                <div className='card rounded-0' style={{cursor: "pointer"}} onClick={() => setShowEnableFireDrillModal(true)}>
+                                    <div className='card-body row p-0 m-0'> 
+                                        <div className='col-2 p-0 ps-1 m-0 mt-1'>
+                                            <FontAwesomeIcon icon={ faBell } style={ settingsIconStyle } />
+                                        </div>
+                                        <div className='col-10 p-0 m-0 fs-5'>
+                                            Enable Fire Drill mode
+                                        </div>
+                                    </div>
+                                </div>
+                        }
                         <Link to="/status-logs" style={ linkStyle }>
                             <div className='card rounded-0' style={{cursor: "pointer"}}>
                                 <div className='card-body row p-0 m-0'> 
@@ -90,7 +119,7 @@ const Header = ({alarmingMode, setAlarmingMode}) => {
     )
 
     return (
-        <div className='header row m-0 pe-0' style={ alarmingMode ? headerAlarmingStyle : headerStyle }>
+        <div className='header row m-0 pe-0' style={ fireDrillMode ? headerFireDrillStyle : headerStyle }>
             <div className='col-8 p-0 mt-3'>
                 <h3 className='proj-name pt-3 ps-5'>FIRE ALARM CONTROL UNIT |</h3>
             </div>
@@ -112,6 +141,14 @@ const Header = ({alarmingMode, setAlarmingMode}) => {
                     </OverlayTrigger>
                 </div>
             </div>
+            <EnableFireDrillModal
+                show={ showEnableFireDrillModal }
+                setShow={ setShowEnableFireDrillModal } 
+            />
+            <DisableFireDrillModal 
+                show={ showDisableFireDrillModal }
+                setShow={ setShowDisableFireDrillModal }
+            />
         </div>
     )
 };
@@ -121,8 +158,8 @@ const headerStyle = {
     height: "125px"
 }
 
-const headerAlarmingStyle = {
-    backgroundColor: "#FB3640",
+const headerFireDrillStyle = {
+    backgroundColor: "blue",
     height: "125px",
     color: "white"
 }

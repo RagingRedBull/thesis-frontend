@@ -60,7 +60,7 @@ function App() {
             path="/status-logs" 
             element={
               <PrivateRouteHelper status={ alarmingMode }>
-                <StatusReport />
+                <StatusReport fireDrillMode={ fireDrillMode } />
               </PrivateRouteHelper>
             } 
           />
@@ -68,7 +68,7 @@ function App() {
             path="/edit-map"
             element={
               <PrivateRouteHelper status={ alarmingMode }>
-                <EditMapView />
+                <EditMapView fireDrillMode={ fireDrillMode } />
               </PrivateRouteHelper>
             }
           />

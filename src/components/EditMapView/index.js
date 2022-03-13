@@ -6,7 +6,7 @@ import Map from "./Map"
 import Header from "./Header"
 import UserService from "../../services/UserService"
 
-const EditMapView = () => {
+const EditMapView = ({fireDrillMode}) => {
     const [floors, setFloors] = useState([])
     const [currentFloor, setCurrentFloor] = useState([])
 
@@ -74,7 +74,7 @@ const EditMapView = () => {
                 <SideNav floors={ floors } setCurrentFloor={ setCurrentFloor } currentFloor={ currentFloor } setFloors={ setFloors } handleDelete={ handleDeleteFloor } handleUpdate={ handleUpdateFloor } />
             </div>
             <div className="h-100 col-11 p-0 m-0 row g-0">
-                <Header />
+                <Header fireDrillMode={ fireDrillMode } />
                 <Map image={ currentFloor.imageUrl } hasFloors={ floors.length > 0 } floorId={ currentFloor.id } currentFloor={ currentFloor } />
             </div>
         </div>

@@ -80,7 +80,6 @@ const Header = ({alarmingMode, fireDrillMode}) => {
                                         </div>
                                     </div>
                             }
-                            
                             <Link to="/status-logs" style={ linkStyle }>
                                 <div className='card rounded-0' style={{cursor: "pointer"}}>
                                     <div className='card-body row p-0 m-0'> 

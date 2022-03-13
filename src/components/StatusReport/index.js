@@ -5,7 +5,7 @@ import '../../css/StatusReport.css'
 import ReportDates from './ReportLogsTable'
 import axios from 'axios'
 
-const StatusReport = () => {
+const StatusReport = ({fireDrillMode}) => {
     const [logDate, setLogDate] = useState()
     const [reportLogs, setReportLogs] = useState([])
     const [pageSize, setPageSize] = useState()
@@ -110,7 +110,7 @@ const StatusReport = () => {
                 <SideNav />
             </div>
             <div className='h-100 col-11 p-0 m-0 row g-0'>
-                <Header />
+                <Header fireDrillMode={ fireDrillMode } />
                 <ReportDates 
                     reportLogs={ reportLogs } 
                     getReportLogs={ getReportLogs }
