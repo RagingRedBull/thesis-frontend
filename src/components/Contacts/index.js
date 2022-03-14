@@ -75,6 +75,74 @@ const StatusReport = ({fireDrillMode}) => {
         
     }
 
+    const getNextContacts = () => {
+        axios.get(
+            global.config.server.url + "/contact/all",
+            {
+                params: { 
+                    pageNumber: pageNumber + 1,
+                    pageSize: 10
+                }
+            }
+        ).then(
+            response => {
+                setContacts(response.data.content)
+                setPageNumber(pageNumber + 1)
+            }
+        )
+    }
+
+    const getPrevContacts = () => {
+        axios.get(
+            global.config.server.url + "/contact/all",
+            {
+                params: { 
+                    pageNumber: pageNumber - 1,
+                    pageSize: 10
+                }
+            }
+        ).then(
+            response => {
+                setContacts(response.data.content)
+                setPageNumber(pageNumber - 1)
+            }
+        )
+    }
+
+    const getLastContacts = () => {
+        axios.get(
+            global.config.server.url + "/contact/all",
+            {
+                params: { 
+                    pageNumber: totalPages - 1,
+                    pageSize: 10
+                }
+            }
+        ).then(
+            response => {
+                setContacts(response.data.content)
+                setPageNumber(totalPages - 1)
+            }
+        )
+    }
+
+    const getFirstContacts = () => {
+        axios.get(
+            global.config.server.url + "/contact/all",
+            {
+                params: { 
+                    pageNumber: 0,
+                    pageSize: 10
+                }
+            }
+        ).then(
+            response => {
+                setContacts(response.data.content)
+                setPageNumber(0)
+            }
+        )
+    }
+
     return (
         <div className='container-fluid status-report-container row m-0 p-0'>
             <div className='side-navigation-reports col-1 p-0'>
@@ -87,6 +155,12 @@ const StatusReport = ({fireDrillMode}) => {
                     addContact={ addContact }
                     editContact={ editContact }
                     deleteContact={ deleteContact }
+                    totalPages={ totalPages }
+                    pageNumber={ pageNumber }
+                    getNextContacts={ getNextContacts }
+                    getPrevContacts={ getPrevContacts }
+                    getLastContacts={ getLastContacts }
+                    getFirstContacts={ getFirstContacts }
                 />
             </div>
         </div>
