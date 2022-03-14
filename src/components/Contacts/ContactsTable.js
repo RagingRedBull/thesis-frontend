@@ -44,47 +44,55 @@ const ContactsTable = ({contacts, addContact, editContact, deleteContact}) => {
                         </button>
                     </div>
                     <div className='card-body'>
-                        <table className='table'>
-                            <thead>
-                                <tr>
-                                    <th scope='col'>Contact #</th>
-                                    <th scope='col'>First Name</th>
-                                    <th scope='col'>Last Name</th>
-                                    <th scope='col'>Email</th>
-                                    <th scope='col'>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    contacts.map((contact, index) => (
-                                        <tr key={ index }>
-                                            <th scope='row'>{ contact.contactNumber }</th>
-                                            <td>{ contact.firstName }</td>
-                                            <td>{ contact.lastName }</td>
-                                            <td>{ contact.email }</td>
-                                            <td>
-                                                <div className='row w-50'>
-                                                    <div className='col'>
-                                                        <FontAwesomeIcon 
-                                                            icon={ faPenSquare }
-                                                            style={ iconStyle }
-                                                            onClick={ () => handleEdit(contact) }
-                                                        />
-                                                    </div>
-                                                    <div className='col'>
-                                                        <FontAwesomeIcon 
-                                                            icon={ faTrash }
-                                                            style={ iconStyle }
-                                                            onClick={ () => handleDelete(contact) }
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </td>
+                        {
+                            contacts.length > 0 ?
+                                <table className='table'>
+                                    <thead>
+                                        <tr>
+                                            <th scope='col'>Contact #</th>
+                                            <th scope='col'>First Name</th>
+                                            <th scope='col'>Last Name</th>
+                                            <th scope='col'>Email</th>
+                                            <th scope='col'>Actions</th>
                                         </tr>
-                                    ))
-                                }
-                            </tbody>
-                        </table>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            contacts.map((contact, index) => (
+                                                <tr key={ index }>
+                                                    <th scope='row'>{ contact.phoneNumber }</th>
+                                                    <td>{ contact.firstName }</td>
+                                                    <td>{ contact.lastName }</td>
+                                                    <td>{ contact.email }</td>
+                                                    <td>
+                                                        <div className='row w-50'>
+                                                            <div className='col'>
+                                                                <FontAwesomeIcon 
+                                                                    icon={ faPenSquare }
+                                                                    style={ iconStyle }
+                                                                    onClick={ () => handleEdit(contact) }
+                                                                />
+                                                            </div>
+                                                            <div className='col'>
+                                                                <FontAwesomeIcon 
+                                                                    icon={ faTrash }
+                                                                    style={ iconStyle }
+                                                                    onClick={ () => handleDelete(contact) }
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        }
+                                    </tbody>
+                                </table>
+                            :
+                                <div>
+                                    <h5>No contacts</h5>
+                                </div>
+                        }
+                        
                     </div>
                 </div>
             </div>

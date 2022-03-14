@@ -4,48 +4,75 @@ import Header from './Header'
 import '../../css/StatusReport.css' 
 import axios from 'axios'
 import ContactsTable from './ContactsTable'
+import UserService from '../../services/UserService'
 
 const StatusReport = ({fireDrillMode}) => {
-    const sampleContacts = [
-        {
-            id: 1,
-            firstName: "Marvin",
-            lastName: "Sy",
-            email: "janmartinvincent@gmail.com",
-            contactNumber: "09399072280"
-        },
-        {
-            id: 2,
-            firstName: "Lexus",
-            lastName: "Reach",
-            email: "janmartinvincent@gmail.com",
-            contactNumber: "09399072281"
-        },
-    ]
     const [contacts, setContacts] = useState([])
+    const [totalPages, setTotalPages] = useState(0)
+    const [pageNumber, setPageNumber] = useState(0)
 
     useEffect(() => {
-        setContacts(sampleContacts)
+        getContacts()
     }, [])
 
+    const getContacts = async () => {
+        axios.get(
+            global.config.server.url + "/contact/all",
+            {
+                params: {
+                    pageSize: 10,
+                    pageNumber: 0
+                }
+            }
+        )
+        .then(response => {
+            setContacts(response.data.content)
+            setTotalPages(response.data.totalPages)
+            setPageNumber(0)
+        })
+        .catch(err => alert("Unable to connect to server."))
+    }
+
     const addContact = (contact) => {
-        setContacts([...contacts, contact])
+        axios.post(
+            global.config.server.url + "/contact/new",
+            contact,
+            {
+                headers: {
+                    Authorization: `Bearer ${UserService.getToken()}`
+                }
+            }
+        ).then(
+            response => setContacts([...contacts, response.data])
+        ).catch(err => alert("Unable to connect to server."))
     }
 
     const editContact = (editedContact) => {
-        setContacts(
-            contacts.map(contact => contact.id === editedContact.id ?
-                {...editedContact}
-                :
-                contact
-            )
+        axios.put(
+            global.config.server.url + "/contact/update/",
+            editedContact,
+            {
+                headers: {
+                    Authorization: `Bearer ${UserService.getToken()}`
+                }
+            }
+        ).then(
+            response => setContacts(contacts.map(contact => contact.id === response.data.id ? {...response.data} : contact))
         )
     }
 
     const deleteContact = (id) => {
-        setContacts(
-            contacts.filter(contact => contact.id !== id)
+        axios.delete(
+            global.config.server.url + "/contact/delete/" + id,
+            {
+                headers: {
+                    Authorization: `Bearer ${UserService.getToken()}`
+                }
+            }
+        ).then(
+            response => setContacts(contacts.filter(contact => contact.id !== id))
         )
+        
     }
 
     return (

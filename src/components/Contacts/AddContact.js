@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Modal } from 'react-bootstrap'
 
 const AddContact = ({ show, setShow, addContact }) => {
-    const [contactNumber, setContactNumber] = useState("")
+    const [phoneNumber, setPhoneNumber] = useState("")
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [email, setEmail] = useState("")
@@ -10,7 +10,7 @@ const AddContact = ({ show, setShow, addContact }) => {
     const submit = (e) => {
         e.preventDefault()
 
-        if (contactNumber === "") {
+        if (phoneNumber === "") {
             console.log("null")
             return null
         }
@@ -27,12 +27,12 @@ const AddContact = ({ show, setShow, addContact }) => {
             return null
         }
 
-        addContact({firstName, lastName, email, contactNumber})
+        addContact({firstName, lastName, email, phoneNumber})
         handleClose()
     }
 
     const handleClose = () => {
-        setContactNumber("")
+        setPhoneNumber("")
         setFirstName("")
         setLastName("")
         setEmail("")
@@ -52,7 +52,7 @@ const AddContact = ({ show, setShow, addContact }) => {
                             type='text'
                             className='form-control'
                             placeholder='Contact Number'
-                            onChange={(e) => setContactNumber(e.target.value.trim())}
+                            onChange={(e) => setPhoneNumber(e.target.value.trim())}
                         />
                     </div>
                     <div className='form-group mt-2'>

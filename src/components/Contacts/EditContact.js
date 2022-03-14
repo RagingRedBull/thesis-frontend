@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { Modal } from 'react-bootstrap'
 
 const EditContact = ({show, setShow, contact, editContact}) => {
-    const [contactNumber, setContactNumber] = useState("")
+    const [phoneNumber, setPhoneNumber] = useState("")
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [email, setEmail] = useState("")
 
     useEffect(() => {
         if (!!contact) {
-            setContactNumber(contact.contactNumber)
+            setPhoneNumber(contact.phoneNumber)
             setFirstName(contact.firstName)
             setLastName(contact.lastName)
             setEmail(contact.email)
@@ -24,7 +24,7 @@ const EditContact = ({show, setShow, contact, editContact}) => {
     const submit = (e) => {
         e.preventDefault()
 
-        if (contactNumber === "") {
+        if (phoneNumber === "") {
             console.log("null")
             return null
         }
@@ -41,7 +41,7 @@ const EditContact = ({show, setShow, contact, editContact}) => {
             return null
         }
 
-        editContact({ id: contact.id, firstName, lastName, email, contactNumber})
+        editContact({ id: contact.id, firstName, lastName, email, phoneNumber})
         handleClose()
     }
 
@@ -57,8 +57,8 @@ const EditContact = ({show, setShow, contact, editContact}) => {
                         <input 
                             type='text'
                             className='form-control'
-                            value={ contactNumber }
-                            onChange={(e) => setContactNumber(e.target.value)}
+                            value={ phoneNumber }
+                            onChange={(e) => setPhoneNumber(e.target.value)}
                         />
                     </div>
                     <div className='form-group mt-2'>
