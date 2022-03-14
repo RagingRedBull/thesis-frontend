@@ -1,6 +1,6 @@
 import React from 'react'
 
-const PostFireReportLogsTable = ({postFireLogs, reset, selectedDate}) => {
+const PostFireReportLogsTable = ({postFireLogs, reset, selectedDate, totalPages, pageNumber, getNextPostFireLogs, getPrevPostFireLogs, getLastPostFireLogs, getFirstPostFireLogs}) => {
   return (
     <div className='row m-0 p-0' style={{backgroundColor: "white"}}>
         <div>
@@ -9,7 +9,17 @@ const PostFireReportLogsTable = ({postFireLogs, reset, selectedDate}) => {
             </div>
             <div className='card m-3'>
                 <div className='card-header'>
-                    <h5>Date: { selectedDate }</h5>
+                    <div style={{float: "left"}}>
+                        <h5>Start Date: {  (new Date (selectedDate)).toLocaleDateString() }</h5>
+                    </div>
+                    <div style={{float: "right"}}>
+                        <button
+                            className='btn btn-secondary'
+                            onClick={ () => reset()}
+                        >
+                            Go back
+                        </button>
+                    </div>
                 </div>
                 <div className='card-body'>
                     {
@@ -18,7 +28,7 @@ const PostFireReportLogsTable = ({postFireLogs, reset, selectedDate}) => {
                             <table className='table'>
                                 <thead>
                                     <tr>
-                                        <th scope='col'>Time</th>
+                                        <th scope='col'>Date Time</th>
                                         <th scope='col'>Compartment Name</th>
                                         <th scope='col'>DHT-11</th>
                                         <th scope='col'>DHT-22</th>
@@ -30,17 +40,21 @@ const PostFireReportLogsTable = ({postFireLogs, reset, selectedDate}) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope='row'>{ new Date (postFireLogs.timeOccurred).toTimeString().split(" ")[0] }</th>
-                                        <td>{ postFireLogs.compartmentName }</td>
-                                        <td className={ postFireLogs.sensorLogSet.some(sensor => sensor.name === "DHT-11") ? "table-danger" : null}>{ postFireLogs.sensorLogSet.some(sensor => sensor.name === "DHT-11") ? "Detected" : "Normal"}</td>
-                                        <td className={ postFireLogs.sensorLogSet.some(sensor => sensor.name === "DHT-22") ? "table-danger" : null}>{ postFireLogs.sensorLogSet.some(sensor => sensor.name === "DHT-22") ? "Detected" : "Normal"}</td>
-                                        <td className={ postFireLogs.sensorLogSet.some(sensor => sensor.name === "MQ-2") ? "table-danger" : null}>{ postFireLogs.sensorLogSet.some(sensor => sensor.name === "MQ-2") ? "Detected" : "Normal"}</td>
-                                        <td className={ postFireLogs.sensorLogSet.some(sensor => sensor.name === "MQ-5") ? "table-danger" : null}>{ postFireLogs.sensorLogSet.some(sensor => sensor.name === "MQ-5") ? "Detected" : "Normal"}</td>
-                                        <td className={ postFireLogs.sensorLogSet.some(sensor => sensor.name === "MQ-7") ? "table-danger" : null}>{ postFireLogs.sensorLogSet.some(sensor => sensor.name === "MQ-7") ? "Detected" : "Normal"}</td>
-                                        <td className={ postFireLogs.sensorLogSet.some(sensor => sensor.name === "MQ-135") ? "table-danger" : null}>{ postFireLogs.sensorLogSet.some(sensor => sensor.name === "MQ-135") ? "Detected" : "Normal"}</td>
-                                        <td className={ postFireLogs.sensorLogSet.some(sensor => sensor.name === "FIRE") ? "table-danger" : null}>{ postFireLogs.sensorLogSet.some(sensor => sensor.name === "FIRE") ? "Detected" : "Normal"}</td>
-                                    </tr>
+                                    {
+                                        postFireLogs.map((log) => (
+                                            <tr key={ log.timeDetected }>
+                                                <th scope='row'>{ (new Date (log.timeDetected)).toLocaleDateString() + " " + (new Date (log.timeDetected)).toLocaleTimeString() }</th>
+                                                <td>{ log.compartmentName }</td>
+                                                <td className={ log.dht11 ? "table-danger" : null}>{ log.dht11 ? "Detected" : "No Detection"}</td>
+                                                <td className={ log.dht22 ? "table-danger" : null}>{ log.dht22 ? "Detected" : "No Detection"}</td>
+                                                <td className={ log.mq2 ? "table-danger" : null}>{ log.mq2 ? "Detected" : "No Detection"}</td>
+                                                <td className={ log.mq5 ? "table-danger" : null}>{ log.mq5 ? "Detected" : "No Detection"}</td>
+                                                <td className={ log.mq7 ? "table-danger" : null}>{ log.mq7 ? "Detected" : "No Detection"}</td>
+                                                <td className={ log.mq135 ? "table-danger" : null}>{ log.mq135 ? "Detected" : "No Detection"}</td>
+                                                <td className={ log.fire ? "table-danger" : null}>{ log.fire ? "Detected" : "No Detection"}</td>
+                                            </tr>
+                                        ))
+                                    }
                                 </tbody>
                             </table>
                         :
@@ -50,12 +64,20 @@ const PostFireReportLogsTable = ({postFireLogs, reset, selectedDate}) => {
                     }
                 </div>
                 <div className='card-footer'>
-                    <button
-                        className='btn btn-secondary'
-                        onClick={ () => reset()}
-                    >
-                        Go back
-                    </button>
+                    <div className='mt-2' style={{float: "left"}}>
+                        <h6>Showing Page { pageNumber + 1 } of { totalPages }</h6>
+                    </div>
+                    <div style={{float: "right"}}>
+                        <nav>
+                            <ul className="pagination mb-0">
+                                <li className={ pageNumber === 0 ? "page-item disabled" : "page-item"}><button className="page-link" onClick={() => getFirstPostFireLogs() }>{"<<"}</button></li>
+                                <li className={ pageNumber === 0 ? "page-item disabled" : "page-item"}><button className="page-link" onClick={() => getPrevPostFireLogs() }>{"<"}</button></li>
+                                <li className="page-item disabled"><button className="page-link" style={{color: "black"}}>{ pageNumber + 1 }</button></li>
+                                <li className={pageNumber === totalPages - 1 ? "page-item disabled" : "page-item"}><button className="page-link" onClick={() => getNextPostFireLogs() }>{">"}</button></li>
+                                <li className={pageNumber === totalPages - 1 ? "page-item disabled" : "page-item"}><button className="page-link" onClick={() => getLastPostFireLogs() }>{">>"}</button></li>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>

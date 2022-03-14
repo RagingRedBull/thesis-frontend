@@ -11,33 +11,103 @@ const StatusReport = ({fireDrillMode}) => {
     const [selectedDateId, setSelectedDateId] = useState(null)
     const [selectedDate, setSelectedDate] = useState(null)
     const [postFireLogs, setPostFireLogs] = useState(null)
+    const [totalPages, setTotalPages] = useState(null)
+    const [pageNumber, setPageNumber] = useState(0)
 
     useEffect(() => {
         getDates()  
     }, [])
     
     const getDates = async () => {
-        axios.get(global.config.server.url + "/log/post-fire-report")
+        axios.get("http://172.104.70.74:8080/prmts/log/post-fire-report")
             .then(response => {
                 setDates(response.data)
-                console.log(response.data)
             })
     }
 
     const getLogs = async (date) => {
         axios.get(
-            global.config.server.url + "/log/post-fire-report",
+            "http://172.104.70.74:8080/prmts/log/post-fire-report",
             {
                 params: {
-                    pfrId: date.id
+                    pfrId: date.id,
+                    pageNumber: 0,
+                    pageSize: 10
                 }
             }
         )
             .then(response => {
+                console.log(response)
                 setSelectedDateId(date.id)
                 setSelectedDate(date.dateOccurred)
-                setPostFireLogs(response.data)
+                setTotalPages(response.data.totalPages)
+                setPageNumber(0)
+                setPostFireLogs(response.data.content)
             })
+    }
+
+    const getNextPostFireLogs = async () => {
+        axios.get(
+            "http://172.104.70.74:8080/prmts/log/post-fire-report",
+            {
+                params: { 
+                    pfrId: selectedDateId,
+                    pageNumber: pageNumber + 1,
+                    pageSize: 10
+                }
+            }
+        ).then(response => {
+            setPostFireLogs(response.data.content)
+            setPageNumber(pageNumber + 1)
+        })
+    }
+
+    const getPrevPostFireLogs = async () => {
+        axios.get(
+            "http://172.104.70.74:8080/prmts/log/post-fire-report",
+            {
+                params: { 
+                    pfrId: selectedDateId,
+                    pageNumber: pageNumber - 1,
+                    pageSize: 10
+                }
+            }
+        ).then(response => {
+            setPostFireLogs(response.data.content)
+            setPageNumber(pageNumber - 1)
+        })
+    }
+
+    const getLastPostFireLogs = async () => {
+        axios.get(
+            "http://172.104.70.74:8080/prmts/log/post-fire-report",
+            {
+                params: { 
+                    pfrId: selectedDateId,
+                    pageNumber: totalPages - 1,
+                    pageSize: 10
+                }
+            }
+        ).then(response => {
+            setPostFireLogs(response.data.content)
+            setPageNumber(totalPages - 1)
+        })
+    }
+
+    const getFirstPostFireLogs = async () => {
+        axios.get(
+            "http://172.104.70.74:8080/prmts/log/post-fire-report",
+            {
+                params: { 
+                    pfrId: selectedDateId,
+                    pageNumber: 0,
+                    pageSize: 10
+                }
+            }
+        ).then(response => {
+            setPostFireLogs(response.data.content)
+            setPageNumber(0)
+        })
     }
 
     const reset = () => {
@@ -55,7 +125,17 @@ const StatusReport = ({fireDrillMode}) => {
                 <Header fireDrillMode={ fireDrillMode } />
                 {
                     selectedDateId ?
-                        <PostFireReportLogsTable postFireLogs={ postFireLogs } reset={ reset } selectedDate={ selectedDate } />
+                        <PostFireReportLogsTable 
+                            postFireLogs={ postFireLogs } 
+                            reset={ reset } 
+                            selectedDate={ selectedDate }
+                            totalPages={ totalPages }
+                            pageNumber={ pageNumber }
+                            getNextPostFireLogs={ getNextPostFireLogs }
+                            getPrevPostFireLogs={ getPrevPostFireLogs }
+                            getLastPostFireLogs={ getLastPostFireLogs }
+                            getFirstPostFireLogs={ getFirstPostFireLogs }
+                        />
                     :
                         <DatesTable dates={ dates } getLogs={ getLogs } />
                 }
