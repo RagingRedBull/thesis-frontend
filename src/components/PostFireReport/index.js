@@ -19,7 +19,7 @@ const StatusReport = ({fireDrillMode}) => {
     }, [])
     
     const getDates = async () => {
-        axios.get("http://172.104.70.74:8080/prmts/log/post-fire-report")
+        axios.get(global.config.server.url + "/log/post-fire-report")
             .then(response => {
                 setDates(response.data)
             })
@@ -27,7 +27,7 @@ const StatusReport = ({fireDrillMode}) => {
 
     const getLogs = async (date) => {
         axios.get(
-            "http://172.104.70.74:8080/prmts/log/post-fire-report",
+            global.config.server.url + "/log/post-fire-report",
             {
                 params: {
                     pfrId: date.id,
@@ -37,7 +37,6 @@ const StatusReport = ({fireDrillMode}) => {
             }
         )
             .then(response => {
-                console.log(response)
                 setSelectedDateId(date.id)
                 setSelectedDate(date.dateOccurred)
                 setTotalPages(response.data.totalPages)
@@ -48,7 +47,7 @@ const StatusReport = ({fireDrillMode}) => {
 
     const getNextPostFireLogs = async () => {
         axios.get(
-            "http://172.104.70.74:8080/prmts/log/post-fire-report",
+            global.config.server.url + "/log/post-fire-report",
             {
                 params: { 
                     pfrId: selectedDateId,
@@ -64,7 +63,7 @@ const StatusReport = ({fireDrillMode}) => {
 
     const getPrevPostFireLogs = async () => {
         axios.get(
-            "http://172.104.70.74:8080/prmts/log/post-fire-report",
+            global.config.server.url + "/log/post-fire-report",
             {
                 params: { 
                     pfrId: selectedDateId,
@@ -80,7 +79,7 @@ const StatusReport = ({fireDrillMode}) => {
 
     const getLastPostFireLogs = async () => {
         axios.get(
-            "http://172.104.70.74:8080/prmts/log/post-fire-report",
+            global.config.server.url + "/log/post-fire-report",
             {
                 params: { 
                     pfrId: selectedDateId,
@@ -96,7 +95,7 @@ const StatusReport = ({fireDrillMode}) => {
 
     const getFirstPostFireLogs = async () => {
         axios.get(
-            "http://172.104.70.74:8080/prmts/log/post-fire-report",
+            global.config.server.url + "/log/post-fire-report",
             {
                 params: { 
                     pfrId: selectedDateId,
