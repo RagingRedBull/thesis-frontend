@@ -91,123 +91,339 @@ const ReportLogsTable = ({reportLogs, getReportLogs, totalPages, pageNumber, get
                                                         reportLog.sensorStatusReportLogDtoList.length > 0 ?
                                                             <>
                                                                 {
-                                                                    reportLog.sensorStatusReportLogDtoList.map((sensor, innerIndex) => sensor.sensorName === "DHT-11" &&
-                                                                    <td key={ innerIndex }>
-                                                                        <div className='col'>
-                                                                            Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
-                                                                        </div>
-                                                                        <div className='col'>
-                                                                            Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
-                                                                        </div>
-                                                                        <div className='col'>
-                                                                            Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
-                                                                        </div>
-                                                                    </td>
+                                                                    reportLog.sensorStatusReportLogDtoList.map((sensor, innerIndex) =>
+                                                                        innerIndex !== (reportLog.sensorStatusReportLogDtoList.length - 1) ?
+                                                                            sensor.sensorName === "DHT-11" &&
+                                                                                <td key={ innerIndex }>
+                                                                                    <div className='col'>
+                                                                                        Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
+                                                                                    </div>
+                                                                                    <div className='col'>
+                                                                                        Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
+                                                                                    </div>
+                                                                                    <div className='col'>
+                                                                                        Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
+                                                                                    </div>
+                                                                                </td>
+                                                                        :
+                                                                            sensor.sensorName === "DHT-11" ?
+                                                                                    <td key={ innerIndex }>
+                                                                                        <div className='col'>
+                                                                                            Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
+                                                                                        </div>
+                                                                                    </td>
+                                                                                :
+                                                                                    <td key={ innerIndex }>
+                                                                                        <div className='col'>
+                                                                                            Min: No Value
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Avg: No value
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Max: No Value
+                                                                                        </div>
+                                                                                    </td>
                                                                     )
                                                                 }
                                                                 {
-                                                                    reportLog.sensorStatusReportLogDtoList.map((sensor, innerIndex) => sensor.sensorName === "DHT-22" &&
-                                                                    <td key={ innerIndex }>
-                                                                        <div className='col'>
-                                                                            Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
-                                                                        </div>
-                                                                        <div className='col'>
-                                                                            Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
-                                                                        </div>
-                                                                        <div className='col'>
-                                                                            Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
-                                                                        </div>
-                                                                    </td>
+                                                                    reportLog.sensorStatusReportLogDtoList.map((sensor, innerIndex) =>
+                                                                        innerIndex !== (reportLog.sensorStatusReportLogDtoList.length - 1) ?
+                                                                            sensor.sensorName === "DHT-22" &&
+                                                                                <td key={ innerIndex }>
+                                                                                    <div className='col'>
+                                                                                        Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
+                                                                                    </div>
+                                                                                    <div className='col'>
+                                                                                        Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
+                                                                                    </div>
+                                                                                    <div className='col'>
+                                                                                        Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
+                                                                                    </div>
+                                                                                </td>
+                                                                        :
+                                                                            sensor.sensorName === "DHT-22" ?
+                                                                                    <td key={ innerIndex }>
+                                                                                        <div className='col'>
+                                                                                            Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
+                                                                                        </div>
+                                                                                    </td>
+                                                                                :
+                                                                                    <td key={ innerIndex }>
+                                                                                        <div className='col'>
+                                                                                            Min: No Value
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Avg: No value
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Max: No Value
+                                                                                        </div>
+                                                                                    </td>
                                                                     )
                                                                 }
                                                                 {
-                                                                    reportLog.sensorStatusReportLogDtoList.map((sensor, innerIndex) => sensor.sensorName === "MQ-2" &&
-                                                                    <td key={ innerIndex }>
-                                                                        <div className='col'>
-                                                                            Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
-                                                                        </div>
-                                                                        <div className='col'>
-                                                                            Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
-                                                                        </div>
-                                                                        <div className='col'>
-                                                                            Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
-                                                                        </div>
-                                                                    </td>
+                                                                    reportLog.sensorStatusReportLogDtoList.map((sensor, innerIndex) =>
+                                                                        innerIndex !== (reportLog.sensorStatusReportLogDtoList.length - 1) ?
+                                                                            sensor.sensorName === "MQ-2" &&
+                                                                                <td key={ innerIndex }>
+                                                                                    <div className='col'>
+                                                                                        Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
+                                                                                    </div>
+                                                                                    <div className='col'>
+                                                                                        Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
+                                                                                    </div>
+                                                                                    <div className='col'>
+                                                                                        Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
+                                                                                    </div>
+                                                                                </td>
+                                                                        :
+                                                                            sensor.sensorName === "MQ-2" ?
+                                                                                    <td key={ innerIndex }>
+                                                                                        <div className='col'>
+                                                                                            Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
+                                                                                        </div>
+                                                                                    </td>
+                                                                                :
+                                                                                    <td key={ innerIndex }>
+                                                                                        <div className='col'>
+                                                                                            Min: No Value
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Avg: No value
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Max: No Value
+                                                                                        </div>
+                                                                                    </td>
                                                                     )
                                                                 }
                                                                 {
-                                                                    reportLog.sensorStatusReportLogDtoList.map((sensor, innerIndex) => sensor.sensorName === "MQ-5" &&
-                                                                    <td key={ innerIndex }>
-                                                                        <div className='col'>
-                                                                            Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
-                                                                        </div>
-                                                                        <div className='col'>
-                                                                            Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
-                                                                        </div>
-                                                                        <div className='col'>
-                                                                            Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
-                                                                        </div>
-                                                                    </td>
+                                                                    reportLog.sensorStatusReportLogDtoList.map((sensor, innerIndex) =>
+                                                                        innerIndex !== (reportLog.sensorStatusReportLogDtoList.length - 1) ?
+                                                                            sensor.sensorName === "MQ-5" &&
+                                                                                <td key={ innerIndex }>
+                                                                                    <div className='col'>
+                                                                                        Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
+                                                                                    </div>
+                                                                                    <div className='col'>
+                                                                                        Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
+                                                                                    </div>
+                                                                                    <div className='col'>
+                                                                                        Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
+                                                                                    </div>
+                                                                                </td>
+                                                                        :
+                                                                            sensor.sensorName === "MQ-5" ?
+                                                                                    <td key={ innerIndex }>
+                                                                                        <div className='col'>
+                                                                                            Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
+                                                                                        </div>
+                                                                                    </td>
+                                                                                :
+                                                                                    <td key={ innerIndex }>
+                                                                                        <div className='col'>
+                                                                                            Min: No Value
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Avg: No value
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Max: No Value
+                                                                                        </div>
+                                                                                    </td>
                                                                     )
                                                                 }
                                                                 {
-                                                                    reportLog.sensorStatusReportLogDtoList.map((sensor, innerIndex) => sensor.sensorName === "MQ-7" &&
-                                                                    <td key={ innerIndex }>
-                                                                        <div className='col'>
-                                                                            Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
-                                                                        </div>
-                                                                        <div className='col'>
-                                                                            Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
-                                                                        </div>
-                                                                        <div className='col'>
-                                                                            Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
-                                                                        </div>
-                                                                    </td>
+                                                                    reportLog.sensorStatusReportLogDtoList.map((sensor, innerIndex) =>
+                                                                        innerIndex !== (reportLog.sensorStatusReportLogDtoList.length - 1) ?
+                                                                            sensor.sensorName === "MQ-7" &&
+                                                                                <td key={ innerIndex }>
+                                                                                    <div className='col'>
+                                                                                        Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
+                                                                                    </div>
+                                                                                    <div className='col'>
+                                                                                        Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
+                                                                                    </div>
+                                                                                    <div className='col'>
+                                                                                        Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
+                                                                                    </div>
+                                                                                </td>
+                                                                        :
+                                                                            sensor.sensorName === "MQ-7" ?
+                                                                                    <td key={ innerIndex }>
+                                                                                        <div className='col'>
+                                                                                            Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
+                                                                                        </div>
+                                                                                    </td>
+                                                                                :
+                                                                                    <td key={ innerIndex }>
+                                                                                        <div className='col'>
+                                                                                            Min: No Value
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Avg: No value
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Max: No Value
+                                                                                        </div>
+                                                                                    </td>
                                                                     )
                                                                 }
                                                                 {
-                                                                    reportLog.sensorStatusReportLogDtoList.map((sensor, innerIndex) => sensor.sensorName === "MQ-135" &&
-                                                                    <td key={ innerIndex }>
-                                                                        <div className='col'>
-                                                                            Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
-                                                                        </div>
-                                                                        <div className='col'>
-                                                                            Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
-                                                                        </div>
-                                                                        <div className='col'>
-                                                                            Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
-                                                                        </div>
-                                                                    </td>
+                                                                    reportLog.sensorStatusReportLogDtoList.map((sensor, innerIndex) =>
+                                                                        innerIndex !== (reportLog.sensorStatusReportLogDtoList.length - 1) ?
+                                                                            sensor.sensorName === "MQ-135" &&
+                                                                                <td key={ innerIndex }>
+                                                                                    <div className='col'>
+                                                                                        Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
+                                                                                    </div>
+                                                                                    <div className='col'>
+                                                                                        Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
+                                                                                    </div>
+                                                                                    <div className='col'>
+                                                                                        Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
+                                                                                    </div>
+                                                                                </td>
+                                                                        :
+                                                                            sensor.sensorName === "MQ-135" ?
+                                                                                    <td key={ innerIndex }>
+                                                                                        <div className='col'>
+                                                                                            Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
+                                                                                        </div>
+                                                                                    </td>
+                                                                                :
+                                                                                    <td key={ innerIndex }>
+                                                                                        <div className='col'>
+                                                                                            Min: No Value
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Avg: No value
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Max: No Value
+                                                                                        </div>
+                                                                                    </td>
                                                                     )
                                                                 }
                                                                 {
-                                                                    reportLog.sensorStatusReportLogDtoList.map((sensor, innerIndex) => sensor.sensorName === "FIRE" &&
-                                                                    <td key={ innerIndex }>
-                                                                        <div className='col'>
-                                                                            Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
-                                                                        </div>
-                                                                        <div className='col'>
-                                                                            Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
-                                                                        </div>
-                                                                        <div className='col'>
-                                                                            Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
-                                                                        </div>
-                                                                    </td>
+                                                                    reportLog.sensorStatusReportLogDtoList.map((sensor, innerIndex) =>
+                                                                        innerIndex !== (reportLog.sensorStatusReportLogDtoList.length - 1) ?
+                                                                            sensor.sensorName === "FIRE" &&
+                                                                                <td key={ innerIndex }>
+                                                                                    <div className='col'>
+                                                                                        Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
+                                                                                    </div>
+                                                                                    <div className='col'>
+                                                                                        Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
+                                                                                    </div>
+                                                                                    <div className='col'>
+                                                                                        Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
+                                                                                    </div>
+                                                                                </td>
+                                                                        :
+                                                                            sensor.sensorName === "FIRE" ?
+                                                                                    <td key={ innerIndex }>
+                                                                                        <div className='col'>
+                                                                                            Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
+                                                                                        </div>
+                                                                                    </td>
+                                                                                :
+                                                                                    <td key={ innerIndex }>
+                                                                                        <div className='col'>
+                                                                                            Min: No Value
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Avg: No value
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Max: No Value
+                                                                                        </div>
+                                                                                    </td>
                                                                     )
                                                                 }
                                                                 {
-                                                                    reportLog.sensorStatusReportLogDtoList.map((sensor, innerIndex) => sensor.sensorName === "SOUND" &&
-                                                                    <td key={ innerIndex }>
-                                                                        <div className='col'>
-                                                                            Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
-                                                                        </div>
-                                                                        <div className='col'>
-                                                                            Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
-                                                                        </div>
-                                                                        <div className='col'>
-                                                                            Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
-                                                                        </div>
-                                                                    </td>
+                                                                    reportLog.sensorStatusReportLogDtoList.map((sensor, innerIndex) =>
+                                                                        innerIndex !== (reportLog.sensorStatusReportLogDtoList.length - 1) ?
+                                                                            sensor.sensorName === "SOUND" &&
+                                                                                <td key={ innerIndex }>
+                                                                                    <div className='col'>
+                                                                                        Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
+                                                                                    </div>
+                                                                                    <div className='col'>
+                                                                                        Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
+                                                                                    </div>
+                                                                                    <div className='col'>
+                                                                                        Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
+                                                                                    </div>
+                                                                                </td>
+                                                                        :
+                                                                            sensor.sensorName === "SOUND" ?
+                                                                                    <td key={ innerIndex }>
+                                                                                        <div className='col'>
+                                                                                            Min: { sensor.min ? sensor.min.toFixed(2) : "No value"}
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Avg: { sensor.average ? (Math.round(sensor.average * 100) / 100).toFixed(2) : "No value"}
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Max: { sensor.max ? sensor.max.toFixed(2) : "No value"}
+                                                                                        </div>
+                                                                                    </td>
+                                                                                :
+                                                                                    <td key={ innerIndex }>
+                                                                                        <div className='col'>
+                                                                                            Min: No Value
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Avg: No value
+                                                                                        </div>
+                                                                                        <div className='col'>
+                                                                                            Max: No Value
+                                                                                        </div>
+                                                                                    </td>
                                                                     )
                                                                 }
                                                             </>
