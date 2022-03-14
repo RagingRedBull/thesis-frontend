@@ -1,11 +1,32 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { faPenSquare } from '@fortawesome/free-solid-svg-icons'
 import AddContact from './AddContact'
+import EditContact from './EditContact'
+import DeleteContact from './DeleteContact'
 
-const ContactsTable = ({contacts, addContact}) => {
+const ContactsTable = ({contacts, addContact, editContact, deleteContact}) => {
     const [showAddContact, setShowAddContact] = useState(false)
+    const [showEditContact, setShowEditContact] = useState(false)
+    const [showDeleteContact, setShowDeleteContact] = useState(false)
+    const [contact, setContact] = useState({})
+
+    useEffect(() => {
+        if (contacts) {
+            setContact(contacts[0])
+        }
+    }, [contacts])
+
+    const handleEdit = (contact) => {
+        setContact(contact)
+        setShowEditContact(true)
+    }
+
+    const handleDelete = (contact) => {
+        setContact(contact)
+        setShowDeleteContact(true)
+    }
 
     return (
         <div className='row m-0 p-0' style={{backgroundColor: "white"}}>
@@ -47,14 +68,14 @@ const ContactsTable = ({contacts, addContact}) => {
                                                         <FontAwesomeIcon 
                                                             icon={ faPenSquare }
                                                             style={ iconStyle }
-                                                            onClick={ () => console.log(contact) }
+                                                            onClick={ () => handleEdit(contact) }
                                                         />
                                                     </div>
                                                     <div className='col'>
                                                         <FontAwesomeIcon 
                                                             icon={ faTrash }
                                                             style={ iconStyle }
-                                                            onClick={ () => console.log(contact) }
+                                                            onClick={ () => handleDelete(contact) }
                                                         />
                                                     </div>
                                                 </div>
@@ -68,6 +89,8 @@ const ContactsTable = ({contacts, addContact}) => {
                 </div>
             </div>
             <AddContact show={ showAddContact } setShow={ setShowAddContact } addContact={ addContact } />
+            <EditContact show={ showEditContact } setShow={ setShowEditContact} contact={ contact } editContact={ editContact } />
+            <DeleteContact show={ showDeleteContact } setShow={ setShowDeleteContact } contact={ contact } deleteContact={ deleteContact } />
         </div>
     )
 }

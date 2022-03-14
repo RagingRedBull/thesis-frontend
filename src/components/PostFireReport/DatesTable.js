@@ -10,7 +10,7 @@ const DatesTable = ({dates, getLogs}) => {
         <div className='card m-3'>
           <div className='card-body'>
             {
-              dates ?
+              dates > 0 ?
                 <table className='table'>
                   <thead>
                     <tr>
