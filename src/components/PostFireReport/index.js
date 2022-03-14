@@ -9,7 +9,7 @@ import PostFireReportLogsTable from './PostFireReportLogsTable'
 const StatusReport = ({fireDrillMode}) => {
     const [dates, setDates] = useState([])
     const [selectedDateId, setSelectedDateId] = useState(null)
-    const [selectedDate, setSelectedDate] = useState(null)
+    const [selectedDate, setSelectedDate] = useState({})
     const [postFireLogs, setPostFireLogs] = useState(null)
     const [totalPages, setTotalPages] = useState(null)
     const [pageNumber, setPageNumber] = useState(0)
@@ -38,7 +38,7 @@ const StatusReport = ({fireDrillMode}) => {
         )
             .then(response => {
                 setSelectedDateId(date.id)
-                setSelectedDate(date.dateOccurred)
+                setSelectedDate(date)
                 setTotalPages(response.data.totalPages)
                 setPageNumber(0)
                 setPostFireLogs(response.data.content)
@@ -111,7 +111,7 @@ const StatusReport = ({fireDrillMode}) => {
 
     const reset = () => {
         setSelectedDateId(null)
-        setSelectedDate(null)
+        setSelectedDate({})
         setPostFireLogs(null)
     }
 

@@ -10,7 +10,10 @@ const PostFireReportLogsTable = ({postFireLogs, reset, selectedDate, totalPages,
             <div className='card m-3'>
                 <div className='card-header'>
                     <div style={{float: "left"}}>
-                        <h5>Start Date: {  (new Date (selectedDate)).toLocaleDateString() }</h5>
+                        <h5>Timeline: {  (new Date (selectedDate.timeOccurred)).toLocaleDateString() + " " 
+                        + (new Date (selectedDate.timeOccurred)).toLocaleTimeString() + " - " 
+                        + (new Date (selectedDate.fireOut)).toLocaleDateString() + " " 
+                        + (new Date (selectedDate.fireOut)).toLocaleTimeString()}</h5>
                     </div>
                     <div style={{float: "right"}}>
                         <button

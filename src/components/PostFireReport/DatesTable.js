@@ -23,7 +23,7 @@ const DatesTable = ({dates, getLogs}) => {
                         <tr key={ index }>
                           <th scope='row'>
                             <div onClick={ () => { getLogs(date) }} style={{cursor: "pointer"}}>
-                              { date.dateOccurred }
+                              { (new Date (date.timeOccurred)).toLocaleDateString() + " " + (new Date (date.timeOccurred)).toLocaleTimeString() }
                             </div>
                           </th>
                         </tr>
