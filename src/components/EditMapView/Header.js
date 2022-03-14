@@ -6,6 +6,7 @@ import { faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 import { faFileAlt as faFileAltSol} from '@fortawesome/free-solid-svg-icons'
 import { faHome } from '@fortawesome/free-solid-svg-icons'
 import { faFileAlt as faFileAltReg } from '@fortawesome/free-regular-svg-icons'
+import { faAddressBook } from '@fortawesome/free-solid-svg-icons'
 import { OverlayTrigger, Popover } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import UserService from "../../services/UserService"
@@ -79,6 +80,18 @@ const Header = ({ fireDrillMode }) => {
                                     </div>
                                     <div className='col-10 p-0 m-0 fs-5'>
                                         Post-fire reports
+                                    </div>
+                                </div>
+                            </div>
+                        </Link>
+                        <Link to="/contacts" style={ linkStyle }>
+                            <div className='card rounded-0' style={{cursor: "pointer"}}>
+                                <div className='card-body row p-0 m-0'> 
+                                    <div className='col-2 p-0 ps-1 m-0 mt-1'>
+                                        <FontAwesomeIcon icon={ faAddressBook } style={ settingsIconStyle } />
+                                    </div>
+                                    <div className='col-10 p-0 m-0 fs-5'>
+                                        Contacts
                                     </div>
                                 </div>
                             </div>

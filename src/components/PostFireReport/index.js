@@ -17,7 +17,7 @@ const StatusReport = ({fireDrillMode}) => {
     }, [])
     
     const getDates = async () => {
-        axios.get("http://172.104.70.74:8080/prmts/log/post-fire-report")
+        axios.get(global.config.server.url + "/log/post-fire-report")
             .then(response => {
                 setDates(response.data)
                 console.log(response.data)
@@ -26,7 +26,7 @@ const StatusReport = ({fireDrillMode}) => {
 
     const getLogs = async (date) => {
         axios.get(
-            "http://172.104.70.74:8080/prmts/log/post-fire-report",
+            global.config.server.url + "/log/post-fire-report",
             {
                 params: {
                     pfrId: date.id

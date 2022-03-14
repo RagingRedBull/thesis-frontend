@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import StatusReport from "./components/StatusReport";
 import PostFireReport from "./components/PostFireReport";
+import Contacts from "./components/Contacts";
 
 function App() {
   const [alarmingMode, setAlarmingMode] = useState(false);
@@ -70,6 +71,14 @@ function App() {
             element={
               <PrivateRouteHelper status={ alarmingMode }>
                 <PostFireReport fireDrillMode={ fireDrillMode } />
+              </PrivateRouteHelper>
+            } 
+          />
+          <Route 
+            path="/contacts" 
+            element={
+              <PrivateRouteHelper status={ alarmingMode }>
+                <Contacts fireDrillMode={ fireDrillMode } />
               </PrivateRouteHelper>
             } 
           />
