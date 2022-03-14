@@ -6,28 +6,18 @@ const AddContact = ({ show, setShow, addContact }) => {
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [email, setEmail] = useState("")
+    const [errors, setErrors] = useState([])
 
     const submit = (e) => {
         e.preventDefault()
 
-        if (phoneNumber === "") {
-            console.log("null")
-            return null
-        }
-        if (firstName === "") {
-            console.log("null")
-            return null
-        }
-        if (lastName === "") {
-            console.log("null")
-            return null
-        }
-        if (email === "") {
-            console.log("null")
+        const errors = validate()
+        if (errors.length > 0) {
+            setErrors(errors)
             return null
         }
 
-        addContact({firstName, lastName, email, phoneNumber})
+        addContact({firstName, lastName, email, phoneNumber: "+63" + phoneNumber})
         handleClose()
     }
 
@@ -36,7 +26,34 @@ const AddContact = ({ show, setShow, addContact }) => {
         setFirstName("")
         setLastName("")
         setEmail("")
+        setErrors([])
         setShow(false)
+    }
+
+    const validate = () => {
+        const errors = []
+        const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+        if (phoneNumber === "") {
+            errors.push({phoneNumber: "Please enter your contact number."})
+        } else if (isNaN(phoneNumber)) {
+            errors.push({phoneNumber: "Invalid phone number format!"})
+        } else if (phoneNumber.length !== 10) {
+            errors.push({phoneNumber: "Phone number must only contain 10 digits!"})
+        }
+        if (firstName === "") {
+            errors.push({firstName: "Please enter your first name."})
+        }
+        if (lastName === "") {
+            errors.push({lastName: "Please enter your last name."})
+        }
+        if (email === "") {
+            errors.push({email: "Please enter your email address."})
+        } else if (!emailRegex.test(email)) {
+            errors.push({email: "Invalid email format!"})
+        }
+
+        return errors
     }
 
     return (
@@ -54,6 +71,7 @@ const AddContact = ({ show, setShow, addContact }) => {
                             placeholder='Contact Number'
                             onChange={(e) => setPhoneNumber(e.target.value.trim())}
                         />
+                        <p className='ms-2' style={{color: "red"}}>{ errors.map(error => error.phoneNumber)}</p>
                     </div>
                     <div className='form-group mt-2'>
                         <label>First Name:</label>
@@ -63,6 +81,7 @@ const AddContact = ({ show, setShow, addContact }) => {
                             placeholder='First Name'
                             onChange={(e) => setFirstName(e.target.value.trim())}
                         />
+                        <p className='ms-2' style={{color: "red"}}>{ errors.map(error => error.firstName)}</p>
                     </div>
                     <div className='form-group mt-2'>
                         <label>Last Name:</label>
@@ -72,6 +91,7 @@ const AddContact = ({ show, setShow, addContact }) => {
                             placeholder='Last Name'
                             onChange={(e) => setLastName(e.target.value.trim())}
                         />
+                        <p className='ms-2' style={{color: "red"}}>{ errors.map(error => error.lastName)}</p>
                     </div>
                     <div className='form-group mt-2'>
                         <label>Email:</label>
@@ -81,6 +101,7 @@ const AddContact = ({ show, setShow, addContact }) => {
                             placeholder='Email'
                             onChange={(e) => setEmail(e.target.value.trim())}
                         />
+                        <p className='ms-2' style={{color: "red"}}>{ errors.map(error => error.email)}</p>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
