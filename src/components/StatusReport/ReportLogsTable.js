@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const ReportLogsTable = ({reportLogs, getReportLogs, totalPages, pageNumber, getNextReportLogs, getPrevReportLogs, getLastReportLogs, getFirstReportLogs}) => {
+const ReportLogsTable = ({reportLogs, getReportLogs, totalPages, pageNumber, getNextReportLogs, getPrevReportLogs, getLastReportLogs, getFirstReportLogs, logDate}) => {
     const [date, setDate] = useState(null)
     const [errors, setErrors] = useState([])
 
@@ -61,6 +61,17 @@ const ReportLogsTable = ({reportLogs, getReportLogs, totalPages, pageNumber, get
                 {
                     reportLogs.length > 0 ?
                         <div className='card mb-3'>
+                            <div className='card-header'>
+                                <div style={{float: "right"}}>
+                                    <button
+                                        className='btn btn-success'
+                                        style={{fontSize: "15px"}}
+                                        onClick={ () => console.log(logDate)}
+                                    >
+                                        Download PDF
+                                    </button>
+                                </div>
+                            </div>
                             <div className='card-body'>
                                 <table className='table'>
                                     <thead>

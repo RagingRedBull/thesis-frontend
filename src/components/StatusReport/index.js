@@ -104,6 +104,10 @@ const StatusReport = ({fireDrillMode}) => {
             .catch(() => { alert("There are no detectors registered!") })
     }
 
+    const downloadStatusReportLogs = () => {
+
+    }
+
     return (
         <div className='container-fluid status-report-container row m-0 p-0'>
             <div className='side-navigation-reports col-1 p-0'>
@@ -120,6 +124,7 @@ const StatusReport = ({fireDrillMode}) => {
                     getPrevReportLogs={ getPrevReportLogs }
                     getLastReportLogs={ getLastReportLogs }
                     getFirstReportLogs={ getFirstReportLogs }
+                    logDate={ logDate }
                 />
             </div>
         </div>
