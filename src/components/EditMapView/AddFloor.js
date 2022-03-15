@@ -29,7 +29,6 @@ const AddFloor = ({show, setShow, floors, setFloors, setCurrentFloor}) => {
 
         const imageUrl = await saveImage()
         if (!imageUrl) {
-            setMessage("Failed to save image.")
             return null
         }
 
@@ -56,7 +55,7 @@ const AddFloor = ({show, setShow, floors, setFloors, setCurrentFloor}) => {
             return data
             
         } catch (error) {
-            return null
+           setMessage(error.response.data.message)
         }
     }
 
