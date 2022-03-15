@@ -4,6 +4,7 @@ import Header from './Header'
 import '../../css/StatusReport.css' 
 import ReportLogsTable from './ReportLogsTable'
 import axios from 'axios'
+import UserService from '../../services/UserService'
 
 const StatusReport = ({fireDrillMode}) => {
     const [logDate, setLogDate] = useState()
@@ -24,6 +25,9 @@ const StatusReport = ({fireDrillMode}) => {
                     day: date,
                     pageNumber: 0,
                     pageSize: pageSize
+                },
+                headers: {
+                    Authorization: `Bearer ${UserService.getToken()}`,
                 }
             }
         ).then(response => {
@@ -42,6 +46,9 @@ const StatusReport = ({fireDrillMode}) => {
                     day: logDate,
                     pageNumber: pageNumber + 1,
                     pageSize: pageSize
+                },
+                headers: {
+                    Authorization: `Bearer ${UserService.getToken()}`,
                 }
             }
         ).then(response => {
@@ -58,6 +65,9 @@ const StatusReport = ({fireDrillMode}) => {
                     day: logDate,
                     pageNumber: pageNumber - 1,
                     pageSize: pageSize
+                },
+                headers: {
+                    Authorization: `Bearer ${UserService.getToken()}`,
                 }
             }
         ).then(response => {
@@ -74,6 +84,9 @@ const StatusReport = ({fireDrillMode}) => {
                     day: logDate,
                     pageNumber: totalPages - 1,
                     pageSize: pageSize
+                },
+                headers: {
+                    Authorization: `Bearer ${UserService.getToken()}`,
                 }
             }
         ).then(response => {
@@ -90,6 +103,9 @@ const StatusReport = ({fireDrillMode}) => {
                     day: logDate,
                     pageNumber: 0,
                     pageSize: pageSize
+                },
+                headers: {
+                    Authorization: `Bearer ${UserService.getToken()}`,
                 }
             }
         ).then(response => {
@@ -99,13 +115,48 @@ const StatusReport = ({fireDrillMode}) => {
     }
 
     const getPageSize = async () => {
-        axios.get(global.config.server.url + "/detector/all", { params: { pageNumber: 0, pageSize: 10}})
+        axios.get(global.config.server.url + "/detector/all", { params: { pageNumber: 0, pageSize: 10}, headers: {
+            Authorization: `Bearer ${UserService.getToken()}`,
+        }})
             .then(response => { setPageSize(response.data.content.length) })
             .catch(() => { alert("There are no detectors registered!") })
     }
 
     const downloadStatusReportLogs = () => {
+        axios.get(
+            global.config.server.url + "/log/status-report/pdf" ,
+            {
+                params: {
+                    day: logDate
+                },
+                headers: {
+                    Authorization: `Bearer ${UserService.getToken()}`
+                },
+                responseType: "blob"
+            }
+        ).then(
+            response => {
+                console.log(response.data)
+                const pdf = response.data
+                const name = `Status_Report-${ logDate }.pdf`
+                const href = URL.createObjectURL(
+                    new Blob([pdf], {type: 'application/pdf'})
+                )
 
+                const a = Object.assign(document.createElement('a'), {
+                    href,
+                    style: "display:none",
+                    download: name
+                })
+
+
+                document.body.appendChild(a)
+
+                a.click()
+                URL.revokeObjectURL(href)
+                a.remove()
+            }
+        )
     }
 
     return (
@@ -125,6 +176,7 @@ const StatusReport = ({fireDrillMode}) => {
                     getLastReportLogs={ getLastReportLogs }
                     getFirstReportLogs={ getFirstReportLogs }
                     logDate={ logDate }
+                    downloadStatusReportLogs={ downloadStatusReportLogs }
                 />
             </div>
         </div>

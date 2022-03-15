@@ -1,6 +1,6 @@
 import React from 'react'
 
-const PostFireReportLogsTable = ({postFireLogs, reset, selectedDate, totalPages, pageNumber, getNextPostFireLogs, getPrevPostFireLogs, getLastPostFireLogs, getFirstPostFireLogs}) => {
+const PostFireReportLogsTable = ({postFireLogs, reset, selectedDate, totalPages, pageNumber, getNextPostFireLogs, getPrevPostFireLogs, getLastPostFireLogs, getFirstPostFireLogs, downloadPostFireReportLogs}) => {
   return (
     <div className='row m-0 p-0' style={{backgroundColor: "white"}}>
         <div>
@@ -33,7 +33,7 @@ const PostFireReportLogsTable = ({postFireLogs, reset, selectedDate, totalPages,
                                 <button
                                     className='btn btn-success'
                                     style={{fontSize: "15px"}}
-                                    onClick={ () => console.log(selectedDate.id)}
+                                    onClick={ () => downloadPostFireReportLogs(selectedDate.id)}
                                 >
                                     Download PDF
                                 </button>

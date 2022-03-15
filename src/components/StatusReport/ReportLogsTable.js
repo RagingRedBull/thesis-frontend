@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const ReportLogsTable = ({reportLogs, getReportLogs, totalPages, pageNumber, getNextReportLogs, getPrevReportLogs, getLastReportLogs, getFirstReportLogs, logDate}) => {
+const ReportLogsTable = ({reportLogs, getReportLogs, totalPages, pageNumber, getNextReportLogs, getPrevReportLogs, getLastReportLogs, getFirstReportLogs, logDate, downloadStatusReportLogs}) => {
     const [date, setDate] = useState(null)
     const [errors, setErrors] = useState([])
 
@@ -66,7 +66,7 @@ const ReportLogsTable = ({reportLogs, getReportLogs, totalPages, pageNumber, get
                                     <button
                                         className='btn btn-success'
                                         style={{fontSize: "15px"}}
-                                        onClick={ () => console.log(logDate)}
+                                        onClick={ () => downloadStatusReportLogs()}
                                     >
                                         Download PDF
                                     </button>

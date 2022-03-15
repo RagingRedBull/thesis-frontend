@@ -5,6 +5,7 @@ import '../../css/StatusReport.css'
 import axios from 'axios'
 import DatesTable from './DatesTable'
 import PostFireReportLogsTable from './PostFireReportLogsTable'
+import UserService from '../../services/UserService'
 
 const StatusReport = ({fireDrillMode}) => {
     const [dates, setDates] = useState([])
@@ -19,7 +20,11 @@ const StatusReport = ({fireDrillMode}) => {
     }, [])
     
     const getDates = async () => {
-        axios.get(global.config.server.url + "/log/post-fire-report")
+        axios.get(global.config.server.url + "/log/post-fire-report", {
+            headers: {
+                Authorization: `Bearer ${UserService.getToken()}`,
+            }
+        })
             .then(response => {
                 setDates(response.data)
             })
@@ -33,6 +38,9 @@ const StatusReport = ({fireDrillMode}) => {
                     pfrId: date.id,
                     pageNumber: 0,
                     pageSize: 10
+                },
+                headers: {
+                    Authorization: `Bearer ${UserService.getToken()}`,
                 }
             }
         )
@@ -53,6 +61,9 @@ const StatusReport = ({fireDrillMode}) => {
                     pfrId: selectedDateId,
                     pageNumber: pageNumber + 1,
                     pageSize: 10
+                },
+                headers: {
+                    Authorization: `Bearer ${UserService.getToken()}`,
                 }
             }
         ).then(response => {
@@ -69,6 +80,9 @@ const StatusReport = ({fireDrillMode}) => {
                     pfrId: selectedDateId,
                     pageNumber: pageNumber - 1,
                     pageSize: 10
+                },
+                headers: {
+                    Authorization: `Bearer ${UserService.getToken()}`,
                 }
             }
         ).then(response => {
@@ -85,6 +99,9 @@ const StatusReport = ({fireDrillMode}) => {
                     pfrId: selectedDateId,
                     pageNumber: totalPages - 1,
                     pageSize: 10
+                },
+                headers: {
+                    Authorization: `Bearer ${UserService.getToken()}`,
                 }
             }
         ).then(response => {
@@ -101,6 +118,9 @@ const StatusReport = ({fireDrillMode}) => {
                     pfrId: selectedDateId,
                     pageNumber: 0,
                     pageSize: 10
+                },
+                headers: {
+                    Authorization: `Bearer ${UserService.getToken()}`,
                 }
             }
         ).then(response => {
@@ -115,8 +135,38 @@ const StatusReport = ({fireDrillMode}) => {
         setPostFireLogs(null)
     }
 
-    const downloadPostFireReportLogs = () => {
-        
+    const downloadPostFireReportLogs = (pfrId) => {
+        axios.get(
+            global.config.server.url + "/log/post-fire-report/pdf/" + pfrId,
+            {
+                headers: {
+                    Authorization: `Bearer ${UserService.getToken()}`
+                },
+                responseType: "blob"
+            }
+        ).then(
+            response => {
+                console.log(response.data)
+                const pdf = response.data
+                const name = `Post_Fire_Report-${ (new Date (selectedDate.timeOccurred)).toLocaleDateString() + "-" + (new Date (selectedDate.timeOccurred)).toLocaleTimeString() }.pdf`
+                const href = URL.createObjectURL(
+                    new Blob([pdf], {type: 'application/pdf'})
+                )
+
+                const a = Object.assign(document.createElement('a'), {
+                    href,
+                    style: "display:none",
+                    download: name
+                })
+
+
+                document.body.appendChild(a)
+
+                a.click()
+                URL.revokeObjectURL(href)
+                a.remove()
+            }
+        )
     }
 
     return (
@@ -138,6 +188,7 @@ const StatusReport = ({fireDrillMode}) => {
                             getPrevPostFireLogs={ getPrevPostFireLogs }
                             getLastPostFireLogs={ getLastPostFireLogs }
                             getFirstPostFireLogs={ getFirstPostFireLogs }
+                            downloadPostFireReportLogs={ downloadPostFireReportLogs }
                         />
                     :
                         <DatesTable dates={ dates } getLogs={ getLogs } />
