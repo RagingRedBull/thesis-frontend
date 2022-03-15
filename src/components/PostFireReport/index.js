@@ -115,6 +115,10 @@ const StatusReport = ({fireDrillMode}) => {
         setPostFireLogs(null)
     }
 
+    const downloadPostFireReportLogs = () => {
+        
+    }
+
     return (
         <div className='container-fluid status-report-container row m-0 p-0'>
             <div className='side-navigation-reports col-1 p-0'>

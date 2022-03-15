@@ -5,7 +5,19 @@ const PostFireReportLogsTable = ({postFireLogs, reset, selectedDate, totalPages,
     <div className='row m-0 p-0' style={{backgroundColor: "white"}}>
         <div>
             <div className='mt-3'>
-                <h2>Post-Fire Reports</h2>
+                <div className='row'>
+                    <div className='col-11'>
+                        <h2>Post-Fire Reports</h2>
+                    </div>
+                    <div className='col-1'>
+                        <button
+                            className='btn btn-secondary ms-4'
+                            onClick={ () => reset()}
+                        >
+                            Go back
+                        </button>
+                    </div>
+                </div>
             </div>
             <div className='card m-3'>
                 <div className='card-header'>
@@ -16,12 +28,17 @@ const PostFireReportLogsTable = ({postFireLogs, reset, selectedDate, totalPages,
                         + (new Date (selectedDate.fireOut)).toLocaleTimeString()}</h5>
                     </div>
                     <div style={{float: "right"}}>
-                        <button
-                            className='btn btn-secondary'
-                            onClick={ () => reset()}
-                        >
-                            Go back
-                        </button>
+                        <div className='row'>
+                            <div className='col'>
+                                <button
+                                    className='btn btn-success'
+                                    style={{fontSize: "15px"}}
+                                    onClick={ () => console.log(selectedDate.id)}
+                                >
+                                    Download PDF
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className='card-body'>
