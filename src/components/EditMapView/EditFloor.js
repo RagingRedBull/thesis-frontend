@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react'
 import { Modal, ModalTitle } from 'react-bootstrap'
+import axios from 'axios'
+import UserService from "../../services/UserService"
+import MessageBox from "../MessageBox"
 
 const EditFloor = ({show, setShow, currentFloor, handleUpdate, deleteFloor}) => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [imageUrl, setImageUrl] = useState('')
+    const [imageFile, setImageFile] = useState()
+    const [message, setMessage] = useState()
 
     useEffect(() => {
         if (currentFloor) {
@@ -21,19 +26,51 @@ const EditFloor = ({show, setShow, currentFloor, handleUpdate, deleteFloor}) => 
         setImageUrl('')
     }
 
-    const updateFloor = (e) => {
+    const updateFloor = async (e) => {
         e.preventDefault()
+
+        var newImageUrl = imageUrl
+
+        if (imageFile) {
+            newImageUrl = await saveImage()
+            if (!newImageUrl) {
+                return null
+            }
+        }
 
         const floor = {
             id: currentFloor.id,
             name: name,
             description: description,
-            imageUrl: imageUrl,
+            imageUrl: newImageUrl,
             order: currentFloor.order
         }
 
         handleUpdate(floor)
         handleClose()
+    }
+
+    const saveImage = async () => {
+        const formData = new FormData();
+        formData.append("file", imageFile);
+
+        try {
+            const response = await axios({
+                method: "post",
+                url:  global.config.server.url + "/images/new",
+                data: formData,
+                headers: { 
+                    "Content-Type": "multipart/form-data", 
+                    Authorization: `Bearer ${UserService.getToken()}`
+                }
+            })
+
+            const data = await response.data.imageUrl
+            return data
+            
+        } catch (error) {
+           setMessage(error.response.data.message)
+        }
     }
 
     return (
@@ -43,6 +80,9 @@ const EditFloor = ({show, setShow, currentFloor, handleUpdate, deleteFloor}) => 
                     <ModalTitle>Edit Floor</ModalTitle>
                 </Modal.Header>
                 <Modal.Body>
+                    <div className="form-group m-1">
+                        { message ? <MessageBox message={ message } /> : null }
+                    </div>
                     <div className="form-group m-1">
                         <label>Name:</label>
                         <input
@@ -67,7 +107,7 @@ const EditFloor = ({show, setShow, currentFloor, handleUpdate, deleteFloor}) => 
                             id='upload'
                             type='file'
                             className="form-control"
-                            onChange={(e) => console.log(e.target.files[0])}
+                            onChange={(e) => setImageFile(e.target.files[0])}
                         />
                     </div>
                 </Modal.Body>
