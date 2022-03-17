@@ -82,11 +82,11 @@ const EditCompartment = ({show, setShow, compartment, updateCompartment, deleteC
     const submit = (e) => {
         e.preventDefault()
 
-        if (name === null) {
+        if (name === null || name === '') {
             setMessage("Please enter the compartment's name")
             return null
         }
-        if (xdimension === null) {
+        if (xdimension === null || xdimension === '') {
             setMessage("Please enter the x coordinate of the compartment in meters.")
             return null
         }
@@ -94,7 +94,7 @@ const EditCompartment = ({show, setShow, compartment, updateCompartment, deleteC
             setMessage("X coordinate must be numeric!")
             return null
         }
-        if (ydimension === null) {
+        if (ydimension === null || ydimension === '') {
             setMessage("Please enter the y coordinate of the compartment in meters.")
             return null
         }
@@ -102,7 +102,7 @@ const EditCompartment = ({show, setShow, compartment, updateCompartment, deleteC
             setMessage("Y coordinate must be numeric!")
             return null
         }
-        if (width === null) {
+        if (width === null || width === '') {
             setMessage("Please enter the width of the compartment in meters")
             return null
         }
@@ -110,7 +110,7 @@ const EditCompartment = ({show, setShow, compartment, updateCompartment, deleteC
             setMessage("Width must be numeric!")
             return null
         }
-        if (depth === null) {
+        if (depth === null || depth === '') {
             setMessage("Please enter the depth of the compartment in meters")
             return null
         }

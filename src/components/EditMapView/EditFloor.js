@@ -31,11 +31,11 @@ const EditFloor = ({show, setShow, currentFloor, handleUpdate, deleteFloor}) => 
 
         var newImageUrl = imageUrl
 
-        if (!name) {
+        if (!name || name === '') {
             setMessage('Please enter the name of the Floor')
             return null
         }
-        if (!description) {
+        if (!description || description === '') {
             setMessage('Please enter the description of the Floor')
             return null
         }
