@@ -31,6 +31,15 @@ const EditFloor = ({show, setShow, currentFloor, handleUpdate, deleteFloor}) => 
 
         var newImageUrl = imageUrl
 
+        if (!name) {
+            setMessage('Please enter the name of the Floor')
+            return null
+        }
+        if (!description) {
+            setMessage('Please enter the description of the Floor')
+            return null
+        }
+
         if (imageFile) {
             newImageUrl = await saveImage()
             if (!newImageUrl) {
