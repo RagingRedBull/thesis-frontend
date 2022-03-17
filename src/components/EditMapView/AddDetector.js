@@ -21,18 +21,19 @@ function AddDetector({ show, setShow, addNewDetector }) {
     const submit = (e) => {
         e.preventDefault()
 
-        if (detectorId === null) {
+        if (detectorId === null || detectorId === '') {
             setMessage("Please enter the detector's Mac Address")
             return null
         }
 
-        if (detectorName === '') {
+        if (detectorName === null || detectorName === '') {
             setMessage("Please enter the name of the detector")
             return null
         }
 
         if (!hasConnection) {
             setMessage("Unable to establish connection with the detector.")
+            return null
         }
 
         addNewDetector(detectorId, detectorName)
