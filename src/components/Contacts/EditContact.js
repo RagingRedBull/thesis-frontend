@@ -43,20 +43,20 @@ const EditContact = ({show, setShow, contact, editContact}) => {
         const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
         if (phoneNumber === "") {
-            errors.push({phoneNumber: "Please enter your contact number."})
+            errors.push({phoneNumber: "Please enter the contact number."})
         } else if (isNaN(phoneNumber)) {
             errors.push({phoneNumber: "Invalid phone number format!"})
         } else if (phoneNumber.length !== 10) {
             errors.push({phoneNumber: "Phone number must only contain 10 digits!"})
         }
         if (firstName === "") {
-            errors.push({firstName: "Please enter your first name."})
+            errors.push({firstName: "Please enter the first name."})
         }
         if (lastName === "") {
-            errors.push({lastName: "Please enter your last name."})
+            errors.push({lastName: "Please enter the last name."})
         }
         if (email === "") {
-            errors.push({email: "Please enter your email address."})
+            errors.push({email: "Please enter the email address."})
         } else if (!emailRegex.test(email)) {
             errors.push({email: "Invalid email format!"})
         }

@@ -32,7 +32,7 @@ function AddDetector({ show, setShow, addNewDetector }) {
         }
 
         if (!hasConnection) {
-            setMessage("Unable to establish connection with the detector.")
+            setMessage("Please connect to the detector first before adding.")
             return null
         }
 
@@ -59,9 +59,10 @@ function AddDetector({ show, setShow, addNewDetector }) {
                 })
                 .catch(() => {
                     setMessage("Unable to find detector")
+                    setHasConnection(false)
                 })
         } else {
-            setMessage("Please enter the detector Mac Address")
+            setMessage("Please enter the detector's Mac Address")
         }
     }
 
@@ -95,7 +96,11 @@ function AddDetector({ show, setShow, addNewDetector }) {
                         <label>Mac Address</label>
                         <div className='row'>
                             <div className='col-9'>
-                                <input type='text' className='form-control' placeholder='Mac Address' onChange={ (e) => {setDetectorId(e.target.value)} } />
+                                <input type='text' className='form-control' placeholder='Mac Address' onChange={ (e) => {
+                                        setDetectorId(e.target.value)
+                                        setHasConnection(false)
+                                    }}
+                                />
                             </div>
                             <div className='col-3 p-0'>
                                 <button

@@ -26,7 +26,9 @@ const DeleteContact = ({show, setShow, contact, deleteContact}) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <button
+                    type='button'
                         className="btn btn-secondary btn-block"
+                        onClick={() => handleClose()}
                     >
                         No
                     </button>
