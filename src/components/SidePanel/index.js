@@ -59,21 +59,21 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
                             }
                         }
                         else if(sensor.type === "MQ"){
-                            if(sensor.name === "MQ-2" && sensor.mqValue > 165){
+                            if(sensor.name === "MQ-2" && sensor.mqValue > 535){
                                 isTriggered = true;
                             }
-                            else if (sensor.name === "MQ-5" && sensor.mqValue > 455){
+                            else if (sensor.name === "MQ-5" && sensor.mqValue > 405){
                                 isTriggered = true;
                             }
-                            else if (sensor.name === "MQ-7" && sensor.mqValue > 190){
+                            else if (sensor.name === "MQ-7" && sensor.mqValue > 570){
                                 isTriggered = true;
                             }
-                            else if (sensor.name === "MQ-135" && sensor.mqValue > 210){
+                            else if (sensor.name === "MQ-135" && sensor.mqValue > 220){
                                 isTriggered = true;
                             }
                         }
                         else if(sensor.type === "FIRE"){
-                            if(sensor.name === "FIRE" && sensor.sensorValue > 120){
+                            if(sensor.name === "FIRE" && sensor.sensorValue > 180){
                                 isTriggered = true;
                             }
                         }
