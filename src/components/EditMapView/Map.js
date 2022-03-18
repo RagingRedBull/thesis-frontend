@@ -33,7 +33,7 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
             axios
                 .get(global.config.server.url + "/detector/all", { params: { pageNumber: 0, pageSize: 10}})
                 .then((response) => {
-                    setDetectors(response.data.content.map((detector) => !!(detector.name) && detector).filter((detector) => detector !== false))
+                    setDetectors(response.data.content)
                 })
                 .catch((err) => {
                     console.log(err)

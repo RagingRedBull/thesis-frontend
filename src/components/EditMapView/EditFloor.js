@@ -24,6 +24,7 @@ const EditFloor = ({show, setShow, currentFloor, handleUpdate, deleteFloor}) => 
         setName('')
         setDescription('')
         setImageUrl('')
+        setMessage(null)
     }
 
     const updateFloor = async (e) => {

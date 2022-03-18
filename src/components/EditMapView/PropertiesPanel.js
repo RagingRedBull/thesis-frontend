@@ -135,10 +135,10 @@ const PropertiesPanel = ({currentFloor, compartments, selectedComp, handleSelect
                                     <h6>{ detector.name ? detector.name : detector.macAddress }</h6>
                                 </div>
                             ))}
-                            <div className='detector-add-btn row text-secondary m-0 ps-1' style={{ cursor: "pointer" }} onClick={ () => setShowAddDetector(true)} >
+                            {/* <div className='detector-add-btn row text-secondary m-0 ps-1' style={{ cursor: "pointer" }} onClick={ () => setShowAddDetector(true)} >
                                 <FontAwesomeIcon className='col-auto m-0 p-0' icon={ faPlus } />
                                 <h6 className='col-auto m-0 p-0 ps-1'>Add a detector</h6>
-                            </div>
+                            </div> */}
                         </div>
                     </>
                 }
