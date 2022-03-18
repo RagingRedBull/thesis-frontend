@@ -25,10 +25,10 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
                         setSensorLogSet(response.data.sensorLogSet)
                         response.data.sensorLogSet.forEach((sensor) => {
                             if(sensor.type === "DHT"){
-                                if(sensor.name === "DHT-11" && sensor.temperature > 35){
+                                if(sensor.name === "DHT-11" && sensor.temperature > 33){
                                     setIsHighTemp(true)
                                 }
-                                else if (sensor.name === "DHT-22" && sensor.temperature > 35){
+                                else if (sensor.name === "DHT-22" && sensor.temperature > 33){
                                     setIsHighTemp(true)
                                 }
                                 else{
@@ -45,7 +45,7 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
                                 else if (sensor.name === "MQ-7" && sensor.mqValue > 570){
                                     setIsSmoke(true)
                                 }
-                                else if (sensor.name === "MQ-135" && sensor.mqValue > 220){
+                                else if (sensor.name === "MQ-135" && sensor.mqValue > 235){
                                     setIsSmoke(true)
                                 }
                                 else{
@@ -92,10 +92,10 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
         if (sensorLogSet.length > 0) {
             sensorLogSet.forEach((sensor) => {
                 if(sensor.type === "DHT"){
-                    if(sensor.name === "DHT-11" && sensor.temperature > 35){
+                    if(sensor.name === "DHT-11" && sensor.temperature > 33){
                         highTemp = true
                     }
-                    else if (sensor.name === "DHT-22" && sensor.temperature > 35){
+                    else if (sensor.name === "DHT-22" && sensor.temperature > 33){
                         highTemp = true
                     }
                 }
@@ -109,7 +109,7 @@ const Compartment = ({ compartment, isSelected, setSelectedComp, setCompName, de
                     else if (sensor.name === "MQ-7" && sensor.mqValue > 570){
                         smoke = true
                     }
-                    else if (sensor.name === "MQ-135" && sensor.mqValue > 220){
+                    else if (sensor.name === "MQ-135" && sensor.mqValue > 235){
                         smoke = true
                     }
                 }

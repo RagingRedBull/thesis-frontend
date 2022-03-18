@@ -51,10 +51,10 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
                 if (detectorData.sensorLogSet) {
                     detectorData.sensorLogSet.forEach((sensor) => {
                         if(sensor.type === "DHT"){
-                            if(sensor.name === "DHT-11" && sensor.temperature > 35){
+                            if(sensor.name === "DHT-11" && sensor.temperature > 33){
                                 isTriggered = true;
                             }
-                            else if (sensor.name === "DHT-22" && sensor.temperature > 35){
+                            else if (sensor.name === "DHT-22" && sensor.temperature > 33){
                                 isTriggered = true;
                             }
                         }
@@ -68,7 +68,7 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
                             else if (sensor.name === "MQ-7" && sensor.mqValue > 570){
                                 isTriggered = true;
                             }
-                            else if (sensor.name === "MQ-135" && sensor.mqValue > 220){
+                            else if (sensor.name === "MQ-135" && sensor.mqValue > 235){
                                 isTriggered = true;
                             }
                         }
