@@ -22,7 +22,7 @@ const initKeycloak = (onAuthenticatedCallback) => {
 const doLogin = _kc.login;
 
 const doLogout = () => {
-  _kc.logout({ redirectUri: "http://172.104.70.74/" });
+  _kc.logout({ redirectUri: "http://10.66.66.1/" });
 };
 
 const getToken = () => _kc.token;
