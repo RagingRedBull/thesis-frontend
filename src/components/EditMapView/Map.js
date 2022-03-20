@@ -29,21 +29,21 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
             }
         }
 
-        const getDetectors = async () => {
-            axios
-                .get(global.config.server.url + "/detector/all", { params: { pageNumber: 0, pageSize: 10}})
-                .then((response) => {
-                    setDetectors(response.data.content)
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
-        }
-
         getCompartments()
         getDetectors()
         setSelectedComp(null)
     }, [floorId])
+
+    const getDetectors = async () => {
+        axios
+            .get(global.config.server.url + "/detector/all", { params: { pageNumber: 0, pageSize: 10}})
+            .then((response) => {
+                setDetectors(response.data.content)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
 
     const zoom = (e) => {
         e.evt.preventDefault()
@@ -205,6 +205,7 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
 
         if (response.status === 200) {
             setDetectors([...detectors, response.data])
+            getDetectors()
         } else {
             alert("Unable to add new detector.")
         }
