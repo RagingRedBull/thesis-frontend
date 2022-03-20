@@ -9,8 +9,8 @@ import { useInterval } from "../../services/UseInterval"
 const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => {
     const [compDetectors, setCompDetectors] = useState([])
     const [detectorData, setDetectorData] = useState([])
-    const [dht11Triggered, setDht11Triggered] = useState(false)
-    const [dht22Triggered, setDht22Triggered] = useState(false)
+    const [dht11Triggered, setDht11Triggered] = useState(true)
+    const [dht22Triggered, setDht22Triggered] = useState(true)
     const [mq2Triggered, setMq2Triggered] = useState(false)
     const [mq5Triggered, setMq5Triggered] = useState(false)
     const [mq7Triggered, setMq7Triggered] = useState(false)
@@ -60,9 +60,11 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
                         if(sensor.type === "DHT"){
                             if(sensor.name === "DHT-11") {
                                 if (sensor.temperature > 33) {
+                                    console.log("GREATER THAN 33");
                                     isTriggered = true;
                                     setDht11Triggered(true);
                                 } else {
+                                    console.log("LESS THAN 33");
                                     setDht11Triggered(false);
                                 }
                             }
