@@ -190,6 +190,7 @@ const Map = ({ image, hasFloors, floorId, currentFloor }) => {
         })
 
         if (response.status === 200) {
+            console.log(response);
             setCompartments(compartments.filter((compartment) => compartment.id !== compId))
         } else {
             alert("Error failed to delete compartment")
