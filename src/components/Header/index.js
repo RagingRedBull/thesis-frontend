@@ -11,7 +11,7 @@ import EnableFireDrillModal from './EnableFireDrillModal'
 import DisableFireDrillModal from './DisableFireDrillModal'
 
 const Header = ({alarmingMode, fireDrillMode}) => {
-    const buildName = "Test Building"
+    const buildName = "Home"
     const [showEstablishFireOutModal, setShowEstablishFireOutModal] = useState(false)
     const [showEnableFireDrillModal, setShowEnableFireDrillModal] = useState(false)
     const [showDisableFireDrillModal, setShowDisableFireDrillModal] = useState(false)
