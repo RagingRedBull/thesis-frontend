@@ -23,7 +23,9 @@ const EditMapView = ({fireDrillMode}) => {
         })
 
         if (response.status === 200) {
-            setFloors(floors.filter((floor) => floor.id !== id))
+            const newFloors = floors.filter((floor) => floor.id !== id)
+            setFloors(newFloors)
+            setCurrentFloor(newFloors[0])
         } else {
             alert("Error failed to delete floor")
         }
