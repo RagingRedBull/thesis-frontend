@@ -79,7 +79,7 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
                                 } 
                             }
                             else if (sensor.name === "MQ-135") {
-                                if (sensor.mqValue > 235) {
+                                if (sensor.mqValue > 260) {
                                     isTriggered = true;
                                 } 
                             }
