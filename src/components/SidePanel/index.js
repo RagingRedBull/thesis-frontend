@@ -85,7 +85,7 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
                             }
                         }
                         else if(sensor.type === "FIRE"){
-                            if(sensor.name === "FIRE"){
+                            if(sensor.sensorValue > 180){
                                 isTriggered = true;
                             } 
                         }
