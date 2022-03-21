@@ -9,7 +9,6 @@ import { useInterval } from "../../services/UseInterval"
 const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => {
     const [compDetectors, setCompDetectors] = useState([])
     const [detectorData, setDetectorData] = useState([])
-    const [triggered, setTriggered] = useState(false);
 
     useEffect(() => {
         if (!!(detectors)) {
@@ -19,7 +18,6 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
                 axios.get(global.config.server.url + "/detector/log/latest", { params: { macAddress: detector.macAddress } })
                     .then((response) => {
                         setDetectorData(response.data)
-                        setTriggered(isCompTriggered);
                     })
                     .catch(() => {
                         console.log("Unable to find sensors")
@@ -37,7 +35,6 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
                     .then((response) => {
                         console.log(response.data.timeRecorded)
                         setDetectorData(response.data)
-                        setTriggered(isCompTriggered);
                     })
                     .catch(() => {
                         console.log("Unable to find sensors")
@@ -103,7 +100,7 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
     return (
         <Collapse in={ hidden } dimension="width">
             <div className='side_panel col-2 p-0 m-0 border'>
-                <div className='side_pan_head row m-0' style={triggered ? { backgroundColor: " #ED7014", color: "white" } : null}>
+                <div className='side_pan_head row m-0' style={isCompTriggered() ? { backgroundColor: " #ED7014", color: "white" } : null}>
                     <div className='col-10'>
                         <h5>{ compName ? compName : "Compartment Name" }</h5>
                     </div>
