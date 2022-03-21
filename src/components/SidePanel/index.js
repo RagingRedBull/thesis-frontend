@@ -149,11 +149,11 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
                                         </div>
                                         <div className='row'>
                                             <div className='col'>Fire:</div>
-                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "FIRE") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "FIRE" && sensor.sensorValue > 180 ? "Fire Detected" : "No Fire")  : "No Fire"}</div>
+                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "FIRE") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "FIRE" && sensor.sensorValue) : "No Fire"}</div>
                                         </div>
                                         <div className='row'>
                                             <div className='col'>Sound:</div>
-                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "SOUND") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "SOUND" && (sensor.sound < 80 || sensor.sound > 120) ? "Sound Detected": "No Sound")  : "No Sound" }</div>
+                                            <div className='col'>{ detectorData.sensorLogSet.some(sensor => sensor.name === "SOUND") ? detectorData.sensorLogSet.map((sensor) => sensor.name === "SOUND" && sensor.sound) : "No Sound" }</div>
                                         </div>
                                     </div>
                                 :
