@@ -64,7 +64,7 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
                         }
                         else if(sensor.type === "MQ") {
                             if(sensor.name === "MQ-2") {
-                                if (sensor.mqValue > 535) {
+                                if (sensor.mqValue > 300) {
                                     isTriggered = true;
                                 } 
                             }
@@ -85,7 +85,7 @@ const SidePanel = ({ hidden, setSelectedComp, detectors, compName, compId }) => 
                             }
                         }
                         else if(sensor.type === "FIRE"){
-                            if(sensor.sensorValue > 180){
+                            if(sensor.sensorValue > 190){
                                 isTriggered = true;
                             } 
                         }
